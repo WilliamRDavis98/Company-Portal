@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+/** 
+    Color Schemes
+*/
+:root {
+    /* Page background color */
+    --primary-background-color: #051622;
+
+    /* Text Colors */
+    --primary-green: #1BA098;
+    --secondary-green-color: #157D7A;
+
+    /* Button Colors */
+    --primary-button-color: #005594;
+    --secondary-button-color: #5533FF;
+
+    /* Modal/NavBar Button Colors */
+    --primary-component-background-color: #0D3A59;
+    --primary-modal-background-color: #0B2D45;
+    --primary-modal-field-color: #DEB992;
+    --primary-modal-exit-color: #F24E1E;
+}
+
+body {
+    margin: 0;
+    background-color: var(--primary-background-color)
+}
