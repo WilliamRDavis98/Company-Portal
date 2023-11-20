@@ -17,4 +17,6 @@ public interface CompanyService {
 
 	Set<ProjectDto> getAllProjects(Long companyId, Long teamId);
 
+	Set<FullUserDto> getAllTeamUsers(Long companyId, Long teamId);
+
 }

@@ -94,4 +94,17 @@ public class CompanyServiceImpl implements CompanyService {
 		return projectMapper.entitiesToDtos(filteredProjects);
 	}
 
+	@Override
+	public Set<FullUserDto> getAllTeamUsers(Long companyId, Long teamId) {
+		Company company = findCompany(companyId);
+		Team team = findTeam(teamId);
+		if (!company.getTeams().contains(team)) {
+			throw new NotFoundException("A team with id " + teamId + " does not exist at company with id " + companyId +".");
+		}
+		Set<User> filteredUsers = new HashSet<>();
+		team.getTeammates().forEach(filteredUsers::add);
+		filteredUsers.removeIf(user -> !user.isActive());
+		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
+	}
+
 }

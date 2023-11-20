@@ -16,7 +16,7 @@ import com.cooksys.groupfinal.services.CompanyService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/company")
+@RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyController {
 	
@@ -40,6 +40,11 @@ public class CompanyController {
 	@GetMapping("/{companyId}/teams/{teamId}/projects") 
 	public Set<ProjectDto> getAllProjects(@PathVariable Long companyId, @PathVariable Long teamId) {
 		return companyService.getAllProjects(companyId, teamId);
+	}
+	
+	@GetMapping("/{companyId}/teams/{teamId}/users")
+	public Set<FullUserDto> getAllTeamUsers(@PathVariable Long companyId, @PathVariable Long teamId){
+		return companyService.getAllTeamUsers(companyId, teamId);
 	}
 
 }
