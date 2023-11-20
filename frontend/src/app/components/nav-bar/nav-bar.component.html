@@ -28,10 +28,10 @@
           <a class="nav-link" routerLink="/teams">Teams</a>
         </li>
         <hr class="solid" />
-        <li class="nav-item">
+        <li *ngIf="admin" class="nav-item">
           <a class="nav-link" routerLink="/users">Users</a>
         </li>
-        <hr class="solid" />
+        <hr *ngIf="admin" class="solid" />
         <li class="nav-item">
           <a class="nav-link logout" routerLink="null" (click)="handleLogout()">
             Logout
