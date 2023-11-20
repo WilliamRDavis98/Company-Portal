@@ -10,5 +10,5 @@ public class AnnouncementRequestDto {
 
     private String message;
 
-    private CredentialsDto credentialsDto;
+    private CredentialsDto credentials;
 }
