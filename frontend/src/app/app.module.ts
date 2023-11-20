@@ -17,6 +17,18 @@ import { CreateUserComponent } from './components/modals/create-user/create-user
 import { AnnouncementComponent } from './home/announcement/announcement.component';
 import { TeamComponent } from './teams/team/team.component';
 import { ProjectComponent } from './projects/project/project.component';
+import { RouterModule, Routes } from "@angular/router";
+
+const routes: Routes = 
+  [
+    { path: "", component: LoginComponent }, 
+    { path: "select-company", component: SelectCompanyComponent},
+    { path: "home", component: HomeComponent},
+    { path: "teams", component: TeamsComponent},
+    { path: "projects", component: ProjectsComponent},
+    { path: "user-registry", component: UserRegistryComponent}
+  ];
+
 
 @NgModule({
   declarations: [
@@ -38,7 +50,8 @@ import { ProjectComponent } from './projects/project/project.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
