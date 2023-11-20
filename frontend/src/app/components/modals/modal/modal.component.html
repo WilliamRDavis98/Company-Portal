@@ -1,1 +1,17 @@
-<p>modal works!</p>
+<div class="overlay" id="overlay" (click)="toggleModal()"></div>
+<div class="modal" id="modal">
+    <button (click)="toggleModal()">X</button>
+    <!-- different modal ng -->
+    <ng-container *ngIf="modalType === 'create-announcement'">
+        <app-create-announcement></app-create-announcement>
+    </ng-container>
+    <ng-container *ngIf="modalType === 'create-edit-project'">
+        <app-create-edit-project></app-create-edit-project>
+    </ng-container>
+    <ng-container *ngIf="modalType === 'create-team'">
+        <app-create-team></app-create-team>
+    </ng-container>
+    <ng-container *ngIf="modalType === 'create-user'">
+        <app-create-user></app-create-user>
+    </ng-container>
+</div>
