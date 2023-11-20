@@ -1,3 +1,10 @@
+.navbar {
+  background-color: #051622;
+  border-style: solid;
+  border-radius: 2px;
+  border-color: #deb992;
+}
+
 .logo {
   width: 64px;
   height: 64px;
@@ -13,6 +20,11 @@
   background-color: #214864;
   text-align: center;
   font-size: 48px;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .nav-link {
@@ -27,6 +39,7 @@
 
 .navbar-toggler {
   background-color: #0d3a59;
+  margin-right: 20px;
 }
 
 .logout {
