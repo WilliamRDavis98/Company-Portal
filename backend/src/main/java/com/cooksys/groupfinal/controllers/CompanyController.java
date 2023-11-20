@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.cooksys.groupfinal.dtos.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cooksys.groupfinal.services.CompanyService;
 
@@ -41,9 +38,8 @@ public class CompanyController {
 	}
 
     @GetMapping
-    public Set<CompanyDto> getAllCompanies() {
+    public List<CompanyDto> getAllCompanies() {
         return companyService.getAllCompanies();
     }
-
 
 }
