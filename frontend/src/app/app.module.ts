@@ -18,6 +18,7 @@ import { AnnouncementComponent } from './home/announcement/announcement.componen
 import { TeamComponent } from './teams/team/team.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { RouterModule, Routes } from "@angular/router";
+import { ModalComponent } from './components/modals/modal/modal.component';
 
 const routes: Routes = 
   [
@@ -46,7 +47,8 @@ const routes: Routes =
     CreateUserComponent,
     AnnouncementComponent,
     TeamComponent,
-    ProjectComponent
+    ProjectComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
