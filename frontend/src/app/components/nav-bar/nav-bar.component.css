@@ -1,0 +1,34 @@
+.logo {
+  width: 64px;
+  height: 64px;
+  margin: 5px 20px 5px 10px;
+}
+
+.navbar-brand {
+  color: #f24e1e;
+  font-size: 24px;
+}
+
+.nav-exposed {
+  background-color: #214864;
+  text-align: center;
+  font-size: 48px;
+}
+
+.nav-link {
+  color: #1ba098;
+}
+
+.solid {
+  border-top: 3px solid #1ba098;
+  width: 80%;
+  margin: auto;
+}
+
+.navbar-toggler {
+  background-color: #0d3a59;
+}
+
+.logout {
+  margin-bottom: 30px;
+}

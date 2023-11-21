@@ -10,12 +10,4 @@ export class SelectCompanyComponent {
   handleSelectCompany = (company: string) => {
     console.log(company);
   };
-  rotateIcon = () => {
-    let icon = document.getElementById('icon');
-    if (icon && icon.style.transform === '') {
-      icon.style.transform = 'rotate(180deg)';
-    } else if (icon) {
-      icon.style.transform = '';
-    }
-  };
 }
