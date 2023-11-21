@@ -7,24 +7,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-
-import com.cooksys.groupfinal.exceptions.BadRequestException;
-import com.cooksys.groupfinal.exceptions.NotAuthorizedException;
-import com.cooksys.groupfinal.exceptions.NotFoundException;
-import com.cooksys.groupfinal.repositories.UserRepository;
 import org.springframework.stereotype.Service;
-
-
-
 
 import com.cooksys.groupfinal.entities.Announcement;
 import com.cooksys.groupfinal.entities.Company;
 import com.cooksys.groupfinal.entities.Project;
 import com.cooksys.groupfinal.entities.Team;
 import com.cooksys.groupfinal.entities.User;
-
+import com.cooksys.groupfinal.exceptions.NotFoundException;
 
 import com.cooksys.groupfinal.dtos.AnnouncementDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
@@ -36,7 +27,6 @@ import com.cooksys.groupfinal.mappers.FullUserMapper;
 import com.cooksys.groupfinal.mappers.ProjectMapper;
 import com.cooksys.groupfinal.mappers.TeamMapper;
 
-
 import com.cooksys.groupfinal.repositories.CompanyRepository;
 import com.cooksys.groupfinal.repositories.TeamRepository;
 import com.cooksys.groupfinal.services.CompanyService;
@@ -45,27 +35,23 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
-
+	
 	private final CompanyRepository companyRepository;
 	private final TeamRepository teamRepository;
-  private final UserRepository userRepository;
 	private final FullUserMapper fullUserMapper;
-	private final BasicUserMapper basicUserMapper;
 	private final AnnouncementMapper announcementMapper;
 	private final TeamMapper teamMapper;
 	private final ProjectMapper projectMapper;
-	private final ProfileMapper profileMapper;
 	private final CompanyMapper companyMapper;
 
-
 	private Company findCompany(Long id) {
-		Optional<Company> company = companyRepository.findById(id);
-		if (company.isEmpty()) {
-			throw new NotFoundException("A company with the provided id does not exist.");
-		}
-		return company.get();
-	}
-
+        Optional<Company> company = companyRepository.findById(id);
+        if (company.isEmpty()) {
+            throw new NotFoundException("A company with the provided id does not exist.");
+        }
+        return company.get();
+    }
+	
 	private Team findTeam(Long id) {
         Optional<Team> team = teamRepository.findById(id);
         if (team.isEmpty()) {
@@ -73,13 +59,6 @@ public class CompanyServiceImpl implements CompanyService {
         }
         return team.get();
     }
-  
-  private ProfileDto getProfileDtoForUser(Long userId) {
-		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new NotFoundException("User with id " + userId + " not found"));
-
-		return profileMapper.entityToDto(user.getProfile());
-	}  
 
 	@Override
 	public List<CompanyDto> getAllCompanies() {
@@ -123,37 +102,6 @@ public class CompanyServiceImpl implements CompanyService {
 		return projectMapper.entitiesToDtos(filteredProjects);
 	}
 
-
-
-	@Override
-	public TeamDto addTeamToCompany(Long id, TeamDto teamDto) {
-		if (teamDto == null || teamDto.getName() == null || teamDto.getDescription() == null) {
-			throw new BadRequestException("Invalid information given.");
-		}
-		Company company = companyRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Company with id " + id + " was not found."));
-		Team newTeam = new Team();
-		newTeam.setName(teamDto.getName());
-		newTeam.setDescription(teamDto.getDescription());
-		if (teamDto.getTeammates() != null && !teamDto.getTeammates().isEmpty()) {
-			Set<User> teammates = basicUserMapper.basicDtosToEntities(teamDto.getTeammates());
-			for (User teammate : teammates) {
-				ProfileDto profileDto = getProfileDtoForUser(teammate.getId());
-				if (profileDto != null) {
-					Profile profile = profileMapper.dtoToEntity(profileDto);
-					teammate.setProfile(profile);
-				}
-			}
-			newTeam.setTeammates(teammates);
-		} else {
-			newTeam.setTeammates(new HashSet<>());
-		}
-		Team savedTeam = teamRepository.saveAndFlush(newTeam);
-		company.getTeams().add(savedTeam);
-		companyRepository.saveAndFlush(company);
-		return teamMapper.entityToDto(savedTeam);
-	}
-
 	@Override
 	public List<FullUserDto> getAllTeamUsers(Long companyId, Long teamId) {
 		Company company = findCompany(companyId);
@@ -166,8 +114,5 @@ public class CompanyServiceImpl implements CompanyService {
 		filteredUsers.removeIf(user -> !user.isActive());
 		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
 	}
+
 }
-
-
-
-
