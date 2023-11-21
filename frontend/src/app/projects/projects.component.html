@@ -1,1 +1,10 @@
-<p>projects works!</p>
+<div class="main-container">
+  <div>NavBar</div>
+  <div class="proj-container">
+    <h1 class="proj-title">Projects</h1>
+    <button class="proj-new-button">New</button>
+    <div class="proj-component">
+        <app-project *ngFor="let project of projects" [project]="project"></app-project>
+    </div>
+  </div>
+</div>
