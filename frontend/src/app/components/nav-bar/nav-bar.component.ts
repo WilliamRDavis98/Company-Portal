@@ -11,4 +11,14 @@ export class NavBarComponent {
   handleLogout = () => {
     console.log('logout called');
   };
+
+  handleCssBorder = () => {
+    let nav = document.getElementById('navbar');
+    let button = document.getElementById('navbar-toggler');
+    let isExpanded = button?.ariaExpanded;
+    if (!nav) {
+      return;
+    }
+    nav.style.borderStyle = isExpanded === 'true' ? 'none' : 'solid';
+  };
 }
