@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './user-registry.component.html',
   styleUrls: ['./user-registry.component.css']
 })
+
 export class UserRegistryComponent {
 
   users: Array<any> = [

@@ -45,11 +45,16 @@
     margin-left: 10%;
     margin-top: 15px;
     width: 20vh;
-
+    font-family: var(--site-font);
 }
 
 h1 {
-    margin-bottom: 0;
+    margin-bottom: 0;    font-family: mulish;
+    font-family: var(--site-font);
+}
+
+h5 {
+  font-family: var(--site-font);
 }
 
 table {
@@ -65,6 +70,7 @@ tr td {
     padding-bottom: 20px;
     border-bottom: 1px solid #DEB992;
     text-align: center;
+    font-family: var(--site-font);
 }
 
 tr th {

@@ -18,9 +18,18 @@
     --primary-modal-background-color: #0B2D45;
     --primary-modal-field-color: #DEB992;
     --primary-modal-exit-color: #F24E1E;
+
+    /* Font family for site */
+    --site-font: ourSiteFont;
+
 }
 
 body {
     margin: 0;
     background-color: var(--primary-background-color)
+}
+
+@font-face {
+  font-family: ourSiteFont;
+  src: url(./assets/Mulish.ttf);
 }
