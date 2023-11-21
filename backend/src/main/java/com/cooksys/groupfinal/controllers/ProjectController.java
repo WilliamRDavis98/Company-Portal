@@ -17,11 +17,6 @@ import lombok.RequiredArgsConstructor;
 public class ProjectController {
 	
 	
-	  private final ProjectService projectService;
-	  
-	  @PostMapping() public ProjectDto createProject(@RequestBody ProjectRequestDto
-	  projectRequestDto) { return projectService.createProject(projectRequestDto);
-	  }
 	 
 
 }

@@ -19,21 +19,5 @@ import lombok.RequiredArgsConstructor;
 public class ProjectServiceImpl implements ProjectService {
 	
 	
-	  private final ProjectRepository projectRepository; private final
-	  ProjectMapper projectMapper;
-	  
-	  @Override public ProjectDto createProject(ProjectRequestDto projectRequestDto) { 
-		  if (projectRequestDto.getName() == null || projectRequestDto.getDescription() == null) {
-			  throw new BadRequestException("Missing project name or description"); 
-		  }
-		  Optional<Project> optionalProject = projectRepository.findByName(projectRequestDto.getName()); 
-		  if (optionalProject.isEmpty()) {
-			  Project project = projectMapper.requestDtoToEntity(projectRequestDto);
-			  project.setActive(true);
-			  return projectMapper.entityToDto(project); 
-		  }
-		  throw new BadRequestException("Project already exists");
-	  }
-	 
 
 }
