@@ -8,6 +8,7 @@
         <tr>
             <th class="white-text">Name</th>
             <th class="white-text">Email</th>
+            <th class="white-text">Team</th>
             <th class="white-text">Active</th>
             <th class="white-text">Admin</th>
             <th class="white-text">Status</th>
@@ -15,8 +16,9 @@
         <tr *ngFor="let user of users">
             <td class="light-text"><b>{{user.profile.firstname}} {{user.profile.lastname}}</b></td>
             <td class="light-text"><b>{{user.profile.email}}</b></td>
-            <td class="affirmative" *ngIf="user.active"><b>Yes</b></td><td class="table-data negative" *ngIf="!user.active"><b>No</b></td>
-            <td class="affirmative" *ngIf="user.isAdmin"><b>Yes</b></td><td class="table-data negative" *ngIf="!user.isAdmin"><b>No</b></td>
+            <td class="light-text" *ngIf="user.teams"><b>user.teams[0].name</b></td><td class="light-text" *ngIf="!user.teams"><b></b></td>
+            <td class="affirmative" *ngIf="user.active"><b>Yes</b></td><td class="negative" *ngIf="!user.active"><b>No</b></td>
+            <td class="affirmative" *ngIf="user.isAdmin"><b>Yes</b></td><td class="negative" *ngIf="!user.isAdmin"><b>No</b></td>
             <td class="light-text"><b>{{user.status}}</b></td>
         </tr>
     </table>
