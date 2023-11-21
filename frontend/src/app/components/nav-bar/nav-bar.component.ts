@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class NavBarComponent {
   constructor(router: Router) {
+    //this.admin = 'true';
     this.router = router;
   }
 
