@@ -1,7 +1,12 @@
 package com.cooksys.groupfinal.services.impl;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import com.cooksys.groupfinal.dtos.TeamDto;
+import com.cooksys.groupfinal.entities.Team;
+import com.cooksys.groupfinal.mappers.TeamMapper;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
@@ -25,6 +30,8 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
   private final FullUserMapper fullUserMapper;
 	private final CredentialsMapper credentialsMapper;
+
+    private final TeamMapper teamMapper;
 	
 	private User findUser(String username) {
         Optional<User> user = userRepository.findByCredentialsUsernameAndActiveTrue(username);
@@ -50,11 +57,25 @@ public class UserServiceImpl implements UserService {
         }
         return fullUserMapper.entityToFullUserDto(userToValidate);
 	}
-	
-	
-	
-	
-	
-	
+
+    @Override
+    public List<TeamDto> findAllTeamsByUser(Long id) {
+        User userToFind = userRepository.findById(id).get();
+
+        if (userToFind == null) {
+            throw new NotFoundException("This user Id is invalid");
+        }
+
+        List<TeamDto> listOfTeamsUserIsOn = teamMapper.entitiesToDtos(userToFind.getTeams());
+
+        return listOfTeamsUserIsOn;
+
+    }
+
+    @Override
+    public FullUserDto getUserById(Long id) {
+        return null;
+    }
+
 
 }
