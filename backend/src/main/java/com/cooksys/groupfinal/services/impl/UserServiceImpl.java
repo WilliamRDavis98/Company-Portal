@@ -55,8 +55,17 @@ public class UserServiceImpl implements UserService {
         return fullUserMapper.entityToFullUserDto(userToValidate);
 	}
 
+//    @Override
+//    public List<UserResponseDto> getAllUsers() {
+//        List<User> users = userRepository.findAll();
+//        Set<User> uniqueUsers = new HashSet<>(users);
+//        List<User> noDuplicateUsers = new ArrayList<>(uniqueUsers);
+//        return userMapper.entitiesToDtos(noDuplicateUsers);
+//
+//    }
+
     @Override
-    public List<UserResponseDto> getAllUsers() {
+    public List<FullUserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
         Set<User> uniqueUsers = new HashSet<>(users);
         List<User> noDuplicateUsers = new ArrayList<>(uniqueUsers);

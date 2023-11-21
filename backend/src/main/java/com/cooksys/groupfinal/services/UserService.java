@@ -10,6 +10,8 @@ public interface UserService {
 
 	FullUserDto login(CredentialsDto credentialsDto);
 
-	List<UserResponseDto> getAllUsers();
+//	List<UserResponseDto> getAllUsers();
+
+	List<FullUserDto> getAllUsers();
 }
 
