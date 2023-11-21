@@ -1,12 +1,9 @@
 package com.cooksys.groupfinal.services.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
-import com.cooksys.groupfinal.dtos.TeamDto;
-import com.cooksys.groupfinal.entities.Team;
+import com.cooksys.groupfinal.dtos.UserResponseDto;
+import com.cooksys.groupfinal.mappers.UserMapper;
 import com.cooksys.groupfinal.mappers.TeamMapper;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +26,13 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRepository;
-  private final FullUserMapper fullUserMapper;
+    private final FullUserMapper fullUserMapper;
 	private final CredentialsMapper credentialsMapper;
 
+    private final UserMapper userMapper;
+
     private final TeamMapper teamMapper;
-	
+
 	private User findUser(String username) {
         Optional<User> user = userRepository.findByCredentialsUsernameAndActiveTrue(username);
         if (user.isEmpty()) {
@@ -58,6 +57,24 @@ public class UserServiceImpl implements UserService {
         }
         return fullUserMapper.entityToFullUserDto(userToValidate);
 	}
+
+//    @Override
+//    public List<UserResponseDto> getAllUsers() {
+//        List<User> users = userRepository.findAll();
+//        Set<User> uniqueUsers = new HashSet<>(users);
+//        List<User> noDuplicateUsers = new ArrayList<>(uniqueUsers);
+//        return userMapper.entitiesToDtos(noDuplicateUsers);
+//
+//    }
+
+    @Override
+    public List<FullUserDto> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        Set<User> uniqueUsers = new HashSet<>(users);
+        List<User> noDuplicateUsers = new ArrayList<>(uniqueUsers);
+        return userMapper.entitiesToDtos(noDuplicateUsers);
+
+    }
 
     @Override
     public List<TeamDto> findAllTeamsByUser(Long id) {

@@ -2,6 +2,8 @@ package com.cooksys.groupfinal.controllers;
 
 import com.cooksys.groupfinal.dtos.TeamDto;
 import org.springframework.web.bind.annotation.*;
+import com.cooksys.groupfinal.dtos.UserResponseDto;
+import org.springframework.web.bind.annotation.*;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
@@ -24,6 +26,15 @@ public class UserController {
         return userService.login(credentialsDto);
     }
 
+//    @GetMapping
+//    public List<UserResponseDto> getAllUsers() {
+//        return userService.getAllUsers();
+//    }
+
+    @GetMapping
+    public List<FullUserDto> getAllUsers() {
+        return userService.getAllUsers();
+    }
 
     @GetMapping("/{id}/teams")
     public List<TeamDto> getAllTeamsUserIsOn(@PathVariable Long id) {
@@ -45,3 +56,8 @@ public class UserController {
     }
 
 }
+
+
+
+
+

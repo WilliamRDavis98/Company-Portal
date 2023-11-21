@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class TeamDto {
-	
-	private Long id;
-    
+
+    private Long id;
+
     private String name;
-    
+
     private String description;
-    
+
     private List<BasicUserDto> teammates;
+
+    private CredentialsDto credentialsDto;
 
 }

@@ -1,22 +1,15 @@
 package com.cooksys.groupfinal.services.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import com.cooksys.groupfinal.dtos.*;
+import com.cooksys.groupfinal.entities.*;
+import com.cooksys.groupfinal.exceptions.BadRequestException;
+import com.cooksys.groupfinal.exceptions.NotAuthorizedException;
 import com.cooksys.groupfinal.mappers.*;
+import com.cooksys.groupfinal.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import com.cooksys.groupfinal.entities.Announcement;
-import com.cooksys.groupfinal.entities.Company;
-import com.cooksys.groupfinal.entities.Project;
-import com.cooksys.groupfinal.entities.Team;
-import com.cooksys.groupfinal.entities.User;
 import com.cooksys.groupfinal.exceptions.NotFoundException;
 
 import com.cooksys.groupfinal.repositories.CompanyRepository;
@@ -36,6 +29,12 @@ public class CompanyServiceImpl implements CompanyService {
 	private final ProjectMapper projectMapper;
 	private final CompanyMapper companyMapper;
 
+	private final BasicUserMapper basicUserMapper;
+
+	private final UserRepository userRepository;
+
+	private final ProfileMapper profileMapper;
+
 	private Company findCompany(Long id) {
         Optional<Company> company = companyRepository.findById(id);
         if (company.isEmpty()) {
@@ -51,6 +50,13 @@ public class CompanyServiceImpl implements CompanyService {
         }
         return team.get();
     }
+
+	private ProfileDto getProfileDtoForUser(Long id) {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("User with id " + id + " not found"));
+
+		return profileMapper.entityToDto(user.getProfile());
+	}
 
 	@Override
 	public List<CompanyDto> getAllCompanies() {
@@ -105,6 +111,55 @@ public class CompanyServiceImpl implements CompanyService {
 		team.getTeammates().forEach(filteredUsers::add);
 		filteredUsers.removeIf(user -> !user.isActive());
 		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
+	}
+
+	@Override
+	public TeamDto addTeamToCompany(Long companyId, TeamDto teamDto) {
+		CredentialsDto credentials = teamDto.getCredentialsDto();
+		if (credentials.getUsername() == null || credentials.getPassword() == null) {
+			throw new BadRequestException("Valid credentials are required");
+		}
+		if (teamDto.getName() == null || teamDto.getDescription() == null) {
+			throw new BadRequestException("Invalid information given.");
+		}
+		Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndActiveTrue(credentials.getUsername());
+		if (optionalUser.isEmpty()) {
+			throw new NotFoundException("No user found with username: " + credentials.getUsername());
+		}
+		User user = optionalUser.get();
+		if (!credentials.getPassword().equals(user.getCredentials().getPassword())) {
+			throw new NotAuthorizedException("Not authorized");
+		}
+
+		Company company = companyRepository.findById(companyId)
+				.orElseThrow(() -> new NotFoundException("Company with id " + companyId + " was not found."));
+		Team newTeam = new Team();
+		newTeam.setName(teamDto.getName());
+		newTeam.setDescription(teamDto.getDescription());
+		if (teamDto.getTeammates() != null && !teamDto.getTeammates().isEmpty()) {
+			List<User> teammates = basicUserMapper.basicDtosToEntities(teamDto.getTeammates());
+			Set<User> uniqueTeammates = new HashSet<>();
+			List<User> nonDuplicateTeammates = new ArrayList<>();
+			for (User teammate : teammates) {
+				if (uniqueTeammates.add(teammate)) {
+					nonDuplicateTeammates.add(teammate);
+				}
+			}
+			for (User teammate : nonDuplicateTeammates) {
+				ProfileDto profileDto = getProfileDtoForUser(teammate.getId());
+				if (profileDto != null) {
+					Profile profile = profileMapper.dtoToEntity(profileDto);
+					teammate.setProfile(profile);
+				}
+			}
+			newTeam.setTeammates(teammates);
+		} else {
+			newTeam.setTeammates(new ArrayList<>());
+		}
+		Team savedTeam = teamRepository.saveAndFlush(newTeam);
+		company.getTeams().add(savedTeam);
+		companyRepository.saveAndFlush(company);
+		return teamMapper.entityToDto(savedTeam);
 	}
 
 }
