@@ -2,31 +2,30 @@
     Color Schemes
 */
 :root {
-    /* Page background color */
-    --primary-background-color: #051622;
+  /* Page background color */
+  --primary-background-color: #051622;
 
-    /* Text Colors */
-    --primary-green: #1BA098;
-    --secondary-green-color: #157D7A;
+  /* Text Colors */
+  --primary-green: #1ba098;
+  --secondary-green-color: #157d7a;
 
-    /* Button Colors */
-    --primary-button-color: #005594;
-    --secondary-button-color: #5533FF;
+  /* Button Colors */
+  --primary-button-color: #005594;
+  --secondary-button-color: #5533ff;
 
-    /* Modal/NavBar Button Colors */
-    --primary-component-background-color: #0D3A59;
-    --primary-modal-background-color: #0B2D45;
-    --primary-modal-field-color: #DEB992;
-    --primary-modal-exit-color: #F24E1E;
+  /* Modal/NavBar Button Colors */
+  --primary-component-background-color: #0d3a59;
+  --primary-modal-background-color: #0b2d45;
+  --primary-modal-field-color: #deb992;
+  --primary-modal-exit-color: #f24e1e;
 
-    /* Font family for site */
-    --site-font: ourSiteFont;
-
+  /* Font family for site */
+  --site-font: ourSiteFont;
 }
 
 body {
-    margin: 0;
-    background-color: var(--primary-background-color)
+  margin: 0;
+  background-color: var(--primary-background-color);
 }
 
 @font-face {
