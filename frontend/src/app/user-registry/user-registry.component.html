@@ -1,1 +1,25 @@
-<p>user-registry works!</p>
+<app-nav-bar></app-nav-bar>
+<app-create-user [ngClass]="{'hidden': !showModal}"></app-create-user>
+<div class="centeredCol">
+    <h1 class="light-blue-text">User Registry</h1>
+    <h5 class="light-blue-text">A general view of all your members in your orginization</h5>
+
+    <table>
+        <tr>
+            <th class="white-text">Name</th>
+            <th class="white-text">Email</th>
+            <th class="white-text">Active</th>
+            <th class="white-text">Admin</th>
+            <th class="white-text">Status</th>
+        </tr>
+        <tr *ngFor="let user of users">
+            <td class="light-text"><b>{{user.profile.firstname}} {{user.profile.lastname}}</b></td>
+            <td class="light-text"><b>{{user.profile.email}}</b></td>
+            <td class="affirmative" *ngIf="user.active"><b>Yes</b></td><td class="table-data negative" *ngIf="!user.active"><b>No</b></td>
+            <td class="affirmative" *ngIf="user.isAdmin"><b>Yes</b></td><td class="table-data negative" *ngIf="!user.isAdmin"><b>No</b></td>
+            <td class="light-text"><b>{{user.status}}</b></td>
+        </tr>
+    </table>
+
+    <button class="button" (click)="addUser()">Add User</button>
+</div>
