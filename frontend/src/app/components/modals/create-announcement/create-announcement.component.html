@@ -1,1 +1,6 @@
-<p>create-announcement works!</p>
+<p>announcement</p>
+<form [formGroup]="announcementForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="message">
+    <br />
+    <button>Submit</button>
+</form>

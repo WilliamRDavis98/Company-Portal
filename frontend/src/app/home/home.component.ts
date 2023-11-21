@@ -12,10 +12,21 @@ export class HomeComponent implements OnInit {
   @ViewChild(ModalComponent) modalComponent!: ModalComponent;
 
   modalType: string = 'create-announcement';
+  announcements: any[] = [];
+  companyId: number | undefined;
   
   constructor() { }
 
   ngOnInit(): void {
+    // authorize
+    // set company id from state
+    // get announcements
+    if (this.companyId) {
+      this.getAnnouncements(this.companyId);
+    }
+  }
+
+  getAnnouncements = async (id: number) => {
 
   }
 

@@ -1,4 +1,12 @@
-<p>this is the home/announcements page</p>
+<div class="home">
+    <h1>Announcements</h1>
+    <!-- button only viewable by admins -->
+    <button class="button" (click)="toggleModal()">New</button>
+    <hr />
+    <p *ngIf="announcements.length === 0">No announcements for this company, yet.</p>
+    <div class="announcements">
+        <app-announcement *ngFor="let announcement of announcements" [announcement]="announcement"></app-announcement>
+    </div>
 
-<button (click)="toggleModal()">TEST</button>
-<app-modal [modalType]="modalType"></app-modal>
+    <app-modal [modalType]="modalType"></app-modal>
+</div>

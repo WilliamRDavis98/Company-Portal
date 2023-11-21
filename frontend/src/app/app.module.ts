@@ -21,8 +21,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { ModalComponent } from './components/modals/modal/modal.component';
 import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
-
 import { CreateAnnouncementComponent } from './components/modals/create-announcement/create-announcement.component';
+
 
 const routes: Routes = 
   [
