@@ -15,7 +15,10 @@ public interface CompanyService {
 
 	List<ProjectDto> getAllProjects(Long companyId, Long teamId);
 
+  TeamDto addTeamToCompany(Long id, TeamDto teamDto);
+
 	List<FullUserDto> getAllTeamUsers(Long companyId, Long teamId);
 
-    List<CompanyDto> getAllCompanies();
+  List<CompanyDto> getAllCompanies();
+
 }
