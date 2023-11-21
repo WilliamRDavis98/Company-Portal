@@ -1,5 +1,6 @@
 package com.cooksys.groupfinal.dtos;
 
+import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
@@ -19,8 +20,8 @@ public class FullUserDto {
     
     private String status;
     
-    private Set<CompanyDto> companies;
+    private List<CompanyDto> companies;
     
-    private Set<TeamDto> teams;
+    private List<TeamDto> teams;
 
 }
