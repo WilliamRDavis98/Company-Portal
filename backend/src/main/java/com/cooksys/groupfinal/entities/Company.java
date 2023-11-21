@@ -1,6 +1,8 @@
 package com.cooksys.groupfinal.entities;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -28,14 +30,14 @@ public class Company {
 	
 	@OneToMany(mappedBy = "company")
 	@EqualsAndHashCode.Exclude
-	private Set<Announcement> announcements = new HashSet<>();
+	private List<Announcement> announcements = new ArrayList<>();
 	
 	@ManyToMany
 	@EqualsAndHashCode.Exclude
-	private Set<User> employees = new HashSet<>();
+	private List<User> employees = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "company")
 	@EqualsAndHashCode.Exclude
-	private Set<Team> teams = new HashSet<>();
+	private List<Team> teams = new ArrayList<>();
 
 }

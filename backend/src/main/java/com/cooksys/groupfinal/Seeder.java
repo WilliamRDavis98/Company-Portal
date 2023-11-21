@@ -1,7 +1,7 @@
 package com.cooksys.groupfinal;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -246,15 +246,15 @@ public class Seeder implements CommandLineRunner {
 	  
 	  company1.setName("waystar|ROYCO");
 	  company1.setDescription("waystar|ROYCO, the future of media, entertainment, and theme parks.");
-	  company1.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement1, announcement2)));
-	  company1.setEmployees(new HashSet<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9)));
-	  company1.setTeams(new HashSet<Team>(Arrays.asList(team1, team2, team3, team4, team5, team6)));
+	  company1.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement1, announcement2)));
+	  company1.setEmployees(new ArrayList<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9)));
+	  company1.setTeams(new ArrayList<Team>(Arrays.asList(team1, team2, team3, team4, team5, team6)));
 	  
 	  company2.setName("Cook Systems");
 	  company2.setDescription("We are Cook Systems.");
-	  company2.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement3)));
-	  company2.setEmployees(new HashSet<User>(Arrays.asList(user10, user11, user12)));
-	  company2.setTeams(new HashSet<Team>(Arrays.asList(team7)));
+	  company2.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement3)));
+	  company2.setEmployees(new ArrayList<User>(Arrays.asList(user10, user11, user12)));
+	  company2.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
 	  
 	  project1.setName("Brightstar Theme Park Expansion");
 	  project1.setDescription("Brightstar theme park expansion to be led by newly appointed head of waystar|ROYCO's amusement park and cruise division, Tom Wambsgans.");
@@ -274,78 +274,78 @@ public class Seeder implements CommandLineRunner {
 	  team1.setName("Team 1");
 	  team1.setDescription("Greg & Tom");
 	  team1.setCompany(company1);
-	  team1.setTeammates(new HashSet<User>(Arrays.asList(user1, user2)));
-	  team1.setProjects(new HashSet<Project>(Arrays.asList(project1)));
+	  team1.setTeammates(new ArrayList<User>(Arrays.asList(user1, user2)));
+	  team1.setProjects(new ArrayList<Project>(Arrays.asList(project1)));
 	  
 	  team2.setName("Team 2");
 	  team2.setDescription("Tom & Shiv");
 	  team2.setCompany(company1);
-	  team2.setTeammates(new HashSet<User>(Arrays.asList(user2, user5)));
+	  team2.setTeammates(new ArrayList<User>(Arrays.asList(user2, user5)));
 	  
 	  team3.setName("Team 3");
 	  team3.setDescription("Roman & Gerri");
 	  team3.setCompany(company1);
-	  team3.setTeammates(new HashSet<User>(Arrays.asList(user4, user9)));
-	  team3.setProjects(new HashSet<Project>(Arrays.asList(project3)));
+	  team3.setTeammates(new ArrayList<User>(Arrays.asList(user4, user9)));
+	  team3.setProjects(new ArrayList<Project>(Arrays.asList(project3)));
 	  
 	  team4.setName("Team 4");
 	  team4.setDescription("Greg & Kendall");
 	  team4.setCompany(company1);
-	  team4.setTeammates(new HashSet<User>(Arrays.asList(user1, user3)));
+	  team4.setTeammates(new ArrayList<User>(Arrays.asList(user1, user3)));
 	  
 	  team5.setName("Team 5");
 	  team5.setDescription("Logan & Marcia");
 	  team5.setCompany(company1);
-	  team5.setTeammates(new HashSet<User>(Arrays.asList(user6, user8)));
+	  team5.setTeammates(new ArrayList<User>(Arrays.asList(user6, user8)));
 	  
 	  team6.setName("Team 6");
 	  team6.setDescription("Kendall, Roman, Shiv, & Connor");
 	  team6.setCompany(company1);
-	  team6.setTeammates(new HashSet<User>(Arrays.asList(user3, user4, user5, user7)));
+	  team6.setTeammates(new ArrayList<User>(Arrays.asList(user3, user4, user5, user7)));
 	  
 	  team7.setName("Team 7");
 	  team7.setDescription("Helena, Kenny, & Will");
 	  team7.setCompany(company2);
-	  team7.setTeammates(new HashSet<User>(Arrays.asList(user10, user11, user12)));
-	  team7.setProjects(new HashSet<Project>(Arrays.asList(project2)));
+	  team7.setTeammates(new ArrayList<User>(Arrays.asList(user10, user11, user12)));
+	  team7.setProjects(new ArrayList<Project>(Arrays.asList(project2)));
 	  
-	  user1.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user1.setTeams(new HashSet<Team>(Arrays.asList(team1, team4)));
+	  user1.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user1.setTeams(new ArrayList<Team>(Arrays.asList(team1, team4)));
 
-	  user2.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement2)));
-	  user2.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user2.setTeams(new HashSet<Team>(Arrays.asList(team1, team2)));
+	  user2.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement2)));
+	  user2.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user2.setTeams(new ArrayList<Team>(Arrays.asList(team1, team2)));
 
-	  user3.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user3.setTeams(new HashSet<Team>(Arrays.asList(team4, team6)));
+	  user3.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user3.setTeams(new ArrayList<Team>(Arrays.asList(team4, team6)));
 
-	  user4.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user4.setTeams(new HashSet<Team>(Arrays.asList(team3, team6)));
+	  user4.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user4.setTeams(new ArrayList<Team>(Arrays.asList(team3, team6)));
 	  
-	  user5.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user5.setTeams(new HashSet<Team>(Arrays.asList(team2, team6)));
+	  user5.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user5.setTeams(new ArrayList<Team>(Arrays.asList(team2, team6)));
 
-	  user6.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user6.setTeams(new HashSet<Team>(Arrays.asList(team5)));
+	  user6.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user6.setTeams(new ArrayList<Team>(Arrays.asList(team5)));
 
-	  user7.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user7.setTeams(new HashSet<Team>(Arrays.asList(team6)));
+	  user7.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user7.setTeams(new ArrayList<Team>(Arrays.asList(team6)));
 
-	  user8.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user8.setTeams(new HashSet<Team>(Arrays.asList(team5)));
+	  user8.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user8.setTeams(new ArrayList<Team>(Arrays.asList(team5)));
 
-	  user9.setCompanies(new HashSet<Company>(Arrays.asList(company1)));
-	  user9.setTeams(new HashSet<Team>(Arrays.asList(team3)));
+	  user9.setCompanies(new ArrayList<Company>(Arrays.asList(company1)));
+	  user9.setTeams(new ArrayList<Team>(Arrays.asList(team3)));
 	  
-	  user10.setCompanies(new HashSet<Company>(Arrays.asList(company2)));
-	  user10.setTeams(new HashSet<Team>(Arrays.asList(team7)));
+	  user10.setCompanies(new ArrayList<Company>(Arrays.asList(company2)));
+	  user10.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
 	  
-	  user11.setCompanies(new HashSet<Company>(Arrays.asList(company2)));
-	  user11.setTeams(new HashSet<Team>(Arrays.asList(team7)));
+	  user11.setCompanies(new ArrayList<Company>(Arrays.asList(company2)));
+	  user11.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
 	  
-	  user12.setAnnouncements(new HashSet<Announcement>(Arrays.asList(announcement3)));
-	  user12.setCompanies(new HashSet<Company>(Arrays.asList(company2)));
-	  user12.setTeams(new HashSet<Team>(Arrays.asList(team7)));
+	  user12.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement3)));
+	  user12.setCompanies(new ArrayList<Company>(Arrays.asList(company2)));
+	  user12.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
 	  
 	  announcementRepository.saveAllAndFlush(Arrays.asList(
 	  		new Announcement[] { announcement1, announcement2, announcement3, announcement4, announcement5  }));

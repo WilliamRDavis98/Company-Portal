@@ -3,10 +3,9 @@ package com.cooksys.groupfinal.services.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -58,50 +57,50 @@ public class CompanyServiceImpl implements CompanyService {
     }
 	
 	@Override
-	public Set<FullUserDto> getAllUsers(Long id) {
+	public List<FullUserDto> getAllUsers(Long id) {
 		Company company = findCompany(id);
-		Set<User> filteredUsers = new HashSet<>();
+		List<User> filteredUsers = new ArrayList<>();
 		company.getEmployees().forEach(filteredUsers::add);
 		filteredUsers.removeIf(user -> !user.isActive());
 		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
 	}
 
 	@Override
-	public Set<AnnouncementDto> getAllAnnouncements(Long id) {
+	public List<AnnouncementDto> getAllAnnouncements(Long id) {
 		Company company = findCompany(id);
 		List<Announcement> sortedList = new ArrayList<Announcement>(company.getAnnouncements());
 		sortedList.sort(Comparator.comparing(Announcement::getDate).reversed());
-		Set<Announcement> sortedSet = new HashSet<Announcement>(sortedList);
-		return announcementMapper.entitiesToDtos(sortedSet);
+		List<Announcement> sortedList2 = new ArrayList<Announcement>(sortedList);
+		return announcementMapper.entitiesToDtos(sortedList2);
 	}
 
 	@Override
-	public Set<TeamDto> getAllTeams(Long id) {
+	public List<TeamDto> getAllTeams(Long id) {
 		Company company = findCompany(id);
 		return teamMapper.entitiesToDtos(company.getTeams());
 	}
 
 	@Override
-	public Set<ProjectDto> getAllProjects(Long companyId, Long teamId) {
+	public List<ProjectDto> getAllProjects(Long companyId, Long teamId) {
 		Company company = findCompany(companyId);
 		Team team = findTeam(teamId);
 		if (!company.getTeams().contains(team)) {
 			throw new NotFoundException("A team with id " + teamId + " does not exist at company with id " + companyId + ".");
 		}
-		Set<Project> filteredProjects = new HashSet<>();
+		List<Project> filteredProjects = new ArrayList<>();
 		team.getProjects().forEach(filteredProjects::add);
 		filteredProjects.removeIf(project -> !project.isActive());
 		return projectMapper.entitiesToDtos(filteredProjects);
 	}
 
 	@Override
-	public Set<FullUserDto> getAllTeamUsers(Long companyId, Long teamId) {
+	public List<FullUserDto> getAllTeamUsers(Long companyId, Long teamId) {
 		Company company = findCompany(companyId);
 		Team team = findTeam(teamId);
 		if (!company.getTeams().contains(team)) {
 			throw new NotFoundException("A team with id " + teamId + " does not exist at company with id " + companyId +".");
 		}
-		Set<User> filteredUsers = new HashSet<>();
+		List<User> filteredUsers = new ArrayList<>();
 		team.getTeammates().forEach(filteredUsers::add);
 		filteredUsers.removeIf(user -> !user.isActive());
 		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
