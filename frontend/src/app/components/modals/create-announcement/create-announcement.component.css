@@ -1,0 +1,16 @@
+input {
+    border: none;
+    border-bottom: 1px solid #DEB992;
+    background-color: transparent;
+    outline: none;
+    color: #DEB992;
+}
+
+button {
+    background-color: #1BA098;
+    color: white;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
