@@ -114,6 +114,33 @@
 				}
 			},
 			"response": []
-		}
+		},
+        {
+            "name": "POST /projects",
+            "request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"testproject\",\n    \"description\": \"i am a project\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects"
+					]
+				}
+			},
+			"response": []
+        }
 	]
 }

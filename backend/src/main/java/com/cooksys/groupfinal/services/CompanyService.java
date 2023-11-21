@@ -6,6 +6,7 @@ import java.util.Set;
 import com.cooksys.groupfinal.dtos.AnnouncementDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
 import com.cooksys.groupfinal.dtos.ProjectDto;
+import com.cooksys.groupfinal.dtos.ProjectRequestDto;
 import com.cooksys.groupfinal.dtos.TeamDto;
 
 public interface CompanyService {
