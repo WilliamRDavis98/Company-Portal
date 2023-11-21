@@ -18,4 +18,6 @@ public interface CompanyService {
 	List<FullUserDto> getAllTeamUsers(Long companyId, Long teamId);
 
     List<CompanyDto> getAllCompanies();
+
+	TeamDto addTeamToCompany(Long companyId, TeamDto teamDto);
 }

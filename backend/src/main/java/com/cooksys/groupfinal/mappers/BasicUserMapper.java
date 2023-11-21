@@ -18,4 +18,5 @@ public interface BasicUserMapper {
     
     User requestDtoToEntity(UserRequestDto userRequestDto);
 
+    List<User> basicDtosToEntities(List<BasicUserDto> teammates);
 }
