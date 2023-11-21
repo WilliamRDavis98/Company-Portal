@@ -3,6 +3,11 @@
   border-style: solid;
   border-radius: 2px;
   border-color: #deb992;
+  padding-bottom: 0;
+}
+
+.container-fluid {
+  padding: 0;
 }
 
 .logo {
@@ -18,6 +23,7 @@
 
 .nav-exposed {
   background-color: #214864;
+  border-top: 2px solid #deb992;
   text-align: center;
   font-size: 48px;
   width: 100%;

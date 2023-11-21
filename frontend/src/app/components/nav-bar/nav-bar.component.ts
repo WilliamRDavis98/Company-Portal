@@ -27,6 +27,6 @@ export class NavBarComponent {
     if (!nav) {
       return;
     }
-    nav.style.borderStyle = isExpanded === 'true' ? 'none' : 'solid';
+    //nav.style.borderStyle = isExpanded === 'true' ? 'none' : 'solid';
   };
 }
