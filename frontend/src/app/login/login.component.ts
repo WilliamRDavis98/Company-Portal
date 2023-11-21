@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiCallsService } from '../services/api-calls.service';
+import { User } from '../models/user-model';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +13,29 @@ export class LoginComponent {
 
   username!: String
   password!: String
+  error: String = ""
 
   onSubmit() {
-    console.log("Username, password:", this.username, this.password)
+    console.log("Username: ", this.username,", Password:", this.password)
 
-    this.apiService.login(/**pass in username/password */).then((response) => {
+    this.apiService.login(this.username, this.password).then((response) => {
 
-      //Logic to check the user is valid and if they are an admin or not
-
-      //if(user.isAdmin) -> then log in to "Select Company" page
-      //elseif(!user.isAdmin) -> log in to the "Teams" page
-
-      this.router.navigateByUrl("/select-company")
+      response.subscribe((user) => {
+        if(user) {
+          this.error=""
+          //Logic to check the user is valid and if they are an admin or not
+          if(user.admin) {
+            console.log("User is an Admin")
+            // this.router.navigateByUrl("/select-company")
+          } else {
+            console.log("User is not an Admin")
+            // this.router.navigateByUrl("/teams")
+          }
+        }
+      }, (error) => {
+        console.log("bonus error:",error.error.message)
+        this.error = error.error.message
+      })
     })
   }
 }

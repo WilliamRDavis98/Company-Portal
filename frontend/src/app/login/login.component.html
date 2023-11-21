@@ -8,8 +8,11 @@
             <img src="assets/cooksys_logo.png" alt="Cook Sys Logo">
             <form>
                 <input type="text" [(ngModel)]="username" id="username" name="username" required placeholder="Username">
-                <input type="text" [(ngModel)]="password" id="password" name="password" required placeholder="Password">
+                <input type="password" [(ngModel)]="password" id="password" name="password" required placeholder="Password">
             </form>
+            <div class="error" style="color: red" *ngIf="error != ''">
+                {{error}}
+            </div>
             <button type="submit" (click)="onSubmit()">LOGIN</button>
         </div>
     </div>
