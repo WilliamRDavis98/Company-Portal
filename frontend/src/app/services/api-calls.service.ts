@@ -26,14 +26,14 @@ export class ApiCallsService {
    * Log-In API Call
    * Returns promise while it waits on the confirmation from the BE
    */
-  async login(username: String, password: String) { /** make backend api call for the user */
+  async login(username: string, password: string) { /** make backend api call for the user */
     let requestUrl: string = this.apiUrl + "/users/login"
     let requestBody: Object = { username, password}
     
     
     return this.http.post<any>(requestUrl, requestBody).pipe(
-      
       map(response => {
+        //Create user Object based on response data
         const authenticatingUser: User = {
           id: response.id,
           username: username,
@@ -44,23 +44,20 @@ export class ApiCallsService {
           admin: response.admin,
           status: response.status
         };
-  
-        console.log("User Object:", authenticatingUser);
 
-        
-  
+        // Make an Array of User Team Id's
+        let userTeams: String[] = response.teams.map((team:any) => {
+          return team.id
+        });
+
+        // Use Session Storage for User object, team id's, and company id
+        sessionStorage.setItem("user", JSON.stringify(authenticatingUser))
+        sessionStorage.setItem("userTeams", JSON.stringify(userTeams))
+        sessionStorage.setItem("userCompany", response.companies[0].id)
+
         return authenticatingUser;
       }),
       catchError(error => {
-        if (error.status === 404) {
-          // Handle the "user not found" error here, e.g., show a message to the user
-          console.error('User not found:', error);
-        } else {
-          // Handle other errors, such as network issues or server errors
-          console.error('Login error:', error);
-        }
-  
-        // Rethrow the error or return a default value as needed
         return throwError(error);
       }))
   }
