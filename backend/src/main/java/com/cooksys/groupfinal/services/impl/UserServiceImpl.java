@@ -61,13 +61,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<TeamDto> findAllTeamsByUser(Long id) {
-        User userToFind = userRepository.findById(id).get();
+        Optional<User> userToFind = userRepository.findById(id);
 
-        if (userToFind == null) {
+        if (userToFind.isEmpty()) {
             throw new NotFoundException("This user Id is invalid");
         }
 
-        List<TeamDto> listOfTeamsUserIsOn = teamMapper.entitiesToDtos(userToFind.getTeams());
+        //        if (!(userToFind.get().isActive())) {
+//            throw new NotFoundException("User is inactive");
+//        }
+//        commented out for now pending discussions with frontend team
+
+        List<TeamDto> listOfTeamsUserIsOn = teamMapper.entitiesToDtos(userToFind.get().getTeams());
 
         return listOfTeamsUserIsOn;
 
@@ -75,13 +80,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FullUserDto getUserById(Long id) {
-        User userToFind = userRepository.findById(id).get();
+        Optional<User> userToFind = userRepository.findById(id);
 
-        if (userToFind == null) {
+        if (userToFind.isEmpty()) {
             throw new NotFoundException("This user Id is invalid");
         }
 
-        FullUserDto fullUserDto = fullUserMapper.entityToFullUserDto(userToFind);
+//        if (!(userToFind.get().isActive())) {
+//            throw new NotFoundException("User is inactive");
+//        }
+//        commented out for now pending discussions with frontend team
+
+        FullUserDto fullUserDto = fullUserMapper.entityToFullUserDto(userToFind.get());
 
         if (fullUserDto.isAdmin()) {
             return fullUserDto;
