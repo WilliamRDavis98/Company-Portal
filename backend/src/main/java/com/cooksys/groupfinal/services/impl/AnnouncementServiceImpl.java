@@ -31,6 +31,11 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     @Override
     public AnnouncementDto addAnnouncement(Long companyId, AnnouncementRequestDto announcementRequest) {
+        Optional<Company> optionalCompany = companyRepository.findById(companyId);
+        if (optionalCompany.isEmpty()) {
+            throw new NotFoundException("No company found with id: " + companyId);
+        }
+        Company company = optionalCompany.get();
         CredentialsDto credentials = announcementRequest.getCredentials();
         if (credentials.getUsername() == null || credentials.getPassword() == null) {
             throw new BadRequestException("Valid credentials are required");
@@ -43,11 +48,6 @@ public class AnnouncementServiceImpl implements AnnouncementService {
             throw new NotFoundException("No user found with username: " + credentials.getUsername());
         }
         User user = optionalUser.get();
-        Optional<Company> optionalCompany = companyRepository.findById(companyId);
-        if (optionalCompany.isEmpty()) {
-            throw new NotFoundException("No company found with id: " + companyId);
-        }
-        Company company = optionalCompany.get();
         if (!credentials.getPassword().equals(user.getCredentials().getPassword())) {
             throw new NotAuthorizedException("You are not authorized to perform this action");
         }
