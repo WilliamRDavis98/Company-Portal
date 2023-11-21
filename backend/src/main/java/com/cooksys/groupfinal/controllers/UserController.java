@@ -34,4 +34,14 @@ public class UserController {
 
     }
 
+    @GetMapping("/{id}")
+    public FullUserDto getUserById(@PathVariable Long id) {
+
+        return userService.getUserById(id);
+        // check if user is admin or not
+        // returns 2 types of userDtos depending on it
+        // because I can't return two different types, I opted to return a fullUserDto
+        // and we can basically delete any info that the non admin shouldn't see before returning the DTO
+    }
+
 }

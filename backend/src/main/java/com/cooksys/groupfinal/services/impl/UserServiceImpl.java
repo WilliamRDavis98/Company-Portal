@@ -1,5 +1,6 @@
 package com.cooksys.groupfinal.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -74,7 +75,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public FullUserDto getUserById(Long id) {
-        return null;
+        User userToFind = userRepository.findById(id).get();
+
+        if (userToFind == null) {
+            throw new NotFoundException("This user Id is invalid");
+        }
+
+        FullUserDto fullUserDto = fullUserMapper.entityToFullUserDto(userToFind);
+
+        if (fullUserDto.isAdmin()) {
+            return fullUserDto;
+        }
+        // so if the user is not an admin, the idea here is to remove any data that they shouldn't be privy to
+        // could modify it so it just returns an error, but this would give flexiblity for making the call
+        fullUserDto.setTeams(new ArrayList<>());
+        fullUserDto.setCompanies(new ArrayList<>());
+
+        return fullUserDto;
     }
 
 
