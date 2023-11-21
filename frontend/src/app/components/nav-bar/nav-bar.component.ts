@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,10 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent {
-  admin = true;
+  constructor(router: Router) {
+    this.router = router;
+  }
+
+  router: Router | null = null;
+  admin = sessionStorage.getItem('admin');
 
   handleLogout = () => {
-    console.log('logout called');
+    sessionStorage.clear;
+    this.router?.navigateByUrl('');
   };
 
   handleCssBorder = () => {
