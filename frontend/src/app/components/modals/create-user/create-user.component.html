@@ -1,1 +1,28 @@
-<p>create-user works!</p>
+<h3>Create User</h3>
+<form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+  <div class="centeredCol">
+    <div class="centeredRow">
+      <input type="text" placeholder="First Name" formControlName="first">
+      <br />
+      <input type="text" placeholder="Last Name" formControlName="last">
+      <br />
+    </div>
+    <div class="centeredRow">
+      <input type="text" placeholder="Username" formControlName="username">
+      <br />
+      <input type="text" placeholder="Email" formControlName="email">
+      <br />
+    </div>
+    <div class="centeredRow">
+      <input type="text" placeholder="Phone" formControlName="phone">
+      <br />
+    </div>
+    <div class="centeredRow">
+      <input type="password" placeholder="Password" formControlName="password">
+      <br />
+      <input type="password" placeholder="Confirm Password" formControlName="confirm">
+      <br />
+    </div>
+  </div>
+  <button>Submit</button>
+</form>

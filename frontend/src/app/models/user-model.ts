@@ -1,3 +1,6 @@
+import { Company } from "./company-model"
+import { Team } from "./team-model"
+
 export interface User {
     id: number,
     username: string,
@@ -8,5 +11,7 @@ export interface User {
     phoneNumber?: string,
     active: boolean,
     admin: boolean,
-    status: string
+    status: String,
+    companies?: Array<Company>,
+    teams?: Array<Team>
 }

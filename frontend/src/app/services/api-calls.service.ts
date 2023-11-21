@@ -20,7 +20,9 @@ export class ApiCallsService {
     email: "test@user.com",
     active: true,
     admin: true, //Change this value to change login page for User
-    status: "Joined"
+    status: "Joined",
+    companies: [],
+    teams: []
   }
 
   /**
@@ -30,8 +32,8 @@ export class ApiCallsService {
   async login(username: string, password: string) { /** make backend api call for the user */
     let requestUrl: string = this.apiUrl + "/users/login"
     let requestBody: Object = { username, password}
-    
-    
+
+
     return this.http.post<any>(requestUrl, requestBody).pipe(
       map(response => {
         //Create user Object based on response data
@@ -43,7 +45,9 @@ export class ApiCallsService {
           email: response.profile.email,
           active: response.active,
           admin: response.admin,
-          status: response.status
+          status: response.status,
+          companies: response.companies,
+          teams: response.teams
         };
 
         // Make an Array of User Team Id's
@@ -59,6 +63,35 @@ export class ApiCallsService {
         return authenticatingUser;
       }),
       catchError(error => {
+        if (error.status === 404) {
+          // Handle the "user not found" error here, e.g., show a message to the user
+          console.error('User not found:', error);
+        } else {
+          // Handle other errors, such as network issues or server errors
+          console.error('Login error:', error);
+        }
+
+        // Rethrow the error or return a default value as needed
+        return throwError(error);
+      }))
+  }
+
+  async getCompanyUsers(companyId: number) {
+    let requestUrl: string = this.apiUrl + "/companies/" + companyId + "/users"
+
+    return this.http.get<any>(requestUrl).pipe(
+      map(response => {
+        console.log("Response:", response);
+        let users = response
+
+        return users;
+      }),
+      catchError(error => {
+        if (error.status === 404) {
+          // Handle the "user not found" error here, e.g., show a message to the user
+          console.error('Users not found:', error);
+        }
+        // Rethrow the error or return a default value as needed
         return throwError(error);
       }))
   }
