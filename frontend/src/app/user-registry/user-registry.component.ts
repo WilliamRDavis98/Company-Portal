@@ -52,6 +52,16 @@ export class UserRegistryComponent {
     // get the session user
     this.users = []
     let userSessionString = sessionStorage.getItem("user")
+
+    // For debug until session storage is fully implemented
+    let DEBUG = true
+    if(DEBUG) {
+      this.apiService.getCompanyUsers(6).then((response) => {
+        response.subscribe((users) => {
+          this.users = users as User[]
+        })
+      })
+    }
     if(userSessionString){
       console.log("Found current session's user...")
       this.curUser = JSON.parse(userSessionString)
@@ -60,8 +70,8 @@ export class UserRegistryComponent {
         console.log("Found current session's company...")
         // get company users
         this.apiService.getCompanyUsers(this.curUser?.companies[0].id!).then((response) => {
-          response.subscribe((user) => {
-            this.users.push(user)
+          response.subscribe(users => {
+            this.users = users as User[]
           })
         })
       } else {

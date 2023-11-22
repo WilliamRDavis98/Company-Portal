@@ -78,12 +78,27 @@ export class ApiCallsService {
 
   async getCompanyUsers(companyId: number) {
     let requestUrl: string = this.apiUrl + "/companies/" + companyId + "/users"
-
     return this.http.get<any>(requestUrl).pipe(
       map(response => {
         console.log("Response:", response);
-        let users = response
-
+        let responseUsers: Array<any> = response
+        let users: Array<User> = []
+        for(let i = 0; i < responseUsers.length; i++){
+          let newUser: User = {
+            id: responseUsers[i].id,
+            username: responseUsers[i].profile.username,
+            firstName: responseUsers[i].profile.firstName,
+            lastName:responseUsers[i].profile.lastName,
+            email: responseUsers[i].profile.email,
+            phoneNumber: responseUsers[i].profile.phone,
+            active: responseUsers[i].active,
+            admin: responseUsers[i].admin,
+            status: responseUsers[i].status,
+            companies: responseUsers[i].companies,
+            teams: responseUsers[i].teams
+          }
+          users.push(newUser)
+        }
         return users;
       }),
       catchError(error => {
