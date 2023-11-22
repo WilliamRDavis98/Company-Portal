@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyController {
+
 	
 	private final CompanyService companyService;
 	
