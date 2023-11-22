@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
 import com.cooksys.groupfinal.dtos.UserRequestDto;
+import com.cooksys.groupfinal.entities.Company;
 import com.cooksys.groupfinal.entities.Credentials;
 import com.cooksys.groupfinal.entities.User;
 import com.cooksys.groupfinal.exceptions.BadRequestException;
@@ -19,6 +20,7 @@ import com.cooksys.groupfinal.exceptions.NotFoundException;
 import com.cooksys.groupfinal.mappers.CredentialsMapper;
 import com.cooksys.groupfinal.mappers.FullUserMapper;
 import com.cooksys.groupfinal.mappers.UserMapper;
+import com.cooksys.groupfinal.repositories.CompanyRepository;
 import com.cooksys.groupfinal.repositories.UserRepository;
 import com.cooksys.groupfinal.services.UserService;
 
@@ -31,8 +33,8 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final FullUserMapper fullUserMapper;
 	private final CredentialsMapper credentialsMapper;
-
 	private final UserMapper userMapper;
+	private final CompanyRepository companyRepository;
 
 	private User findUser(String username) {
 		Optional<User> user = userRepository.findByCredentialsUsernameAndActiveTrue(username);
@@ -90,24 +92,30 @@ public class UserServiceImpl implements UserService {
 				|| userRequestDto.getCredentials().getPassword() == null) {
 			throw new BadRequestException("A username and password is required to create a new user.");
 		}
-
-		// check if username is already taken
+		// make sure that a company is passed in
+		if (userRequestDto.getCompanyId() == null) {
+			throw new BadRequestException("A company must be associated with a new user.");
+		}
+		
+		// checks if username is already taken among both active and inactive users
 		// theoretically should be taken care of in the frontend, so may be redundant
-		// code
-
 		Optional<User> optionalUser = userRepository
-				.findByCredentialsUsernameAndActiveTrue(userRequestDto.getCredentials().getUsername());
-		if (optionalUser.isPresent() && optionalUser.get().isActive()) {
+				.findByCredentialsUsername(userRequestDto.getCredentials().getUsername());
+		if (optionalUser.isPresent()) {
 			throw new BadRequestException("Username is already taken.");
 		}
-
-		// check for inactive usernames??
-		// how to handle usernames that are taken by people who are not active
 
 		// convert dto to entity
 		User userToSave = fullUserMapper.requestDtoToEntity(userRequestDto);
 		userToSave.setActive(true);
-		// do i need to set company?
+		
+		// set company
+		Optional<Company> optionalCompany = companyRepository.findById(userRequestDto.getCompanyId());
+		if (optionalCompany.get() == null) {
+			throw new BadRequestException("Company of ID " + userRequestDto.getCompanyId() + " does not exist.");
+		}
+		Company companyToAddToUser = optionalCompany.get();
+		userToSave.getCompanies().add(companyToAddToUser);
 
 		// save and flush with userRepository
 		userRepository.saveAndFlush(userToSave);
