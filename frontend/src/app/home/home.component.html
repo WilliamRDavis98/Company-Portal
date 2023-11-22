@@ -8,5 +8,5 @@
     <div class="announcements">
         <app-announcement *ngFor="let announcement of announcements" [announcement]="announcement"></app-announcement>
     </div>
-    <app-modal [modalType]="modalType"></app-modal>
+    <app-modal [modalType]="modalType" [announcements]="announcements"></app-modal>
 </div>

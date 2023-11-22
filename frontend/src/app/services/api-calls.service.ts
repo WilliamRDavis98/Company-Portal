@@ -67,4 +67,9 @@ export class ApiCallsService {
     let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`
     return this.http.get<Announcement[]>(requestUrl);
   }
+
+  async createAnnouncement(id: number, requestBody: Object) {
+    let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`
+    return this.http.post<Announcement>(requestUrl, requestBody);
+  }
 }
