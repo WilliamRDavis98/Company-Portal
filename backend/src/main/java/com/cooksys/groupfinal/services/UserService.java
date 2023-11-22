@@ -2,9 +2,9 @@ package com.cooksys.groupfinal.services;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
-import com.cooksys.groupfinal.dtos.UserResponseDto;
-
+import com.cooksys.groupfinal.dtos.TeamDto;
 import java.util.List;
+
 
 public interface UserService {
 
@@ -13,5 +13,9 @@ public interface UserService {
 //	List<UserResponseDto> getAllUsers();
 
 	List<FullUserDto> getAllUsers();
+	List<TeamDto> findAllTeamsByUser(Long id);
+
+	FullUserDto getUserById(Long id);
+
 }
 
