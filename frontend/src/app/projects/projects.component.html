@@ -1,10 +1,16 @@
-<div class="main-container">
-  <div>NavBar</div>
-  <div class="proj-container">
-    <h1 class="proj-title">Projects</h1>
-    <button class="proj-new-button">New</button>
-    <div class="proj-component">
-        <app-project *ngFor="let project of projects" [project]="project"></app-project>
+<body>
+  <app-nav-bar></app-nav-bar>
+  <a routerLink="/teams" class="back-link">&lt; Back</a>
+  <div class="main-container">
+    <div class="proj-container">
+      <h1 class="proj-title">Project for team {{teamId}}</h1>
+      <button *ngIf="isAdmin" class="proj-new-button">New</button>
+      <div class="proj-component">
+        <app-project
+          *ngFor="let project of projects"
+          [project]="project"
+        ></app-project>
+      </div>
     </div>
   </div>
-</div>
+</body>
