@@ -5,6 +5,9 @@ import java.util.List;
 import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
 import com.cooksys.groupfinal.dtos.UserRequestDto;
+import com.cooksys.groupfinal.dtos.TeamDto;
+
+
 
 public interface UserService {
 
@@ -15,5 +18,10 @@ public interface UserService {
 	List<FullUserDto> getAllUsers();
 
 	FullUserDto createUser(UserRequestDto userRequestDto);
+
+	List<TeamDto> findAllTeamsByUser(Long id);
+
+	FullUserDto getUserById(Long id);
+
 }
 

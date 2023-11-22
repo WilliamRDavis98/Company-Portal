@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.cooksys.groupfinal.dtos.TeamDto;
+import com.cooksys.groupfinal.dtos.UserResponseDto;
+import com.cooksys.groupfinal.mappers.TeamMapper;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
@@ -29,12 +32,14 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+  
 
 	private final UserRepository userRepository;
 	private final FullUserMapper fullUserMapper;
 	private final CredentialsMapper credentialsMapper;
 	private final UserMapper userMapper;
 	private final CompanyRepository companyRepository;
+  private final TeamMapper teamMapper;
 
 	private User findUser(String username) {
 		Optional<User> user = userRepository.findByCredentialsUsernameAndActiveTrue(username);
@@ -122,5 +127,51 @@ public class UserServiceImpl implements UserService {
 		// convert it to a responseDto from entity and return that
 		return fullUserMapper.entityToFullUserDto(userToSave);
 	}
+
+    @Override
+    public List<TeamDto> findAllTeamsByUser(Long id) {
+        Optional<User> userToFind = userRepository.findById(id);
+
+        if (userToFind.isEmpty()) {
+            throw new NotFoundException("This user Id is invalid");
+        }
+
+        //        if (!(userToFind.get().isActive())) {
+//            throw new NotFoundException("User is inactive");
+//        }
+//        commented out for now pending discussions with frontend team
+
+        List<TeamDto> listOfTeamsUserIsOn = teamMapper.entitiesToDtos(userToFind.get().getTeams());
+
+        return listOfTeamsUserIsOn;
+
+    }
+
+    @Override
+    public FullUserDto getUserById(Long id) {
+        Optional<User> userToFind = userRepository.findById(id);
+
+        if (userToFind.isEmpty()) {
+            throw new NotFoundException("This user Id is invalid");
+        }
+
+//        if (!(userToFind.get().isActive())) {
+//            throw new NotFoundException("User is inactive");
+//        }
+//        commented out for now pending discussions with frontend team
+
+        FullUserDto fullUserDto = fullUserMapper.entityToFullUserDto(userToFind.get());
+
+        if (fullUserDto.isAdmin()) {
+            return fullUserDto;
+        }
+        // so if the user is not an admin, the idea here is to remove any data that they shouldn't be privy to
+        // could modify it so it just returns an error, but this would give flexiblity for making the call
+        fullUserDto.setTeams(new ArrayList<>());
+        fullUserDto.setCompanies(new ArrayList<>());
+
+        return fullUserDto;
+    }
+
 
 }

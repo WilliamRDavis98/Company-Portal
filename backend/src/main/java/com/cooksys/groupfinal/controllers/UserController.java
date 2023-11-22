@@ -3,13 +3,10 @@ package com.cooksys.groupfinal.controllers;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+
+import com.cooksys.groupfinal.dtos.TeamDto;
+import org.springframework.web.bind.annotation.*;
+import com.cooksys.groupfinal.dtos.UserResponseDto;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
@@ -47,7 +44,28 @@ public class UserController {
 		return userService.createUser(userRequestDto);
 	}
 
+    @GetMapping("/{id}/teams")
+    public List<TeamDto> getAllTeamsUserIsOn(@PathVariable Long id) {
+
+        return userService.findAllTeamsByUser(id);
+        // can add some additional code to the service if we only want to return the teams of the company thats being viewed - John
+        // however, I think that would be an edge case an not needed since typically most users are just on one company
+
+    }
+
+    @GetMapping("/{id}")
+    public FullUserDto getUserById(@PathVariable Long id) {
+
+        return userService.getUserById(id);
+        // check if user is admin or not
+        // returns 2 types of userDtos depending on it
+        // because I can't return two different types, I opted to return a fullUserDto
+        // and we can basically delete any info that the non admin shouldn't see before returning the DTO
+    }
 
 }
+
+
+
 
 
