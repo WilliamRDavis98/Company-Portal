@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { User } from '../models/user-model';
+import { Announcement } from '../models/announcement-model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,4 +63,8 @@ export class ApiCallsService {
       }))
   }
 
+  async getAnnouncements(id: string) {
+    let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`
+    return this.http.get<Announcement[]>(requestUrl);
+  }
 }
