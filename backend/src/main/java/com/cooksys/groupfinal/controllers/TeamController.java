@@ -19,8 +19,8 @@ public class TeamController {
 	
 	private final TeamService teamService;
 	
-	@PostMapping("/{id}/projects") public ProjectDto createProject(@PathVariable Long id, @RequestBody ProjectRequestDto projectRequestDto) {
-		return teamService.createProject(id, projectRequestDto);
+	@PostMapping("/{teamId}/projects") public ProjectDto createProject(@PathVariable Long teamId, @RequestBody ProjectRequestDto projectRequestDto) {
+		return teamService.createProject(teamId, projectRequestDto);
 	}
 
 }

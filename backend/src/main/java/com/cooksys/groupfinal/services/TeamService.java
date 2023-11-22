@@ -5,6 +5,6 @@ import com.cooksys.groupfinal.dtos.ProjectRequestDto;
 
 public interface TeamService {
 
-	ProjectDto createProject(Long id, ProjectRequestDto projectRequestDto);
+	ProjectDto createProject(Long teamId, ProjectRequestDto projectRequestDto);
 
 }

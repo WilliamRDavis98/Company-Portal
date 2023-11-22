@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.ProjectDto;
 import com.cooksys.groupfinal.dtos.ProjectRequestDto;
 import com.cooksys.groupfinal.entities.Project;
@@ -27,16 +28,19 @@ public class TeamServiceImpl implements TeamService {
 	private final ProjectMapper projectMapper;
 
 	@Override
-	public ProjectDto createProject(Long id, ProjectRequestDto projectRequestDto) {
+	public ProjectDto createProject(Long teamId, ProjectRequestDto projectRequestDto) {
 		if (projectRequestDto.getName() == null || projectRequestDto.getDescription() == null) {
 			throw new BadRequestException("Missing project name or description"); 
 		}
-		if (teamRepository.findById(id) == null) {
-			throw new NotFoundException("No team found with id " + id);
+		if (teamRepository.findById(teamId) == null) {
+			throw new NotFoundException("No team found with id " + teamId);
+		}
+		CredentialsDto credentials = projectRequestDto.getCredentials();
+		if (credentials == null) {
+			throw new BadRequestException("Valid credentials are required");
 		}
 		Optional<Project> optionalProject = projectRepository.findByName(projectRequestDto.getName()); 
-		Team team = teamRepository.findById(id).orElse(null);
-		//Team team = teamRepository.findByName(teamRepository.findById(id).ifPresent(teamRepo -> teamRepo.getName()));
+		Team team = teamRepository.findById(teamId).get();
 		if (optionalProject.isEmpty()) {
 			Project project = projectMapper.requestDtoToEntity(projectRequestDto);
 			project.setActive(true);

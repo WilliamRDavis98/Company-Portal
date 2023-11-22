@@ -9,4 +9,6 @@ public class ProjectRequestDto {
 	private String name;
 	
 	private String description;
+	
+	private CredentialsDto credentials;
 }
