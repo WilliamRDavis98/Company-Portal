@@ -1,9 +1,7 @@
 package com.cooksys.groupfinal.entities;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -27,11 +25,11 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
-  @Embedded
-  private Credentials credentials;
+	@Embedded
+	private Credentials credentials;
 	
-  @Embedded
-  private Profile profile;
+	@Embedded
+	private Profile profile;
 	
 	private boolean active;
 	

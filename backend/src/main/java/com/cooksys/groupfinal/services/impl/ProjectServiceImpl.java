@@ -1,6 +1,8 @@
 package com.cooksys.groupfinal.services.impl;
 import com.cooksys.groupfinal.exceptions.NotFoundException;
 import java.util.Optional;
+
+import com.cooksys.groupfinal.mappers.TeamMapper;
 import org.springframework.stereotype.Service;
 import com.cooksys.groupfinal.dtos.ProjectDto;
 import com.cooksys.groupfinal.dtos.ProjectRequestDto;
@@ -23,6 +25,8 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
 
+    private final TeamMapper teamMapper;
+
     @Override
     public ProjectDto findProjectById(Long id) {
         Optional<Project> projectToFind = projectRepository.findById(id);
@@ -34,5 +38,23 @@ public class ProjectServiceImpl implements ProjectService {
         // might add an isActive error handling as well
 
         return projectMapper.entityToDto(projectToFind.get());
+    }
+
+    @Override
+    public ProjectDto updateProject(Long id, ProjectRequestDto projectRequestDto) {
+        // I could also get the id from the project Dto if we want to limit the variables passed in
+        Optional<Project> projectToFind = projectRepository.findById(id);
+        if (projectToFind.isEmpty()) {
+            throw new NotFoundException("This project doesn't exist");
+        }
+        Project projectToEdit = projectToFind.get();
+        projectToEdit.setName(projectRequestDto.getName());
+        // description, active, lastUpdated, team
+        projectToEdit.setDescription(projectRequestDto.getDescription());
+        // can use the timestamps for determining whether a user is active with some app logic here as well
+//        projectToEdit.setTeam(teamMapper.dtoToEntity(projectDto.getTeam()));
+        // maybe I add a save team functionality as well, or do an edit team, don't think its necessary tho
+        return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToEdit));
+
     }
 }

@@ -13,6 +13,6 @@ public interface CompanyMapper {
 	
 	CompanyDto entityToDto(Company company);
 
-  List<CompanyDto> entitiesToDtos(List<Company> companies);
+	List<CompanyDto> entitiesToDtos(List<Company> companies);
 
 }
