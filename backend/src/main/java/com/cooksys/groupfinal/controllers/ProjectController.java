@@ -26,7 +26,7 @@ public class ProjectController {
 
 	@PatchMapping("/{id}")
 	public ProjectDto updateProject(@PathVariable Long id, @RequestBody ProjectDto projectDto) {
-
+		return projectService.updateProject(id, projectDto);
 	}
 
 }
