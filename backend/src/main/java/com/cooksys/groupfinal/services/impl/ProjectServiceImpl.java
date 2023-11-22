@@ -51,18 +51,10 @@ public class ProjectServiceImpl implements ProjectService {
         projectToEdit.setName(projectDto.getName());
         // description, active, lastUpdated, team
         projectToEdit.setDescription(projectDto.getDescription());
-        projectToEdit.setLastUpdated(projectDto.getLastUpdated());
-        // was thinking of getting lastUpdated from the frontend, but I could also probably set a timestamp with the current time
-        // would look like this
-        // Date currentDate = new Date();
-        // projectToEdit.setLastUpdated(currentDate.getTime());
-        // can use the timestamps for determing whether a user is active with some app logic here as well
+        // can use the timestamps for determining whether a user is active with some app logic here as well
         projectToEdit.setTeam(teamMapper.dtoToEntity(projectDto.getTeam()));
-        // maybe I add a save team functionality as well, or do an edit team, don't think its neccessary tho
-        projectRepository.saveAndFlush(projectToEdit);
+        // maybe I add a save team functionality as well, or do an edit team, don't think its necessary tho
+        return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToEdit));
 
-        return projectDto;
-        // could return the actual project, but I'm guessing the dto is better for safeguarding data
-        // can verify with a get projects by id call after to see if updated
     }
 }
