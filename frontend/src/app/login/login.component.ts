@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiCallsService } from '../services/api-calls.service';
 import { User } from '../models/user-model';
@@ -10,6 +10,10 @@ import { User } from '../models/user-model';
 })
 export class LoginComponent {
   constructor(private router: Router, private apiService: ApiCallsService) {}
+
+  ngOnInit(): void {
+ 
+  }
 
   username!: string
   password!: string
