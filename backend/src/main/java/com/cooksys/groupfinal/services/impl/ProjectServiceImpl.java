@@ -61,5 +61,7 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.saveAndFlush(projectToEdit);
 
         return projectDto;
+        // could return the actual project, but I'm guessing the dto is better for safeguarding data
+        // can verify with a get projects by id call after to see if updated
     }
 }
