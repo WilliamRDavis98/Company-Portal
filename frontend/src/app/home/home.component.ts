@@ -26,17 +26,17 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // authorize
     this.user = JSON.parse(sessionStorage.getItem("user") as string);
-    if (!this.user) {
-      this.router.navigateByUrl("");
-    }
-    // get current company id from state/storage
-    this.companyId = sessionStorage.getItem("userCompany") as string;
-    // get announcements
-    if (this.companyId) {
-      this.getAnnouncements(this.companyId);
-    } else {
-      this.router.navigateByUrl("select-company")
-    }
+    // if (!this.user) {
+    //   this.router.navigateByUrl("");
+    // }
+    // // get current company id from state/storage
+    // this.companyId = sessionStorage.getItem("userCompany") as string;
+    // // get announcements
+    // if (this.companyId) {
+    //   this.getAnnouncements(this.companyId);
+    // } else {
+    //   this.router.navigateByUrl("select-company")
+    // }
   }
 
   getAnnouncements = async (id: string) => {

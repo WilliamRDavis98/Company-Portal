@@ -2,7 +2,7 @@
     <app-nav-bar></app-nav-bar>
     <h1>Announcements</h1>
     <!-- button only viewable by admins -->
-    <button class="button" *ngIf="user && user.admin" (click)="toggleModal()">New</button>
+    <button class="button" (click)="toggleModal()">New</button>
     <hr />
     <p *ngIf="announcements.length === 0">No announcements for this company, yet.</p>
     <div class="announcements">
