@@ -13,7 +13,7 @@ public interface BasicUserMapper {
 
     BasicUserDto entityToBasicUserDto(User user);
     
-    List<BasicUserDto> entitiesToBasicUserDtos(List<User> users);
+    List<BasicUserDto> entitiesToBasicUserDtos(List<User> filteredUsers);
     
     User requestDtoToEntity(UserRequestDto userRequestDto);
 
