@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/companies")
 @RequiredArgsConstructor
 public class CompanyController {
+
+    // admin should only see the companies associated with the admin, have it on the user controller
+    // timestamp for created and last updated
+    // patch project endpoint
 	
 	private final CompanyService companyService;
 	
