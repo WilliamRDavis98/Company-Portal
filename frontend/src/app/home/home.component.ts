@@ -27,15 +27,16 @@ export class HomeComponent implements OnInit {
     // authorize
     this.user = JSON.parse(sessionStorage.getItem("user") as string);
     if (!this.user) {
-      this.router.navigateByUrl("");
-    }
-    // get current company id from state/storage
-    this.companyId = sessionStorage.getItem("userCompany") as string;
-    // get announcements
-    if (this.companyId) {
-      this.getAnnouncements(this.companyId);
+      this.router.navigateByUrl("login");
     } else {
-      this.router.navigateByUrl("select-company")
+      // get current company id from state/storage
+      this.companyId = sessionStorage.getItem("userCompany") as string;
+      // get announcements
+      if (this.companyId) {
+        this.getAnnouncements(this.companyId);
+      } else {
+        this.router.navigateByUrl("select-company")
+      }
     }
   }
 

@@ -26,7 +26,8 @@ import { CreateAnnouncementComponent } from './components/modals/create-announce
 
 const routes: Routes = 
   [
-    { path: "", component: LoginComponent }, 
+    { path: "**", component: LoginComponent }, 
+    { path: "login", component: LoginComponent }, 
     { path: "select-company", component: SelectCompanyComponent},
     { path: "home", component: HomeComponent},
     { path: "teams", component: TeamsComponent},
