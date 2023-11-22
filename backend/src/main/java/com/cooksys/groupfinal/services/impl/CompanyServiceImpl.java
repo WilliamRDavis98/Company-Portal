@@ -10,9 +10,20 @@ import com.cooksys.groupfinal.mappers.*;
 import com.cooksys.groupfinal.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import com.cooksys.groupfinal.dtos.AnnouncementDto;
+import com.cooksys.groupfinal.dtos.FullUserDto;
+import com.cooksys.groupfinal.dtos.ProjectDto;
+import com.cooksys.groupfinal.dtos.ProjectRequestDto;
+import com.cooksys.groupfinal.dtos.TeamDto;
+import com.cooksys.groupfinal.entities.Announcement;
+import com.cooksys.groupfinal.entities.Company;
+import com.cooksys.groupfinal.entities.Project;
+import com.cooksys.groupfinal.entities.Team;
+import com.cooksys.groupfinal.entities.User;
 import com.cooksys.groupfinal.exceptions.NotFoundException;
 
 import com.cooksys.groupfinal.repositories.CompanyRepository;
+import com.cooksys.groupfinal.repositories.ProjectRepository;
 import com.cooksys.groupfinal.repositories.TeamRepository;
 import com.cooksys.groupfinal.services.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -21,18 +32,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
 	
+  private final CompanyMapper companyMapper;
 	private final CompanyRepository companyRepository;
+  private final TeamMapper teamMapper;
 	private final TeamRepository teamRepository;
+  private final BasicUserMapper basicUserMapper;
 	private final FullUserMapper fullUserMapper;
+  private final UserRepository userRepository;
 	private final AnnouncementMapper announcementMapper;
-	private final TeamMapper teamMapper;
 	private final ProjectMapper projectMapper;
-	private final CompanyMapper companyMapper;
-
-	private final BasicUserMapper basicUserMapper;
-
-	private final UserRepository userRepository;
-
+	private final ProjectRepository projectRepository;
 	private final ProfileMapper profileMapper;
 
 	private Company findCompany(Long id) {
