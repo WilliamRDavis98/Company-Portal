@@ -24,7 +24,7 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 !important;
   background-color: var(--primary-background-color) !important;
 }
 

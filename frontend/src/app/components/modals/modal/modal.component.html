@@ -17,7 +17,7 @@
     <br />
     <!-- different modal ng -->
     <ng-container *ngIf="modalType === 'create-announcement'">
-        <app-create-announcement></app-create-announcement>
+        <app-create-announcement [announcements]="announcements"></app-create-announcement>
     </ng-container>
     <ng-container *ngIf="modalType === 'create-edit-project'">
         <app-create-edit-project></app-create-edit-project>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Announcement } from 'src/app/models/announcement-model';
 
 @Component({
   selector: 'app-modal',
@@ -7,6 +8,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ModalComponent {
   @Input() modalType: string = '';
+  @Input() announcements: Announcement[] = []
+
 
   toggleModal() {
     const overlay = document.getElementById('overlay');
