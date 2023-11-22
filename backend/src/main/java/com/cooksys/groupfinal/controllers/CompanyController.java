@@ -63,4 +63,9 @@ public class CompanyController {
         return companyService.addTeamToCompany(companyId, teamDto);
     }
 
+    @GetMapping("/{companyId}")
+    public CompanyDto getCompanyById(@PathVariable Long companyId) {
+        return companyService.getCompanyById(companyId);
+    }
+
 }
