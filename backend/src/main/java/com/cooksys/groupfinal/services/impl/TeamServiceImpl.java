@@ -36,7 +36,7 @@ public class TeamServiceImpl implements TeamService {
 			throw new NotFoundException("No team found with id " + teamId);
 		}
 		CredentialsDto credentials = projectRequestDto.getCredentials();
-		if (credentials == null) {
+		if (credentials == null || credentials.getUsername() == null || credentials.getPassword() == null) {
 			throw new BadRequestException("Valid credentials are required");
 		}
 		Optional<Project> optionalProject = projectRepository.findByName(projectRequestDto.getName()); 
