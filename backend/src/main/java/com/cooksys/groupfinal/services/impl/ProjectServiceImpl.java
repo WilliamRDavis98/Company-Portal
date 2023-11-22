@@ -56,6 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
         // would look like this
         // Date currentDate = new Date();
         // projectToEdit.setLastUpdated(currentDate.getTime());
+        // can use the timestamps for determing whether a user is active with some app logic here as well
         projectToEdit.setTeam(teamMapper.dtoToEntity(projectDto.getTeam()));
         // maybe I add a save team functionality as well, or do an edit team, don't think its neccessary tho
         projectRepository.saveAndFlush(projectToEdit);
