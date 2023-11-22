@@ -15,9 +15,11 @@ import com.cooksys.groupfinal.dtos.FullUserDto;
 import com.cooksys.groupfinal.dtos.ProjectDto;
 import com.cooksys.groupfinal.dtos.ProjectRequestDto;
 import com.cooksys.groupfinal.dtos.TeamDto;
-import com.cooksys.groupfinal.services.CompanyService;
+import com.cooksys.groupfinal.dtos.*;
 
+import com.cooksys.groupfinal.services.CompanyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/companies")
@@ -50,5 +52,15 @@ public class CompanyController {
 	public List<FullUserDto> getAllTeamUsers(@PathVariable Long companyId, @PathVariable Long teamId){
 		return companyService.getAllTeamUsers(companyId, teamId);
 	}
+
+    @GetMapping
+    public List<CompanyDto> getAllCompanies() {
+        return companyService.getAllCompanies();
+    }
+
+    @PostMapping("/{companyId}/teams")
+    public TeamDto addTeamToCompany(@PathVariable Long companyId, @RequestBody TeamDto teamDto) {
+        return companyService.addTeamToCompany(companyId, teamDto);
+    }
 
 }

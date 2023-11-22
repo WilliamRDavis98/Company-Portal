@@ -14,8 +14,8 @@ public interface FullUserMapper {
 	
 	FullUserDto entityToFullUserDto(User user);
 
-  List<FullUserDto> entitiesToFullUserDtos(List<User> filteredUsers);
+    List<FullUserDto> entitiesToFullUserDtos(List<User> filteredUsers);
 
-  User requestDtoToEntity(UserRequestDto userRequestDto);
+    User requestDtoToEntity(UserRequestDto userRequestDto);
 
 }

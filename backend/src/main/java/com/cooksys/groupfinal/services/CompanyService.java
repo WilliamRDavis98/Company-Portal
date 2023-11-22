@@ -8,6 +8,7 @@ import com.cooksys.groupfinal.dtos.FullUserDto;
 import com.cooksys.groupfinal.dtos.ProjectDto;
 import com.cooksys.groupfinal.dtos.ProjectRequestDto;
 import com.cooksys.groupfinal.dtos.TeamDto;
+import com.cooksys.groupfinal.dtos.*;
 
 public interface CompanyService {
 
@@ -21,4 +22,7 @@ public interface CompanyService {
 
 	List<FullUserDto> getAllTeamUsers(Long companyId, Long teamId);
 
+    List<CompanyDto> getAllCompanies();
+
+	TeamDto addTeamToCompany(Long companyId, TeamDto teamDto);
 }
