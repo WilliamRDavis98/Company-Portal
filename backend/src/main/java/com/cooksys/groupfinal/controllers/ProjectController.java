@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class ProjectController {
 	
 	
-	 private ProjectService projectService;
+	 private final ProjectService projectService;
 
 	@GetMapping("/{id}")
 	public ProjectDto getProjectById(@PathVariable Long id) {
