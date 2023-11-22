@@ -1,5 +1,5 @@
 <app-nav-bar></app-nav-bar>
-<app-create-user [ngClass]="{'hidden': !showModal}"></app-create-user>
+<app-modal style="text-align: center; width: 50vh;" [modalType]="modalType"></app-modal>
 <div class="centeredCol">
     <h1 class="light-blue-text">User Registry</h1>
     <h5 class="light-blue-text">A general view of all your members in your orginization</h5>
@@ -14,14 +14,14 @@
             <th class="white-text">Status</th>
         </tr>
         <tr *ngFor="let user of users">
-            <td class="light-text"><b>{{user.profile.firstname}} {{user.profile.lastname}}</b></td>
-            <td class="light-text"><b>{{user.profile.email}}</b></td>
-            <td class="light-text" *ngIf="user.teams"><b>user.teams[0].name</b></td><td class="light-text" *ngIf="!user.teams"><b></b></td>
+            <td class="light-text"><b>{{user.firstName}} {{user.lastName}}</b></td>
+            <td class="light-text"><b>{{user.email}}</b></td>
+            <td class="light-text" *ngIf="user.teams"><b>{{user.teams[0].name}}</b></td><td class="light-text" *ngIf="!user.teams"><b></b></td>
             <td class="affirmative" *ngIf="user.active"><b>Yes</b></td><td class="negative" *ngIf="!user.active"><b>No</b></td>
-            <td class="affirmative" *ngIf="user.isAdmin"><b>Yes</b></td><td class="negative" *ngIf="!user.isAdmin"><b>No</b></td>
+            <td class="affirmative" *ngIf="user.admin"><b>Yes</b></td><td class="negative" *ngIf="!user.admin"><b>No</b></td>
             <td class="light-text"><b>{{user.status}}</b></td>
         </tr>
     </table>
 
-    <button class="button" (click)="addUser()">Add User</button>
+    <button class="button" (click)="toggleModal()">Add User</button>
 </div>
