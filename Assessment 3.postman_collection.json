@@ -114,6 +114,35 @@
 				}
 			},
 			"response": []
-		}
+		},
+        {
+            "name": "POST /teams/teamId/projects",
+            "request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"testproject\",\n  \"description\": \"i am a project\",\n  \"credentials\":\n  {\n    \"username\": \"cousingreg\",\n    \"password\": \"mosteligiblebachelor\"\n  } \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teams/11/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+                        "11",
+                        "projects"
+					]
+				}
+			},
+			"response": []
+        }
 	]
 }
