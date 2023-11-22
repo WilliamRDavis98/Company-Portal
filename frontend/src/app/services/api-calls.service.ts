@@ -4,6 +4,7 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { User } from '../models/user-model';
 import { DataService } from './data.service';
 import { Announcement } from '../models/announcement-model';
+import { Company } from '../models/company-model';
 
 @Injectable({
   providedIn: 'root',

@@ -6,40 +6,40 @@ import { User } from '../models/user-model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   constructor(private router: Router, private apiService: ApiCallsService) {}
 
-  ngOnInit(): void {
- 
-  }
+  ngOnInit(): void {}
 
-  username!: string
-  password!: string
-  error: string = ""
+  username!: string;
+  password!: string;
+  error: string = '';
 
   onSubmit() {
-    console.log("Username: ", this.username,", Password:", this.password)
+    console.log('Username: ', this.username, ', Password:', this.password);
 
     this.apiService.login(this.username, this.password).then((response) => {
-
-      response.subscribe((user) => {
-        if(user) {
-          this.error=""
-          //Logic to check the user is valid and if they are an admin or not
-          if(user.admin) {
-            console.log("User is an Admin")
-            this.router.navigateByUrl("/select-company")
-          } else {
-            console.log("User is not an Admin")
-            this.router.navigateByUrl("/announcements")
+      response.subscribe(
+        (user) => {
+          if (user) {
+            this.error = '';
+            //Logic to check the user is valid and if they are an admin or not
+            if (user.admin) {
+              console.log('User is an Admin');
+              this.router.navigateByUrl('/select-company');
+            } else {
+              console.log('User is not an Admin');
+              this.router.navigateByUrl('/home');
+            }
           }
+        },
+        (error) => {
+          console.log('bonus error:', error.error.message);
+          this.error = error.error.message;
         }
-      }, (error) => {
-        console.log("bonus error:",error.error.message)
-        this.error = error.error.message
-      })
-    })
+      );
+    });
   }
 }

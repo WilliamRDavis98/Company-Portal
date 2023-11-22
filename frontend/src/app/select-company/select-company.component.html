@@ -15,7 +15,7 @@
       <ul class="dropdown-menu" aria-labelledby="dropDownMenu">
         <li class="w-100" *ngFor="let company of companies; let i = index">
           <a class="dropdown-item" (click)="handleSelectCompany(company)">
-            {{ company }}
+            {{ company.name }}
           </a>
         </li>
       </ul>
