@@ -7,6 +7,10 @@ import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @NoArgsConstructor
@@ -22,6 +26,11 @@ public class Project {
 	private String description;
 	
 	private boolean active;
+
+	@CreationTimestamp
+	private Timestamp created;
+	@UpdateTimestamp
+	private Timestamp lastUpdated;
 	
 	@ManyToOne
 	private Team team;
