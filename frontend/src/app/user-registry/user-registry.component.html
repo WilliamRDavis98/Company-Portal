@@ -16,7 +16,7 @@
         <tr *ngFor="let user of users">
             <td class="light-text"><b>{{user.firstName}} {{user.lastName}}</b></td>
             <td class="light-text"><b>{{user.email}}</b></td>
-            <td class="light-text" *ngIf="user.teams"><b>user.teams[0].name</b></td><td class="light-text" *ngIf="!user.teams"><b></b></td>
+            <td class="light-text" *ngIf="user.teams"><b>{{user.teams[0].name}}</b></td><td class="light-text" *ngIf="!user.teams"><b></b></td>
             <td class="affirmative" *ngIf="user.active"><b>Yes</b></td><td class="negative" *ngIf="!user.active"><b>No</b></td>
             <td class="affirmative" *ngIf="user.admin"><b>Yes</b></td><td class="negative" *ngIf="!user.admin"><b>No</b></td>
             <td class="light-text"><b>{{user.status}}</b></td>
