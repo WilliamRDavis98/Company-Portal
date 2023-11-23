@@ -2,9 +2,7 @@ body {
   background-color: #051622;
   background-size: cover;
   overflow-y: hidden;
-  height: 97vh;
-  margin: 0;
-  padding: 0;
+  height: 100vh;
 }
 
 *{
@@ -57,17 +55,17 @@ text-align: left;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.team {
-  display: flex;
-  /*padding: 25mm;*/
-  padding: 110px;
-  color: red;
-  text-align: center;
-  border: red solid 4px;
-  margin-bottom: 30px;
-  margin-left: 80px;
-  margin-right: 80px;
-}
+/*.team {*/
+/*  display: flex;*/
+/*  !*padding: 25mm;*!*/
+/*  padding: 110px;*/
+/*  color: red;*/
+/*  text-align: center;*/
+/*  border: red solid 4px;*/
+/*  margin-bottom: 30px;*/
+/*  margin-left: 80px;*/
+/*  margin-right: 80px;*/
+/*}*/
