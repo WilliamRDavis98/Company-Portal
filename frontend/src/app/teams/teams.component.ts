@@ -10,12 +10,15 @@ export class TeamsComponent {
 
   protected readonly TeamComponent = TeamComponent;
 
+  //   GET companies/{id}/teams
+  //   Get Company ID from Session Storage
+
   teams = [
     {a: 1},
     {a: 1},
     {a: 1},
-    {a: 1},
-    {a: 1},
-    {a: 1},
   ];
+
+
+
 }
