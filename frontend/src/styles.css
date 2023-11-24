@@ -23,9 +23,10 @@
   --site-font: ourSiteFont;
 }
 
+
 body {
-  margin: 0;
-  background-color: var(--primary-background-color);
+  margin: 0 !important;
+  background-color: var(--primary-background-color) !important;
 }
 
 @font-face {
