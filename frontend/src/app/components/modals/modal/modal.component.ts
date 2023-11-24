@@ -11,6 +11,8 @@ export class ModalComponent {
   @Input() announcements: Announcement[] = []
 
 
+  projectId: any; 
+  
   toggleModal() {
     const overlay = document.getElementById('overlay');
     const modal = document.getElementById('modal');
@@ -21,8 +23,12 @@ export class ModalComponent {
         modal.style.display = 'none';
       } else {
         overlay.style.display = 'block';
-        modal.style.display = 'block';
+        modal.style.display = 'block'; 
       }
     }
+  }
+
+  setProjectId(projectId: any) {
+    this.projectId = projectId;
   }
 }

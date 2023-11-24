@@ -4,13 +4,15 @@
   <div class="main-container">
     <div class="proj-container">
       <h1 class="proj-title">Project for team {{teamId}}</h1>
-      <button *ngIf="isAdmin" class="proj-new-button">New</button>
+      <button *ngIf="isAdmin" (click)="openNewModal()" class="proj-new-button">New</button>
       <div class="proj-component">
         <app-project
           *ngFor="let project of projects"
           [project]="project"
+          (editClick)="openEditModal($event)"
         ></app-project>
       </div>
     </div>
   </div>
+  <app-modal [modalType]="modalType"></app-modal>
 </body>

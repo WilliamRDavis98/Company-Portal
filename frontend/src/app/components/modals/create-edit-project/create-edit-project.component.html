@@ -1,1 +1,9 @@
-<p>create-edit-project works!</p>
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <p>Project Name</p>
+    <input type="text" formControlName="projectName">
+    <br />
+    <p>Project Description</p>
+    <input type="text" formControlName="projectDescription">
+    <br />
+    <button>Submit</button>
+</form>
