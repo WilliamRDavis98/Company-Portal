@@ -20,15 +20,16 @@ export class ProjectComponent {
     this.editClick.emit(projectId);
   }
 
-  getTimeDifference(timestamp: number): string { //calculate time difference to show last updated time
-    const currentTimestamp = Date.now();
-    const difference = currentTimestamp - timestamp;
+  getTimeDifference(timestamp: string): string { //calculate time difference to show last updated time
+    const currentTimestamp = new Date().getTime();
+    const providedTimestamp = new Date(timestamp).getTime();
+    const difference = currentTimestamp - providedTimestamp;
   
     const seconds = Math.floor(difference / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-  
+
     if (days > 0) {
       return `last updated ${days} ${days === 1 ? 'day' : 'days'} ago`;
     } else if (hours > 0) {

@@ -4,7 +4,7 @@
     <!-- <div [ngClass]="checkStatus(project.active)" class="status">
       {{ project.active ? "Active" : "Inactive" }}
     </div> -->
-    <p class="timestamp">{{getTimeDifference(project.timestamp)}}</p>
+    <p class="timestamp">{{getTimeDifference(project.lastUpdated)}}</p>
   </div>
   <p class="projectDescription">{{ project.description }}</p>
   <div class="edit-button">
