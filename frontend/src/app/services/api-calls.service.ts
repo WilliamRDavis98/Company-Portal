@@ -134,4 +134,9 @@ export class ApiCallsService {
     let requestUrl: string = this.apiUrl + `/companies/${cId}/teams/${tId}/projects`;
     return this.http.get<Project[]>(requestUrl);
   }
+
+  async getProjectById(id: number) {
+    let requestUrl: string = this.apiUrl + `/projects/${id}`;
+    return this.http.get<Project[]>(requestUrl);
+  }
 }

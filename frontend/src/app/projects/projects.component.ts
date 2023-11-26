@@ -57,7 +57,6 @@ export class ProjectsComponent {
   ngOnInit(): void {
     if (this.teamId) {
       this.getProjects(this.teamId, this.companiesId);
-      console.log(this.projects);
     }
   }
 
@@ -76,8 +75,7 @@ export class ProjectsComponent {
   getProjects = async (tId: number,cId: number) => {
     (await this.apiCallsService.getAllProjects(tId,cId)).subscribe((response) => {
       this.projects = response;
-      console.log(response);
-      
+      // console.log(response);  
     });
   };
 }
