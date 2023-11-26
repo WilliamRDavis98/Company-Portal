@@ -24,15 +24,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateAnnouncementComponent } from './components/modals/create-announcement/create-announcement.component';
 
 
-const routes: Routes = 
+const routes: Routes =
   [
-    { path: "**", component: LoginComponent }, 
-    { path: "login", component: LoginComponent }, 
+    { path: "login", component: LoginComponent },
     { path: "select-company", component: SelectCompanyComponent},
     { path: "home", component: HomeComponent},
     { path: "teams", component: TeamsComponent},
     { path: "projects", component: ProjectsComponent},
-    { path: "user-registry", component: UserRegistryComponent}
+    { path: "user-registry", component: UserRegistryComponent},
+    { path: "**", component: LoginComponent }
   ];
 
 

@@ -11,31 +11,6 @@ body {
   background-color: #051622;
 }
 
-.navbar {
-  border: #DEB992 solid 3px;
-  background-color: #051622;
-  padding-bottom: 10px;
-}
-
-.navbar-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  width: 100%;
-  padding-top: 10px;
-  color: red;
-}
-
-.navbar-content button {
-  color: red;
-}
-
-.navbar-content div {
-  color: red;
-  display: flex;
-  justify-content: left;
-}
-
 .left-image-navbar {
 text-align: left;
 }
@@ -55,17 +30,10 @@ text-align: left;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
+  margin-left: 55px;
 }
 
-/*.team {*/
-/*  display: flex;*/
-/*  !*padding: 25mm;*!*/
-/*  padding: 110px;*/
-/*  color: red;*/
-/*  text-align: center;*/
-/*  border: red solid 4px;*/
-/*  margin-bottom: 30px;*/
-/*  margin-left: 80px;*/
-/*  margin-right: 80px;*/
-/*}*/
+.create-team {
+  display: flex;
+}
