@@ -1,6 +1,12 @@
 .team-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 290px;
+  max-width: 290px;
+  min-height: 205px;
+  max-height: 205px;
   background-color: #0D3A59;
-  box-sizing: content-box;
   border-radius: 25px;
   padding: 24px;
   margin: 15px;
