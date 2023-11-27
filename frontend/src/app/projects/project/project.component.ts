@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ModalComponent } from 'src/app/components/modals/modal/modal.component';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-project',
@@ -9,14 +10,14 @@ import { ModalComponent } from 'src/app/components/modals/modal/modal.component'
 export class ProjectComponent {
 
   @ViewChild(ModalComponent) modalComponent!: ModalComponent;
-
+  isAdmin: boolean = this.dataService.activeUser!.admin;
   modalType: string = 'create-edit-project';
-
   @Input() project: any;
   // editData: any = null;
-
+  constructor(private dataService: DataService) {}
   @Output() editClick: EventEmitter<any> = new EventEmitter<any>();
   openEditModal(projectId: any) {
+    console.log(projectId)
     this.editClick.emit(projectId);
   }
 

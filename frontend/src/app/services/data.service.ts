@@ -7,5 +7,7 @@ import { Company } from '../models/company-model';
 })
 export class DataService {
   activeUser: User | null = null;
-  activeCompany: Company | null = null;
+  activeCompanyId: number | null = null;
+  teamId: number | null = null;
+  teamName: string | null = null;
 }

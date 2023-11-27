@@ -23,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateAnnouncementComponent } from './components/modals/create-announcement/create-announcement.component';
 
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'select-company', component: SelectCompanyComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'user-registry', component: UserRegistryComponent },
   { path: '**', component: LoginComponent },
 ];
+
 
 @NgModule({
   declarations: [

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiCallsService } from '../services/api-calls.service';
+import { DataService } from 'src/app/services/data.service';
 import { User } from '../models/user-model';
 
 @Component({
@@ -9,9 +10,12 @@ import { User } from '../models/user-model';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private router: Router, private apiService: ApiCallsService) {}
+  constructor(private router: Router, private apiService: ApiCallsService, private dataService: DataService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
+  
 
   username!: string;
   password!: string;

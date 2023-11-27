@@ -1,9 +1,9 @@
 <body>
   <app-nav-bar></app-nav-bar>
-  <a routerLink="/teams" class="back-link">&lt; Back</a>
+  <a *ngIf="isAdmin" routerLink="/teams" class="back-link">&lt; Back</a>
   <div class="main-container">
     <div class="proj-container">
-      <h1 class="proj-title">Project for team {{teamId}}</h1>
+      <h1 class="proj-title">{{teamName}} Projects</h1>
       <button *ngIf="isAdmin" (click)="openNewModal()" class="proj-new-button">New</button>
       <div class="proj-component">
         <app-project

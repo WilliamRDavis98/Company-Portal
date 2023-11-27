@@ -8,7 +8,8 @@
   </div>
   <p class="projectDescription">{{ project.description }}</p>
   <div class="edit-button">
-    <button (click)="openEditModal(project.id)" class="project-edit-btn">Edit</button>
+    <button *ngIf="isAdmin" (click)="openEditModal(project.id)" class="project-edit-btn">Edit</button>
+    <button *ngIf="!isAdmin" (click)="openEditModal(project.id)" class="project-edit-btn">View</button>
   </div>
 </div>
 <!-- <app-modal [modalType]="modalType"></app-modal> -->

@@ -24,6 +24,6 @@
       class="project-description-container"
     ></textarea>
     <br />
-    <button [disabled]="projectForm.get('projectName')?.value === '' || projectForm.get('projectDescription')?.value === ''">Submit</button>
+    <button *ngIf="isAdmin" [disabled]="projectForm.get('projectName')?.value === '' || projectForm.get('projectDescription')?.value === ''">Submit</button>
   </form>
 </div>

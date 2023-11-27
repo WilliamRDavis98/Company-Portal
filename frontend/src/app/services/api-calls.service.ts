@@ -4,8 +4,10 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { User } from '../models/user-model';
 import { DataService } from './data.service';
 import { Announcement } from '../models/announcement-model';
+import {Team} from "../models/team-model";
 import { Project } from '../models/project-model';
-import { Team } from "../models/team-model";
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -56,16 +58,16 @@ export class ApiCallsService {
         };
 
         // Make an Array of User Team Id's
-        let userTeams: String[] = response.teams.map((team: any) => {
-          return team.id;
+        let userTeams: any[] = response.teams.map((team: any) => {
+          return team;
         });
 
         // Use Session Storage for User object, team id's, and company id
-        sessionStorage.setItem('user', JSON.stringify(authenticatingUser));
-        sessionStorage.setItem('userTeams', JSON.stringify(userTeams));
-        sessionStorage.setItem('userCompany', response.companies[0].id);
 
+        this.dataService.activeCompanyId = response.companies[0].id
         this.dataService.activeUser = authenticatingUser;
+        this.dataService.teamId = userTeams[0].id
+        this.dataService.teamName = userTeams[0].name
 
         return authenticatingUser;
       }),
@@ -121,7 +123,7 @@ export class ApiCallsService {
     );
   }
 
-  async getAnnouncements(id: string) {
+  async getAnnouncements(id: number) {
     let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
     return this.http.get<Announcement[]>(requestUrl);
   }
@@ -133,6 +135,8 @@ export class ApiCallsService {
   }
 
   async getAllProjects(tId: number, cId: number) {
+    console.log("CompanyId for projects: ", tId)
+    console.log("TeamId for projects: ", tId)
     let requestUrl: string = this.apiUrl + `/companies/${cId}/teams/${tId}/projects`;
     return this.http.get<Project[]>(requestUrl);
   }

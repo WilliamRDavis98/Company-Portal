@@ -18,7 +18,7 @@ export class SelectCompanyComponent {
   ) {}
 
   ngOnInit(): void {
-    if (!this.dataService.activeUser) {
+    if (!this.dataService.activeUser || !this.dataService.activeUser?.admin) {
       this.router.navigateByUrl('/login');
     }
   }
@@ -29,7 +29,7 @@ export class SelectCompanyComponent {
     this.dataService.activeUser?.companies;
 
   handleSelectCompany = (company: Company) => {
-    this.dataService.activeCompany = company;
+    this.dataService.activeCompanyId = company.id;
     this.router.navigateByUrl('/home');
   };
 }

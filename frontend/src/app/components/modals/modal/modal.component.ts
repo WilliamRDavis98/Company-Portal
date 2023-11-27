@@ -34,7 +34,8 @@ export class ModalComponent {
     }
   }
 
-  setProjectId(projectId: any) {
+  setProjectId(projectId: number | undefined) {
+    console.log(projectId)
     this.projectId = projectId;
   }
 }
