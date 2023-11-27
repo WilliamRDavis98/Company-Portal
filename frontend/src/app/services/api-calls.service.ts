@@ -58,7 +58,7 @@ export class ApiCallsService {
         };
 
         // Make an Array of User Team Id's
-        let userTeams: String[] = response.teams.map((team: any) => {
+        let userTeams: number[] = response.teams.map((team: any) => {
           return team.id;
         });
 
@@ -66,7 +66,7 @@ export class ApiCallsService {
 
         this.dataService.activeCompanyId = response.companies[0].id
         this.dataService.activeUser = authenticatingUser;
-
+        this.dataService.teamId = userTeams[0]
         return authenticatingUser;
       }),
       catchError((error) => {
@@ -133,6 +133,8 @@ export class ApiCallsService {
   }
 
   async getAllProjects(tId: number, cId: number) {
+    console.log("CompanyId for projects: ", tId)
+    console.log("TeamId for projects: ", tId)
     let requestUrl: string = this.apiUrl + `/companies/${cId}/teams/${tId}/projects`;
     return this.http.get<Project[]>(requestUrl);
   }

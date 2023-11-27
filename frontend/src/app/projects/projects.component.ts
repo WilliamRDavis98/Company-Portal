@@ -29,9 +29,8 @@ export class ProjectsComponent {
   ngOnInit(): void {
     if (!this.curUser) {
       this.router.navigateByUrl("/login")
-    } else {
-      this.isAdmin = this.curUser.admin
     }
+    this.isAdmin = this.curUser!.admin
     if (this.teamId) {
       this.getProjects(this.teamId, this.companiesId!);
     }
@@ -52,7 +51,6 @@ export class ProjectsComponent {
   getProjects = async (tId: number,cId: number) => {
     (await this.apiCallsService.getAllProjects(tId,cId)).subscribe((response) => {
       this.projects = response;
-      // console.log(response);  
     });
   };
 

@@ -23,9 +23,7 @@ export class LoginComponent {
 
   onSubmit() {
     console.log('Username: ', this.username, ', Password:', this.password);
-    this.dataService.activeCompanyId = null;
-    this.dataService.activeUser = null;
-    this.dataService.teamId = null;
+
     this.apiService.login(this.username, this.password).then((response) => {
       response.subscribe(
         (user) => {

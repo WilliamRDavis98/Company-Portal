@@ -8,6 +8,7 @@ import {
 import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { DataService } from 'src/app/services/data.service';
 import { Project } from 'src/app/models/project-model';
+import { User } from 'src/app/models/user-model';
 
 @Component({
   selector: 'app-create-edit-project',
@@ -28,6 +29,8 @@ export class CreateEditProjectComponent implements OnInit {
 
   constructor(private apiCallsService: ApiCallsService, private dataService: DataService) {}
   ngOnInit(): void {
+    console.log("IsAdmin: ", this.isAdmin)
+    console.log("loading: ", this.loading)
   }
 
   ngAfterContentEmit(): void {
@@ -100,7 +103,7 @@ export class CreateEditProjectComponent implements OnInit {
     // console.log(newName);
     // console.log(newDescription);
 
-    const storedUser = this.dataService.activeUser;
+    const storedUser: User = this.dataService.activeUser!;
     if (storedUser) {
       const username = storedUser.username
       const password = storedUser.password
