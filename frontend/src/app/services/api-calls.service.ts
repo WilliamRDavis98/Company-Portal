@@ -160,4 +160,29 @@ export class ApiCallsService {
     return this.http.get<any[]>(url);
   }
 
+  async validateUsernameAvailable(username: string){
+    let requestUrl: string = this.apiUrl + `/validate/username/available/${username}`;
+    return this.http.get<boolean>(requestUrl)
+  }
+
+  async createUser(user: User, companyId: number) {
+    console.log("Creating user")
+    let requestBody = {
+        credentials: {
+          username: user.username,
+          password: user.password
+        },
+        profile: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email:user.email,
+          phone: user.phoneNumber
+        },
+        companyId: companyId,
+        isAdmin: user.admin,
+      }
+      console.log(requestBody)
+    let requestUrl: string = this.apiUrl + `/users`;
+    return this.http.post<Object>(requestUrl, requestBody);
+  }
 }
