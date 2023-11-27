@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/announcements")
 @RequiredArgsConstructor
+@CrossOrigin(origins="*")
 public class AnnouncementController {
 	
 	private final AnnouncementService announcementService;
@@ -18,6 +19,11 @@ public class AnnouncementController {
 	@PostMapping("/{companyId}")
 	public AnnouncementDto addAnnouncement(@PathVariable Long companyId, @RequestBody AnnouncementRequestDto announcementRequest) {
 		return announcementService.addAnnouncement(companyId, announcementRequest);
+	}
+
+	@PatchMapping("/{announcementId}")
+	public AnnouncementDto updateAnnouncement(@PathVariable Long announcementId, @RequestBody AnnouncementRequestDto announcementRequest) {
+		return announcementService.updateAnnouncement(announcementId, announcementRequest);
 	}
 
 }

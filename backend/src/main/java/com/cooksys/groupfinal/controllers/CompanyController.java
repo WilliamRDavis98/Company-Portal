@@ -1,35 +1,30 @@
 package com.cooksys.groupfinal.controllers;
 
 import java.util.List;
-import java.util.Set;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.cooksys.groupfinal.dtos.AnnouncementDto;
+import com.cooksys.groupfinal.dtos.BasicUserDto;
+import com.cooksys.groupfinal.dtos.CompanyDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
 import com.cooksys.groupfinal.dtos.ProjectDto;
-import com.cooksys.groupfinal.dtos.ProjectRequestDto;
 import com.cooksys.groupfinal.dtos.TeamDto;
-import com.cooksys.groupfinal.dtos.*;
-
 import com.cooksys.groupfinal.services.CompanyService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/companies")
 @RequiredArgsConstructor
+@CrossOrigin(origins="*")
 public class CompanyController {
+
 	
 	private final CompanyService companyService;
 	
 	@GetMapping("/{id}/users")
-    public List<FullUserDto> getAllUsers(@PathVariable Long id) {
+    public List<BasicUserDto> getAllUsers(@PathVariable Long id) {
         return companyService.getAllUsers(id);
     }
 	
@@ -61,6 +56,11 @@ public class CompanyController {
     @PostMapping("/{companyId}/teams")
     public TeamDto addTeamToCompany(@PathVariable Long companyId, @RequestBody TeamDto teamDto) {
         return companyService.addTeamToCompany(companyId, teamDto);
+    }
+
+    @GetMapping("/{companyId}")
+    public CompanyDto getCompanyById(@PathVariable Long companyId) {
+        return companyService.getCompanyById(companyId);
     }
 
 }

@@ -1,47 +1,58 @@
 package com.cooksys.groupfinal.services.impl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-import com.cooksys.groupfinal.dtos.*;
-import com.cooksys.groupfinal.entities.*;
-import com.cooksys.groupfinal.exceptions.BadRequestException;
-import com.cooksys.groupfinal.exceptions.NotAuthorizedException;
-import com.cooksys.groupfinal.mappers.*;
-import com.cooksys.groupfinal.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.AnnouncementDto;
+import com.cooksys.groupfinal.dtos.BasicUserDto;
+import com.cooksys.groupfinal.dtos.CompanyDto;
+import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.FullUserDto;
+import com.cooksys.groupfinal.dtos.ProfileDto;
 import com.cooksys.groupfinal.dtos.ProjectDto;
-import com.cooksys.groupfinal.dtos.ProjectRequestDto;
 import com.cooksys.groupfinal.dtos.TeamDto;
 import com.cooksys.groupfinal.entities.Announcement;
 import com.cooksys.groupfinal.entities.Company;
+import com.cooksys.groupfinal.entities.Profile;
 import com.cooksys.groupfinal.entities.Project;
 import com.cooksys.groupfinal.entities.Team;
 import com.cooksys.groupfinal.entities.User;
+import com.cooksys.groupfinal.exceptions.BadRequestException;
+import com.cooksys.groupfinal.exceptions.NotAuthorizedException;
 import com.cooksys.groupfinal.exceptions.NotFoundException;
-
+import com.cooksys.groupfinal.mappers.AnnouncementMapper;
+import com.cooksys.groupfinal.mappers.BasicUserMapper;
+import com.cooksys.groupfinal.mappers.CompanyMapper;
+import com.cooksys.groupfinal.mappers.FullUserMapper;
+import com.cooksys.groupfinal.mappers.ProfileMapper;
+import com.cooksys.groupfinal.mappers.ProjectMapper;
+import com.cooksys.groupfinal.mappers.TeamMapper;
 import com.cooksys.groupfinal.repositories.CompanyRepository;
-import com.cooksys.groupfinal.repositories.ProjectRepository;
 import com.cooksys.groupfinal.repositories.TeamRepository;
+import com.cooksys.groupfinal.repositories.UserRepository;
 import com.cooksys.groupfinal.services.CompanyService;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
 	
-  private final CompanyMapper companyMapper;
+	private final CompanyMapper companyMapper;
 	private final CompanyRepository companyRepository;
-  private final TeamMapper teamMapper;
+	private final TeamMapper teamMapper;
 	private final TeamRepository teamRepository;
-  private final BasicUserMapper basicUserMapper;
+	private final BasicUserMapper basicUserMapper;
 	private final FullUserMapper fullUserMapper;
-  private final UserRepository userRepository;
+	private final UserRepository userRepository;
 	private final AnnouncementMapper announcementMapper;
 	private final ProjectMapper projectMapper;
-	private final ProjectRepository projectRepository;
 	private final ProfileMapper profileMapper;
 
 	private Company findCompany(Long id) {
@@ -73,12 +84,12 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<FullUserDto> getAllUsers(Long id) {
+	public List<BasicUserDto> getAllUsers(Long id) {
 		Company company = findCompany(id);
 		List<User> filteredUsers = new ArrayList<>();
 		company.getEmployees().forEach(filteredUsers::add);
 		filteredUsers.removeIf(user -> !user.isActive());
-		return fullUserMapper.entitiesToFullUserDtos(filteredUsers);
+		return basicUserMapper.entitiesToBasicUserDtos(filteredUsers);
 	}
 
 	@Override
@@ -171,4 +182,13 @@ public class CompanyServiceImpl implements CompanyService {
 		return teamMapper.entityToDto(savedTeam);
 	}
 
+	@Override
+	public CompanyDto getCompanyById(Long companyId) {
+		Optional<Company> optionalCompany = companyRepository.findById(companyId);
+		if (optionalCompany.isEmpty()) {
+			throw new NotFoundException("No company found with id: " + companyId);
+		}
+		Company company = optionalCompany.get();
+		return companyMapper.entityToDto(company);
+	}
 }
