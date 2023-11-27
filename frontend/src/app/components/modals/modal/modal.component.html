@@ -26,6 +26,6 @@
         <app-create-team></app-create-team>
     </ng-container>
     <ng-container *ngIf="modalType === 'create-user'">
-        <app-create-user></app-create-user>
+        <app-create-user (addedUser)="checkChildForData($event)"></app-create-user>
     </ng-container>
 </div>

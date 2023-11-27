@@ -10,7 +10,11 @@ export class ModalComponent {
   @Input() modalType: string = '';
   @Input() announcements: Announcement[] = []
   @Output() refreshList: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addedData = new EventEmitter<any>();
 
+  public checkChildForData(event: any): void {
+    this.addedData.emit(event)
+  }
 
   projectId: any; 
   
