@@ -7,10 +7,9 @@
   <ng-container *ngFor="let team of teams">
     <app-team class="team" [teamData]="team"></app-team>
   </ng-container>
-  <div class="create-team" (click)="openNewTeamModal()">
-    <app-modal></app-modal>
-  </div>
+  <app-team class="team" [teamData]="teams[0]"></app-team>
 </div>
 </body>
 
-
+<!--<app-modal [modalType]="modalType"></app-modal>-->
+<!--<button (click)="toggleModal()">+</button>-->

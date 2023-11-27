@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ApiCallsService } from '../services/api-calls.service';
+import {ModalComponent} from "../components/modals/modal/modal.component";
 
 @Component({
   selector: 'app-teams',
@@ -9,7 +10,9 @@ import { ApiCallsService } from '../services/api-calls.service';
 export class TeamsComponent implements OnInit {
   teams: any[] = [];
   CompanyID: any | null;
-  openNewTeamModal(): void {}
+  modalType: string = 'create-team';
+  @ViewChild(ModalComponent) modalComponent!: ModalComponent;
+
 
   constructor(private apiCallsService: ApiCallsService) {}
 
@@ -34,5 +37,8 @@ export class TeamsComponent implements OnInit {
         },
       );
     }
+  }
+  toggleModal(){
+    this.modalComponent.toggleModal()
   }
 }

@@ -30,8 +30,7 @@ text-align: left;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-left: 55px;
+  justify-content: space-between;
 }
 
 .create-team {
