@@ -21,4 +21,9 @@ public class AnnouncementController {
 		return announcementService.addAnnouncement(companyId, announcementRequest);
 	}
 
+	@PatchMapping("/{announcementId}")
+	public AnnouncementDto updateAnnouncement(@PathVariable Long announcementId, @RequestBody AnnouncementRequestDto announcementRequest) {
+		return announcementService.updateAnnouncement(announcementId, announcementRequest);
+	}
+
 }
