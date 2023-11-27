@@ -2,6 +2,7 @@ package com.cooksys.groupfinal.controllers;
 
 import com.cooksys.groupfinal.dtos.AnnouncementDto;
 import com.cooksys.groupfinal.dtos.AnnouncementRequestDto;
+import com.cooksys.groupfinal.dtos.CredentialsDto;
 import org.springframework.web.bind.annotation.*;
 
 import com.cooksys.groupfinal.services.AnnouncementService;
@@ -24,6 +25,11 @@ public class AnnouncementController {
 	@PatchMapping("/{announcementId}")
 	public AnnouncementDto updateAnnouncement(@PathVariable Long announcementId, @RequestBody AnnouncementRequestDto announcementRequest) {
 		return announcementService.updateAnnouncement(announcementId, announcementRequest);
+	}
+
+	@DeleteMapping("/{announcementId}")
+	public AnnouncementDto deleteAnnouncement(@PathVariable Long announcementId, @RequestBody CredentialsDto credentialsRequest) {
+		return announcementService.deleteAnnouncementById(announcementId, credentialsRequest);
 	}
 
 }

@@ -28,6 +28,8 @@ public class Announcement {
 	private String title;
 	
 	private String message;
+
+	private Boolean deleted = false;
 	
 	@ManyToOne
 	private Company company;

@@ -33,14 +33,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-  
 
 	private final UserRepository userRepository;
 	private final FullUserMapper fullUserMapper;
 	private final CredentialsMapper credentialsMapper;
 	private final UserMapper userMapper;
 	private final CompanyRepository companyRepository;
-  private final TeamMapper teamMapper;
+  	private final TeamMapper teamMapper;
 
 	private User findUser(String username) {
 		Optional<User> user = userRepository.findByCredentialsUsernameAndActiveTrue(username);
@@ -82,7 +81,6 @@ public class UserServiceImpl implements UserService {
 		Set<User> uniqueUsers = new HashSet<>(users);
 		List<User> noDuplicateUsers = new ArrayList<>(uniqueUsers);
 		return userMapper.entitiesToDtos(noDuplicateUsers);
-
 	}
 
 	@Override
