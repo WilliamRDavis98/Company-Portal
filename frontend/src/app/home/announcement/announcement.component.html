@@ -1,1 +1,5 @@
-<p>announcement works!</p>
+<div class="announcement">
+    <p class="name">{{ user.firstName }}, CEO</p>
+    <p class="date">{{ months[date.getMonth()] }} {{ date.getDate() }}, {{ date.getFullYear() }}</p>
+    <p class="message">{{ announcement.message }}</p>
+</div>
