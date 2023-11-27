@@ -69,6 +69,11 @@ public class UserController {
         // because I can't return two different types, I opted to return a fullUserDto
         // and we can basically delete any info that the non admin shouldn't see before returning the DTO
     }
+    
+    @DeleteMapping("/{userId}")
+    public FullUserDto deleteUser(@PathVariable Long userId, @RequestBody CredentialsDto credentialsDto) {
+    	return userService.deleteUser(userId,credentialsDto);
+    }
 
 }
 
