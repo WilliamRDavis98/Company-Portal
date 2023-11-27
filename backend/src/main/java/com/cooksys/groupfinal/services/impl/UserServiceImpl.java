@@ -121,12 +121,23 @@ public class UserServiceImpl implements UserService {
 			throw new BadRequestException("Company of ID " + userRequestDto.getCompanyId() + " does not exist.");
 		}
 		Company companyToAddToUser = optionalCompany.get();
-		userToSave.getCompanies().add(companyToAddToUser);
+		
+		List<Company> companies = userToSave.getCompanies();
+		companies.add(companyToAddToUser);
+		userToSave.setCompanies(companies);
+		User savedUser = userRepository.saveAndFlush(userToSave);
 
-		// save and flush with userRepository
-		userRepository.saveAndFlush(userToSave);
+		// grab the company's employees
+		List<User> currentEmployees = companyToAddToUser.getEmployees(); 
+		// add this user to that list above and set it
+		currentEmployees.add(savedUser);
+		companyToAddToUser.setEmployees(currentEmployees);
+		// save and flush
+		companyRepository.saveAndFlush(companyToAddToUser);
+		
+
 		// convert it to a responseDto from entity and return that
-		return fullUserMapper.entityToFullUserDto(userToSave);
+		return fullUserMapper.entityToFullUserDto(savedUser);
 	}
 
     @Override
