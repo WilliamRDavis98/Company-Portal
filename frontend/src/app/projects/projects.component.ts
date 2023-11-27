@@ -78,4 +78,8 @@ export class ProjectsComponent {
       // console.log(response);  
     });
   };
+
+  refreshProjects(){
+    this.getProjects(this.teamId, this.companiesId)
+  }
 }

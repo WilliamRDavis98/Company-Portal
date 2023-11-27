@@ -20,7 +20,7 @@
         <app-create-announcement [announcements]="announcements"></app-create-announcement>
     </ng-container>
     <ng-container *ngIf="modalType === 'create-edit-project'">
-        <app-create-edit-project [projId]="projectId"></app-create-edit-project>
+        <app-create-edit-project [projId]="projectId" (closeModal)="toggleModal()"></app-create-edit-project>
     </ng-container>
     <ng-container *ngIf="modalType === 'create-team'">
         <app-create-team></app-create-team>

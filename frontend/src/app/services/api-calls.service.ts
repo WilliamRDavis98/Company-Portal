@@ -139,4 +139,9 @@ export class ApiCallsService {
     let requestUrl: string = this.apiUrl + `/projects/${id}`;
     return this.http.get<Project[]>(requestUrl);
   }
+
+  async createProject(teamId: number, requestBody: Object) {
+    let requestUrl: string = this.apiUrl + `/teams/${teamId}/projects`;
+    return this.http.post<Project>(requestUrl, requestBody);
+  }
 }

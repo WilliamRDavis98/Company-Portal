@@ -24,6 +24,6 @@
       class="project-description-container"
     ></textarea>
     <br />
-    <button>Submit</button>
+    <button [disabled]="projectForm.get('projectName')?.value === '' || projectForm.get('projectDescription')?.value === ''">Submit</button>
   </form>
 </div>

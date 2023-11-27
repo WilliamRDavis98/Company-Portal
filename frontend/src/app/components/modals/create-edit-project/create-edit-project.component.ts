@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import {
   FormControl,
   FormControlName,
@@ -15,6 +15,7 @@ import { Project } from 'src/app/models/project-model';
 })
 export class CreateEditProjectComponent {
   @Input() projId: any;
+  @Output() closeModal: EventEmitter<any> = new EventEmitter<any>();
   projects: Project[] = [];
 
   loading: boolean = false;
@@ -31,7 +32,7 @@ export class CreateEditProjectComponent {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['projId'] && changes['projId'].currentValue) {
       console.log('Editing project with projId:', this.projId);
-      this.getProjectsById(this.projId);
+      this.getProjectsById(this.projId); //get project by Id from DB and show its content in modal
     } else {
       console.log('new project.');
       this.resetForm();
@@ -46,11 +47,10 @@ export class CreateEditProjectComponent {
       console.log('name: ', this.projectForm.get('projectName')?.value);
       console.log('desc: ', this.projectForm.get('projectDescription')?.value);
     } else {
-      console.log('Creating new project...');
-      console.log('id: ', this.projId);
-      console.log('name: ', this.projectForm.get('projectName')?.value);
-      console.log('desc: ', this.projectForm.get('projectDescription')?.value);
-      //post new project
+      // console.log('Creating new project...');
+      let newName = this.projectForm.get('projectName')?.value;
+      let newDescription = this.projectForm.get('projectDescription')?.value;
+      this.postNewProject(newName, newDescription); //post new project
     }
   }
 
@@ -67,7 +67,7 @@ export class CreateEditProjectComponent {
     (await this.apiCallsService.getProjectById(id)).subscribe(
       (response) => {
         this.projects = [response as unknown as Project];
-        console.log('Received Data: ', this.projects);
+        // console.log('Received Data: ', this.projects);
 
         setTimeout(() => {
           if (this.projects.length > 0) {
@@ -87,5 +87,44 @@ export class CreateEditProjectComponent {
         this.loading = false;
       }
     );
+  };
+
+  postNewProject = async (newName: string, newDescription: string) => {
+    this.loading = true;
+
+
+    // console.log(newName);
+    // console.log(newDescription);
+
+    const storedUser = sessionStorage.getItem('user');
+    if (storedUser) {
+      const { username, password } = JSON.parse(storedUser);
+      const teamId = 11
+      
+      let requestBody: Object = {
+        name: newName,
+        description: newDescription,
+        credentials: {
+          username: username,
+          password: password
+        },
+      }
+      console.log(requestBody);
+      (await this.apiCallsService.createProject(teamId, requestBody)).subscribe(
+        (response) => {
+          setTimeout(() => {
+          // console.log("data stored succesfully", response);
+          this.closeModal.emit();
+          this.resetForm();
+          this.loading = false;
+        }, 3000);
+      },(error) => {
+        console.error('Error storing new projects:', error);
+        this.loading = false;
+      })
+    } else {
+      console.error('No user data found in sessionStorage');
+      this.loading = false;
+    }
   };
 }
