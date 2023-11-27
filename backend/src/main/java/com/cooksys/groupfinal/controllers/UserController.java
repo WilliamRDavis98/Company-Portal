@@ -48,8 +48,6 @@ public class UserController {
     public List<TeamDto> getAllTeamsUserIsOn(@PathVariable Long id) {
 
         return userService.findAllTeamsByUser(id);
-        // can add some additional code to the service if we only want to return the teams of the company thats being viewed - John
-        // however, I think that would be an edge case an not needed since typically most users are just on one company
 
     }
 

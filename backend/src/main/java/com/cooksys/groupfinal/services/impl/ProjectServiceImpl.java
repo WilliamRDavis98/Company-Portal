@@ -57,4 +57,17 @@ public class ProjectServiceImpl implements ProjectService {
         return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToEdit));
 
     }
+
+    @Override
+    public ProjectDto deleteProject(Long id) {
+        Optional<Project> projectToFind = projectRepository.findById(id);
+        if (projectToFind.isEmpty()) {
+            throw new NotFoundException("This project doesn't exist");
+            // this likely won't come up because the user will be clicking on the project from the front-end
+        }
+        Project projectToDelete = projectToFind.get();
+        projectToDelete.setActive(false);
+
+        return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToDelete));
+    }
 }

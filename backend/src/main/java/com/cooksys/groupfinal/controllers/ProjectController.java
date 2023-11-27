@@ -1,6 +1,7 @@
 package com.cooksys.groupfinal.controllers;
 
 
+import com.cooksys.groupfinal.dtos.CredentialsDto;
 import com.cooksys.groupfinal.dtos.ProjectDto;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,11 @@ public class ProjectController {
 	@PatchMapping("/{id}")
 	public ProjectDto updateProject(@PathVariable Long id, @RequestBody ProjectRequestDto projectRequestDto) {
 		return projectService.updateProject(id, projectRequestDto);
+	}
+
+	@PatchMapping("/delete/{id}")
+	public ProjectDto deleteProject(@PathVariable Long id) {
+		// will add credentials as a request body if its deemed necessary, but for now will hold off
 	}
 
 }
