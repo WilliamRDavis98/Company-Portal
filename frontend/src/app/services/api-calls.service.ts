@@ -144,4 +144,9 @@ export class ApiCallsService {
     let requestUrl: string = this.apiUrl + `/teams/${teamId}/projects`;
     return this.http.post<Project>(requestUrl, requestBody);
   }
+
+  async editProject(projectId: number, requestBody: Object) {
+    let requestUrl: string = this.apiUrl + `/projects/${projectId}`;
+    return this.http.patch<Project>(requestUrl, requestBody);
+  }
 }

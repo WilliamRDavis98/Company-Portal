@@ -40,16 +40,13 @@ export class CreateEditProjectComponent {
   }
 
   onSubmit() {
+    let newName = this.projectForm.get('projectName')?.value;
+    let newDescription = this.projectForm.get('projectDescription')?.value;
     if (this.projId) {
-      console.log('Editing project ', this.projId);
-      //post project id
-      console.log('id: ', this.projId);
-      console.log('name: ', this.projectForm.get('projectName')?.value);
-      console.log('desc: ', this.projectForm.get('projectDescription')?.value);
+      // console.log('Editing project ', this.projId);
+      this.editProject(newName,newDescription);
     } else {
       // console.log('Creating new project...');
-      let newName = this.projectForm.get('projectName')?.value;
-      let newDescription = this.projectForm.get('projectDescription')?.value;
       this.postNewProject(newName, newDescription); //post new project
     }
   }
@@ -120,6 +117,40 @@ export class CreateEditProjectComponent {
         }, 3000);
       },(error) => {
         console.error('Error storing new projects:', error);
+        this.loading = false;
+      })
+    } else {
+      console.error('No user data found in sessionStorage');
+      this.loading = false;
+    }
+  };
+
+  editProject = async (newName: string, newDescription: string) => {
+    this.loading = true;
+
+    const storedUser = sessionStorage.getItem('user');
+    if (storedUser) {
+      const { username, password } = JSON.parse(storedUser);
+      const teamId = 11
+      
+      let requestBody: Object = {
+        name: newName,
+        description: newDescription,
+        credentials: {
+          username: username,
+          password: password
+        },
+      }
+      console.log(requestBody);
+      (await this.apiCallsService.editProject(this.projId, requestBody)).subscribe(
+        (response) => {
+          setTimeout(() => {
+          // console.log("data stored succesfully", response);
+          this.closeModal.emit();
+          this.loading = false;
+        }, 3000);
+      },(error) => {
+        console.error('Error updating projects:', error);
         this.loading = false;
       })
     } else {
