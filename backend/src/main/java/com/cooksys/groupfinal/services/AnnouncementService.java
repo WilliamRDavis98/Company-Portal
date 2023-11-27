@@ -6,4 +6,6 @@ import com.cooksys.groupfinal.dtos.AnnouncementRequestDto;
 public interface AnnouncementService {
 
     AnnouncementDto addAnnouncement(Long companyId, AnnouncementRequestDto announcementRequest);
+
+    AnnouncementDto updateAnnouncement(Long announcementId, AnnouncementRequestDto announcementRequest);
 }
