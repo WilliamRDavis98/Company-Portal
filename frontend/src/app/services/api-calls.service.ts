@@ -61,10 +61,8 @@ export class ApiCallsService {
         });
 
         // Use Session Storage for User object, team id's, and company id
-        sessionStorage.setItem('user', JSON.stringify(authenticatingUser));
-        sessionStorage.setItem('userTeams', JSON.stringify(userTeams));
-        sessionStorage.setItem('userCompany', response.companies[0].id);
-
+  
+        this.dataService.activeCompanyId = response.companies[0].id
         this.dataService.activeUser = authenticatingUser;
 
         return authenticatingUser;
@@ -121,7 +119,7 @@ export class ApiCallsService {
     );
   }
 
-  async getAnnouncements(id: string) {
+  async getAnnouncements(id: number) {
     let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
     return this.http.get<Announcement[]>(requestUrl);
   }

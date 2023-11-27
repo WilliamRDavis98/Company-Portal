@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-team',
@@ -9,7 +11,7 @@ export class TeamComponent implements OnInit {
   @Input() teamData: any;
 
   members: string[] = [];
-
+  constructor(private router: Router, private dataService: DataService) {}
   ngOnInit(): void {
     if (this.teamData && this.teamData.description) { // This is ensuring whitespace and empty names are omitted.
       const separators = [',', '&'];
@@ -18,5 +20,12 @@ export class TeamComponent implements OnInit {
         .map((s: string) => s.trim())
         .filter((name: string) => name !== "");
     }
+  }
+
+  handleClick() {
+    console.log("Click")
+    console.log(this.teamData.id)
+    this.dataService.teamId = this.teamData.id
+    this.router.navigateByUrl("projects")
   }
 }

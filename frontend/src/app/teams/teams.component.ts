@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiCallsService } from '../services/api-calls.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-teams',
@@ -11,12 +13,14 @@ export class TeamsComponent implements OnInit {
   CompanyID: any | null;
   openNewTeamModal(): void {}
 
-  constructor(private apiCallsService: ApiCallsService) {}
+  constructor(private router: Router, private apiCallsService: ApiCallsService, private dataService: DataService) {}
 
   ngOnInit() {
-    // this.CompanyID = sessionStorage.getItem('userCompany') || null;
-    // temp for testing
-    this.CompanyID = 6
+    let curUser = this.dataService.activeUser
+    if (!curUser || !curUser.admin) {
+      this.router.navigateByUrl("/login")
+    }
+    this.CompanyID = this.dataService.activeCompanyId
     if (this.CompanyID) {
       this.apiCallsService.getTeamsByCompanyId(this.CompanyID).subscribe(
         (teamsData) => {

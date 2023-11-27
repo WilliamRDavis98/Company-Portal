@@ -16,8 +16,9 @@ export class NavBarComponent {
   admin = this.dataService.activeUser?.admin;
 
   handleLogout = () => {
-    this.dataService.activeCompany = null;
+    this.dataService.activeCompanyId = null;
     this.dataService.activeUser = null;
+    this.dataService.teamId = null;
     this.router?.navigateByUrl('login');
   };
 }

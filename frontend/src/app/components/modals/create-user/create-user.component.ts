@@ -24,10 +24,7 @@ export class CreateUserComponent {
     admin: new FormControl<boolean>(false)
   })
 
-  curCompany: Company | null = { 
-    id: 6,
-    name: "Test",
-    description: "Test"}//this.dataService.activeCompany
+  curCompanyId: number | null = this.dataService.activeCompanyId
   passMatch: boolean = true
   validUser: boolean = true
   @Output() addedUser = new EventEmitter<any>();
@@ -65,7 +62,7 @@ export class CreateUserComponent {
       this.validUser = false
       return
     }
-    if(!this.curCompany){
+    if(!this.curCompanyId){
       return
     }
     // toggle modal
@@ -83,7 +80,7 @@ export class CreateUserComponent {
       admin: false,
       status: ""
     };
-    (await this.apiService.createUser(newUser, this.curCompany?.id)).subscribe((response) => {
+    (await this.apiService.createUser(newUser, this.curCompanyId)).subscribe((response) => {
       this.addedUser.emit(response)
     })
 

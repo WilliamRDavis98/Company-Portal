@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Announcement } from 'src/app/models/announcement-model';
 import { User } from 'src/app/models/user-model';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
+import { DataService } from 'src/app/services/data.service';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -20,13 +21,13 @@ export class CreateAnnouncementComponent {
   // get from state/session: company
   // get from session: author
 
-  constructor(private apiCallsService: ApiCallsService, private router: Router, private modalComponent: ModalComponent) {}
+  constructor(private apiCallsService: ApiCallsService, private router: Router, private modalComponent: ModalComponent, private dataService: DataService) {}
   
   ngOnInit(): void {}
 
   async onSubmit() {
-    let user: User = JSON.parse(sessionStorage.getItem("user") as string);
-    let companyId: number = parseInt(sessionStorage.getItem("userCompany") as string);
+    let user: User = this.dataService.activeUser!;
+    let companyId: number = this.dataService.activeCompanyId!;
     if (!user) {
       this.router.navigateByUrl("");
     } else if (!companyId) {

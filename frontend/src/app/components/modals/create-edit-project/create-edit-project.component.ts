@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   FormControl,
   FormControlName,
@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
+import { DataService } from 'src/app/services/data.service';
 import { Project } from 'src/app/models/project-model';
 
 @Component({
@@ -13,11 +14,11 @@ import { Project } from 'src/app/models/project-model';
   templateUrl: './create-edit-project.component.html',
   styleUrls: ['./create-edit-project.component.css'],
 })
-export class CreateEditProjectComponent {
+export class CreateEditProjectComponent implements OnInit {
   @Input() projId: any;
   @Output() closeModal: EventEmitter<any> = new EventEmitter<any>();
   projects: Project[] = [];
-
+  isAdmin: boolean = this.dataService.activeUser!.admin;
   loading: boolean = false;
 
   projectForm: FormGroup = new FormGroup({
@@ -25,11 +26,17 @@ export class CreateEditProjectComponent {
     projectDescription: new FormControl<string>('', [Validators.required]),
   });
 
-  constructor(private apiCallsService: ApiCallsService) {}
+  constructor(private apiCallsService: ApiCallsService, private dataService: DataService) {}
+  ngOnInit(): void {
+  }
 
-  ngOnInit(): void {}
+  ngAfterContentEmit(): void {
+    console.log('initing project with projId:', this.projId);
+    this.getProjectsById(this.projId); //get project by Id from DB and show its content in modal
+  }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log("OnChanges")
     if (changes['projId'] && changes['projId'].currentValue) {
       console.log('Editing project with projId:', this.projId);
       this.getProjectsById(this.projId); //get project by Id from DB and show its content in modal
@@ -93,10 +100,11 @@ export class CreateEditProjectComponent {
     // console.log(newName);
     // console.log(newDescription);
 
-    const storedUser = sessionStorage.getItem('user');
+    const storedUser = this.dataService.activeUser;
     if (storedUser) {
-      const { username, password } = JSON.parse(storedUser);
-      const teamId = 11
+      const username = storedUser.username
+      const password = storedUser.password
+      const teamId = this.dataService.teamId
       
       let requestBody: Object = {
         name: newName,
@@ -107,7 +115,7 @@ export class CreateEditProjectComponent {
         },
       }
       console.log(requestBody);
-      (await this.apiCallsService.createProject(teamId, requestBody)).subscribe(
+      (await this.apiCallsService.createProject(teamId!, requestBody)).subscribe(
         (response) => {
           setTimeout(() => {
           // console.log("data stored succesfully", response);
@@ -128,10 +136,11 @@ export class CreateEditProjectComponent {
   editProject = async (newName: string, newDescription: string) => {
     this.loading = true;
 
-    const storedUser = sessionStorage.getItem('user');
+    const storedUser = this.dataService.activeUser;
     if (storedUser) {
-      const { username, password } = JSON.parse(storedUser);
-      const teamId = 11
+      const username = storedUser.username
+      const password = storedUser.password
+      const teamId = this.dataService.teamId
       
       let requestBody: Object = {
         name: newName,

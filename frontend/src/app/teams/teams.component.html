@@ -5,7 +5,7 @@
 <h1 class="page-title">Teams</h1>
 <div class="teams-container">
   <ng-container *ngFor="let team of teams">
-    <app-team class="team" [teamData]="team"></app-team>
+    <app-team class="team" [teamData]="team" ></app-team>
   </ng-container>
   <div class="create-team" (click)="openNewTeamModal()">
     <app-modal></app-modal>
