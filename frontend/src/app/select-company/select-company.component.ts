@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { Router } from '@angular/router';
+import { Company } from '../models/company-model';
+import { User } from '../models/user-model';
+import { ApiCallsService } from '../services/api-calls.service';
 
 @Component({
   selector: 'app-select-company',
@@ -6,8 +11,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./select-company.component.css'],
 })
 export class SelectCompanyComponent {
-  companies = ['chik-fil-a', 'wal-mart', 'fedex'];
-  handleSelectCompany = (company: string) => {
-    console.log(company);
+  constructor(
+    private api: ApiCallsService,
+    private dataService: DataService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    if (!this.dataService.activeUser) {
+      this.router.navigateByUrl('/login');
+    }
+  }
+
+  activeUser: User | null = this.dataService.activeUser;
+
+  companies: Array<Company> | undefined =
+    this.dataService.activeUser?.companies;
+
+  handleSelectCompany = (company: Company) => {
+    this.dataService.activeCompany = company;
+    this.router.navigateByUrl('/home');
   };
 }

@@ -17,24 +17,21 @@ import { CreateUserComponent } from './components/modals/create-user/create-user
 import { AnnouncementComponent } from './home/announcement/announcement.component';
 import { TeamComponent } from './teams/team/team.component';
 import { ProjectComponent } from './projects/project/project.component';
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes } from '@angular/router';
 import { ModalComponent } from './components/modals/modal/modal.component';
-import { FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateAnnouncementComponent } from './components/modals/create-announcement/create-announcement.component';
 
-
-const routes: Routes = 
-  [
-    { path: "**", component: LoginComponent }, 
-    { path: "login", component: LoginComponent }, 
-    { path: "select-company", component: SelectCompanyComponent},
-    { path: "home", component: HomeComponent},
-    { path: "teams", component: TeamsComponent},
-    { path: "projects", component: ProjectsComponent},
-    { path: "user-registry", component: UserRegistryComponent}
-  ];
-
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'select-company', component: SelectCompanyComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'teams', component: TeamsComponent },
+  { path: 'projects', component: ProjectsComponent },
+  { path: 'user-registry', component: UserRegistryComponent },
+  { path: '**', component: LoginComponent },
+];
 
 @NgModule({
   declarations: [
@@ -62,9 +59,9 @@ const routes: Routes =
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
