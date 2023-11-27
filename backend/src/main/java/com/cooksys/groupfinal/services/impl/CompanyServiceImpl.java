@@ -182,4 +182,13 @@ public class CompanyServiceImpl implements CompanyService {
 		return teamMapper.entityToDto(savedTeam);
 	}
 
+	@Override
+	public CompanyDto getCompanyById(Long companyId) {
+		Optional<Company> optionalCompany = companyRepository.findById(companyId);
+		if (optionalCompany.isEmpty()) {
+			throw new NotFoundException("No company found with id: " + companyId);
+		}
+		Company company = optionalCompany.get();
+		return companyMapper.entityToDto(company);
+	}
 }

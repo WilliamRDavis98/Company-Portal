@@ -24,4 +24,6 @@ public interface CompanyService {
     List<CompanyDto> getAllCompanies();
 
 	TeamDto addTeamToCompany(Long companyId, TeamDto teamDto);
+
+	CompanyDto getCompanyById(Long companyId);
 }
