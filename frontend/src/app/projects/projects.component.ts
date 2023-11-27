@@ -17,6 +17,7 @@ export class ProjectsComponent {
   projectId: number | undefined;
 
   teamId = this.dataService.teamId;
+  teamName = this.dataService.teamName;
 
   curUser: User | null = this.dataService.activeUser;
   companiesId: number | null = this.dataService.activeCompanyId;

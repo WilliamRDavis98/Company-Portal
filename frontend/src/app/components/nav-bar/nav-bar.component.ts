@@ -19,6 +19,7 @@ export class NavBarComponent {
     this.dataService.activeCompanyId = null;
     this.dataService.activeUser = null;
     this.dataService.teamId = null;
+    this.dataService.teamName = null;
     this.router?.navigateByUrl('login');
   };
 }

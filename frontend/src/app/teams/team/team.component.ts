@@ -28,6 +28,7 @@ export class TeamComponent implements OnInit {
     console.log("Click")
     console.log(this.teamData.id)
     this.dataService.teamId = this.teamData.id
+    this.dataService.teamName = this.teamData.name
     this.router.navigateByUrl("projects")
   }
 

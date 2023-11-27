@@ -108,6 +108,7 @@ export class CreateEditProjectComponent implements OnInit {
       const username = storedUser.username
       const password = storedUser.password
       const teamId = this.dataService.teamId
+      const teamName = this.dataService.teamName
       
       let requestBody: Object = {
         name: newName,
@@ -144,6 +145,7 @@ export class CreateEditProjectComponent implements OnInit {
       const username = storedUser.username
       const password = storedUser.password
       const teamId = this.dataService.teamId
+      const teamName = this.dataService.teamName
       
       let requestBody: Object = {
         name: newName,

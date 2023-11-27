@@ -58,15 +58,17 @@ export class ApiCallsService {
         };
 
         // Make an Array of User Team Id's
-        let userTeams: number[] = response.teams.map((team: any) => {
-          return team.id;
+        let userTeams: any[] = response.teams.map((team: any) => {
+          return team;
         });
 
         // Use Session Storage for User object, team id's, and company id
 
         this.dataService.activeCompanyId = response.companies[0].id
         this.dataService.activeUser = authenticatingUser;
-        this.dataService.teamId = userTeams[0]
+        this.dataService.teamId = userTeams[0].id
+        this.dataService.teamName = userTeams[0].name
+
         return authenticatingUser;
       }),
       catchError((error) => {
