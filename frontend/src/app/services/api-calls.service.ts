@@ -5,6 +5,7 @@ import { User } from '../models/user-model';
 import { DataService } from './data.service';
 import { Announcement } from '../models/announcement-model';
 import { Project } from '../models/project-model';
+import {Team} from "../models/team-model";
 
 @Injectable({
   providedIn: 'root',
@@ -149,4 +150,14 @@ export class ApiCallsService {
     let requestUrl: string = this.apiUrl + `/projects/${projectId}`;
     return this.http.patch<Project>(requestUrl, requestBody);
   }
+  getTeamsByCompanyId(companyId: number): Observable<Team[]> {
+    let requestUrl: string = `${this.apiUrl}/companies/${companyId}/teams`;
+    return this.http.get<Team[]>(requestUrl)
+  }
+
+  getProjectsByTeamId(companyId: number, teamId: number): Observable<any[]> {
+    const url = `${this.apiUrl}/companies/${companyId}/teams/${teamId}/projects`;
+    return this.http.get<any[]>(url);
+  }
+
 }

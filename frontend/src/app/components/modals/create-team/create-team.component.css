@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 290px;
+  max-width: 290px;
+  min-height: 205px;
+  max-height: 205px;
+  border-radius: 25px;
+  padding: 24px;
+  margin: 15px;
+  border: #DEB992 solid 3px;
+}
+
