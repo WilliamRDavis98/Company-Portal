@@ -3,5 +3,5 @@ export interface Project {
     name: String,
     description: String,
     active: boolean,
-    team: number //The Team ID
+    team: any //The Team ID
 }

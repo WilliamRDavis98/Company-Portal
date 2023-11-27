@@ -4,7 +4,7 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { User } from '../models/user-model';
 import { DataService } from './data.service';
 import { Announcement } from '../models/announcement-model';
-import { Company } from '../models/company-model';
+import { Project } from '../models/project-model';
 
 @Injectable({
   providedIn: 'root',
@@ -128,5 +128,25 @@ export class ApiCallsService {
   async createAnnouncement(id: number, requestBody: Object) {
     let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
     return this.http.post<Announcement>(requestUrl, requestBody);
+  }
+
+  async getAllProjects(tId: number,cId: number) {
+    let requestUrl: string = this.apiUrl + `/companies/${cId}/teams/${tId}/projects`;
+    return this.http.get<Project[]>(requestUrl);
+  }
+
+  async getProjectById(id: number) {
+    let requestUrl: string = this.apiUrl + `/projects/${id}`;
+    return this.http.get<Project[]>(requestUrl);
+  }
+
+  async createProject(teamId: number, requestBody: Object) {
+    let requestUrl: string = this.apiUrl + `/teams/${teamId}/projects`;
+    return this.http.post<Project>(requestUrl, requestBody);
+  }
+
+  async editProject(projectId: number, requestBody: Object) {
+    let requestUrl: string = this.apiUrl + `/projects/${projectId}`;
+    return this.http.patch<Project>(requestUrl, requestBody);
   }
 }
