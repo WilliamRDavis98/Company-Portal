@@ -155,6 +155,7 @@ public class CompanyServiceImpl implements CompanyService {
 				.orElseThrow(() -> new NotFoundException("Company with id " + companyId + " was not found."));
 		Team newTeam = new Team();
 		newTeam.setName(teamDto.getName());
+		newTeam.setCompany(company);
 		newTeam.setDescription(teamDto.getDescription());
 		if (teamDto.getTeammates() != null && !teamDto.getTeammates().isEmpty()) {
 			List<User> teammates = basicUserMapper.basicDtosToEntities(teamDto.getTeammates());
