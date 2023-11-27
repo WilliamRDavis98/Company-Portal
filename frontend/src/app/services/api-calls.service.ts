@@ -5,7 +5,7 @@ import { User } from '../models/user-model';
 import { DataService } from './data.service';
 import { Announcement } from '../models/announcement-model';
 import { Project } from '../models/project-model';
-import {Team} from "../models/team-model";
+import { Team } from "../models/team-model";
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ import {Team} from "../models/team-model";
 export class ApiCallsService {
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient, private dataService: DataService) {}
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
   testUser1: User = {
     id: 1,
@@ -127,11 +127,12 @@ export class ApiCallsService {
   }
 
   async createAnnouncement(id: number, requestBody: Object) {
-    let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
+    // let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
+    let requestUrl: string = this.apiUrl + `/announcements/${id}`;
     return this.http.post<Announcement>(requestUrl, requestBody);
   }
 
-  async getAllProjects(tId: number,cId: number) {
+  async getAllProjects(tId: number, cId: number) {
     let requestUrl: string = this.apiUrl + `/companies/${cId}/teams/${tId}/projects`;
     return this.http.get<Project[]>(requestUrl);
   }
@@ -160,7 +161,7 @@ export class ApiCallsService {
     return this.http.get<any[]>(url);
   }
 
-  async validateUsernameAvailable(username: string){
+  async validateUsernameAvailable(username: string) {
     let requestUrl: string = this.apiUrl + `/validate/username/available/${username}`;
     return this.http.get<boolean>(requestUrl)
   }
@@ -168,20 +169,20 @@ export class ApiCallsService {
   async createUser(user: User, companyId: number) {
     console.log("Creating user")
     let requestBody = {
-        credentials: {
-          username: user.username,
-          password: user.password
-        },
-        profile: {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email:user.email,
-          phone: user.phoneNumber
-        },
-        companyId: companyId,
-        isAdmin: user.admin,
-      }
-      console.log(requestBody)
+      credentials: {
+        username: user.username,
+        password: user.password
+      },
+      profile: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phoneNumber
+      },
+      companyId: companyId,
+      isAdmin: user.admin,
+    }
+    console.log(requestBody)
     let requestUrl: string = this.apiUrl + `/users`;
     return this.http.post<Object>(requestUrl, requestBody);
   }

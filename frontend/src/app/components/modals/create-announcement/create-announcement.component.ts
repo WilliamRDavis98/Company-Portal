@@ -12,8 +12,6 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./create-announcement.component.css']
 })
 export class CreateAnnouncementComponent {
-  @ViewChild(ModalComponent) modalComponant!: ModalComponent;
-
   @Input() announcements: Announcement[] = []
 
   announcementForm: FormGroup = new FormGroup({
@@ -22,8 +20,8 @@ export class CreateAnnouncementComponent {
   // get from state/session: company
   // get from session: author
 
-  constructor(private apiCallsService: ApiCallsService, private router: Router) {}
-
+  constructor(private apiCallsService: ApiCallsService, private router: Router, private modalComponent: ModalComponent) {}
+  
   ngOnInit(): void {}
 
   async onSubmit() {
@@ -36,15 +34,17 @@ export class CreateAnnouncementComponent {
     }
     // service: post request to create announcement
     let requestBody: Object = {
+      title: "",
       message: this.announcementForm.controls['message'].value,
-      company: parseInt(sessionStorage.getItem("userCompany") as string),
-      author: user.id,
+      credentials: {
+        username: user.username,
+        password: user.password,
+      }
     }
     ;(await this.apiCallsService.createAnnouncement(companyId, requestBody)).subscribe((response) => {
       // update announcements array
-      this.announcements.push(response);
+      this.announcements.unshift(response);
     })
-    // toggle modal
-    this.modalComponant.toggleModal();
+    this.modalComponent.toggleModal();
   }
 }

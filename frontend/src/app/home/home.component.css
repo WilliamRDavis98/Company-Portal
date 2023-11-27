@@ -1,24 +1,36 @@
 .home {
-    background-color: #051622;
-    color: #157D7A;
-    text-align: center;
-    /* min-height: 100vh; */
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #051622;
+  color: #157d7a;
+  text-align: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.announcements {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .button {
-    background-color: #1BA098;
-    color: white;
-    padding: 5px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  background-color: #1ba098;
+  color: white;
+  padding: 5px 20px;
+  margin: auto;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 hr {
-    border-color: #DEB992;
-    display: block;
-    border-style: inset;
-    border-width: 1px;
-    margin: 0.5em 5em;
+  border-color: #deb992;
+  display: block;
+  border-style: inset;
+  border-width: 1px;
+  margin: 0.5em 5em;
 }
