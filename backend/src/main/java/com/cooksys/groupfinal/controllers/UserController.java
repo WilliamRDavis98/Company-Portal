@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 
 import com.cooksys.groupfinal.dtos.TeamDto;
+import com.cooksys.groupfinal.dtos.UserRequestDto;
+
 import org.springframework.web.bind.annotation.*;
 import com.cooksys.groupfinal.dtos.UserResponseDto;
 
@@ -27,6 +29,11 @@ public class UserController {
     public FullUserDto login(@RequestBody CredentialsDto credentialsDto) {
         return userService.login(credentialsDto);
     }
+	
+	@PatchMapping("/{userId}")
+	public UserResponseDto editUser(@PathVariable Long userId, @RequestBody UserRequestDto userRequestDto) {
+		return userService.editUser(userId,userRequestDto);
+	}
 
 //    @GetMapping
 //    public List<UserResponseDto> getAllUsers() {
