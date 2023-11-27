@@ -57,4 +57,10 @@ public class TeamServiceImpl implements TeamService {
 		throw new BadRequestException("Project already exists");
 	}
 
+	@Override
+	public boolean deleteTeam(Long teamId) {
+		// this will delete it in the database rather than switch a boolean, could change the entities if we'd like
+		return false;
+	}
+
 }

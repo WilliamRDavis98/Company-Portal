@@ -31,9 +31,11 @@ public class ProjectController {
 		return projectService.updateProject(id, projectRequestDto);
 	}
 
-	@PatchMapping("/delete/{id}")
-	public ProjectDto deleteProject(@PathVariable Long id) {
+	@DeleteMapping("/{id}")
+	public boolean deleteProject(@PathVariable Long id) {
 		// will add credentials as a request body if its deemed necessary, but for now will hold off
+		// could change to patch mapping since it's not a pure delete, not sure what standard we want for that
+		return projectService.deleteProject(id);
 	}
 
 }

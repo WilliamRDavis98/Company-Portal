@@ -156,6 +156,7 @@ public class CompanyServiceImpl implements CompanyService {
 		Team newTeam = new Team();
 		newTeam.setName(teamDto.getName());
 		newTeam.setDescription(teamDto.getDescription());
+		newTeam.setActive(true); // added for the changes to TeamDto for boolean - John
 		if (teamDto.getTeammates() != null && !teamDto.getTeammates().isEmpty()) {
 			List<User> teammates = basicUserMapper.basicDtosToEntities(teamDto.getTeammates());
 			Set<User> uniqueTeammates = new HashSet<>();

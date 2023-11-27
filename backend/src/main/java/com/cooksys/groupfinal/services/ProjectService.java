@@ -10,5 +10,5 @@ public interface ProjectService {
 
     public ProjectDto updateProject(Long id, ProjectRequestDto projectRequestDto);
 
-    public ProjectDto deleteProject(Long id);
+    public boolean deleteProject(Long id);
 }

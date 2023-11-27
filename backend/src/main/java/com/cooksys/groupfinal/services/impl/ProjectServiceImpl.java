@@ -59,7 +59,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDto deleteProject(Long id) {
+    public boolean deleteProject(Long id) {
         Optional<Project> projectToFind = projectRepository.findById(id);
         if (projectToFind.isEmpty()) {
             throw new NotFoundException("This project doesn't exist");
@@ -67,7 +67,9 @@ public class ProjectServiceImpl implements ProjectService {
         }
         Project projectToDelete = projectToFind.get();
         projectToDelete.setActive(false);
+        Project deletedProject = projectRepository.saveAndFlush(projectToDelete);
 
-        return projectMapper.entityToDto(projectRepository.saveAndFlush(projectToDelete));
+        return (deletedProject.isActive() == false);
+        // shows that the project was successfully deleted/inactivated
     }
 }

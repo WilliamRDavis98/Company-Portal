@@ -28,6 +28,8 @@ public class Team {
 	private String name;
 	
 	private String description;
+
+	private boolean isActive;
 	
 	@ManyToOne
 	private Company company;
