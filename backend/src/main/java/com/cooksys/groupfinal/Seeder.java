@@ -42,7 +42,9 @@ public class Seeder implements CommandLineRunner {
 	  
 	  Company company1 = new Company();
 	  Company company2 = new Company();
-	  
+	  Company company3 = new Company();
+	  Company company4 = new Company();
+
 	  Project project1 = new Project();
 	  Project project2 = new Project();
 	  Project project3 = new Project();
@@ -210,14 +212,28 @@ public class Seeder implements CommandLineRunner {
 	  user12.setProfile(profile12);
 	  user12.setActive(true);
 	  user12.setAdmin(true);
+
+	  User user13 = new User();
+	  Credentials creds13 = new Credentials();
+	  creds13.setUsername("superadmin");
+	  creds13.setPassword("password");
+	  user13.setCredentials(creds13);
+	  Profile profile13 = new Profile();
+	  profile13.setFirstName("Super");
+	  profile13.setLastName("Admin");
+	  profile13.setEmail("superadmin@email.com");
+	  profile13.setPhone("(222) 222-2222");
+	  user13.setProfile(profile13);
+	  user13.setActive(true);
+	  user13.setAdmin(true);
 	  
 	  announcementRepository.saveAllAndFlush(Arrays.asList(
 	  		new Announcement[] { announcement1, announcement2, announcement3, announcement4, announcement5 }));
-	  companyRepository.saveAllAndFlush(Arrays.asList(new Company[] { company1, company2 }));
+	  companyRepository.saveAllAndFlush(Arrays.asList(new Company[] { company1, company2, company3, company4 }));
 	  projectRepository.saveAllAndFlush(Arrays.asList(new Project[] { project1, project2, project3 }));
 	  teamRepository.saveAllAndFlush(Arrays.asList(new Team[] { team1, team2, team3, team4, team5, team6, team7 }));
 	  userRepository.saveAllAndFlush(Arrays.asList(
-			  new User[] { user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12 }));
+			  new User[] { user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12, user13 }));
 	  
 	  announcement1.setTitle("Welcome to waystar|ROYCO!");
 	  announcement1.setMessage("We are waystar|ROYCO, the future of media, entertainment, and theme parks!");
@@ -247,14 +263,26 @@ public class Seeder implements CommandLineRunner {
 	  company1.setName("waystar|ROYCO");
 	  company1.setDescription("waystar|ROYCO, the future of media, entertainment, and theme parks.");
 	  company1.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement1, announcement2)));
-	  company1.setEmployees(new ArrayList<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9)));
+	  company1.setEmployees(new ArrayList<User>(Arrays.asList(user1, user2, user3, user4, user5, user6, user7, user8, user9, user13)));
 	  company1.setTeams(new ArrayList<Team>(Arrays.asList(team1, team2, team3, team4, team5, team6)));
 	  
 	  company2.setName("Cook Systems");
 	  company2.setDescription("We are Cook Systems.");
 	  company2.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement3)));
-	  company2.setEmployees(new ArrayList<User>(Arrays.asList(user10, user11, user12)));
+	  company2.setEmployees(new ArrayList<User>(Arrays.asList(user10, user11, user12, user13)));
 	  company2.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
+
+	  company3.setName("Example Company 3");
+	  company3.setDescription("We break barriers.");
+//	  company3.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement3)));
+	  company3.setEmployees(new ArrayList<User>(Arrays.asList(user13)));
+//	  company3.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
+
+	  company4.setName("Cool Company 4");
+	  company4.setDescription("We innovate.");
+//	  company4.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement3)));
+	  company4.setEmployees(new ArrayList<User>(Arrays.asList(user13)));
+//	  company4.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
 	  
 	  project1.setName("Brightstar Theme Park Expansion");
 	  project1.setDescription("Brightstar theme park expansion to be led by newly appointed head of waystar|ROYCO's amusement park and cruise division, Tom Wambsgans.");
@@ -346,14 +374,16 @@ public class Seeder implements CommandLineRunner {
 	  user12.setAnnouncements(new ArrayList<Announcement>(Arrays.asList(announcement3)));
 	  user12.setCompanies(new ArrayList<Company>(Arrays.asList(company2)));
 	  user12.setTeams(new ArrayList<Team>(Arrays.asList(team7)));
+
+	  user13.setCompanies(new ArrayList<Company>(Arrays.asList(company1, company2, company3, company4)));
 	  
 	  announcementRepository.saveAllAndFlush(Arrays.asList(
 	  		new Announcement[] { announcement1, announcement2, announcement3, announcement4, announcement5  }));
-	  companyRepository.saveAllAndFlush(Arrays.asList(new Company[] { company1, company2 }));
+	  companyRepository.saveAllAndFlush(Arrays.asList(new Company[] { company1, company2, company3, company4 }));
 	  projectRepository.saveAllAndFlush(Arrays.asList(new Project[] { project1, project2, project3 }));
 	  teamRepository.saveAllAndFlush(Arrays.asList(new Team[] { team1, team2, team3, team4, team5, team6, team7 }));
 	  userRepository.saveAllAndFlush(Arrays.asList(
-			  new User[] { user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12 }));
+			  new User[] { user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11, user12, user13 }));
 
   }
 
