@@ -265,25 +265,28 @@ public class UserServiceImpl implements UserService {
 			throw new NotFoundException("The user to delete does not exist or is already set to inactive.");
 		}
 		
-		userToDelete.get().setActive(false);
-		userRepository.saveAndFlush(userToDelete.get());
 		
+		List<Company> checkCompanys = userToDelete.get().getCompanies();
 		List<Team> checkTeams = userToDelete.get().getTeams();
+		
+		
 		for(Team team: checkTeams) {
 			List<User> newTeam = team.getTeammates();
 			newTeam.remove(userToDelete.get());
 			team.setTeammates(newTeam);
 		}
-		teamRepository.saveAllAndFlush(checkTeams);
-		
-		List<Company> checkCompanys = userToDelete.get().getCompanies();
+		teamRepository.saveAllAndFlush(checkTeams);		
 		for (Company company: checkCompanys) {
 			List<User> newPayroll = company.getEmployees();
 			newPayroll.remove(userToDelete.get());
 			company.setEmployees(newPayroll);
 		}
-		companyRepository.saveAllAndFlush(checkCompanys);
+		companyRepository.saveAllAndFlush(checkCompanys);	
 		
+		userToDelete.get().setActive(false);
+		userToDelete.get().setCompanies(null);
+		userToDelete.get().setTeams(null);
+		userRepository.saveAndFlush(userToDelete.get());
 		
 		return userMapper.entityToDto(userRepository.findById(userId).get());
 	}
