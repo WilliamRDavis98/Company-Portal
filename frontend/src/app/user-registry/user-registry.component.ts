@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalComponent } from '../components/modals/modal/modal.component';
 import { ApiCallsService } from '../services/api-calls.service';
+import { DataService } from 'src/app/services/data.service';
 import { User } from '../models/user-model';
 
 @Component({
@@ -8,83 +10,57 @@ import { User } from '../models/user-model';
   templateUrl: './user-registry.component.html',
   styleUrls: ['./user-registry.component.css'],
 })
-export class UserRegistryComponent {
+export class UserRegistryComponent implements OnInit {
   @ViewChild(ModalComponent) modalComponent!: ModalComponent;
-  constructor(private apiService: ApiCallsService) {}
+  constructor(private router: Router, private apiService: ApiCallsService, private dataService: DataService) { }
 
-  users: Array<User> = [
-    {
-      id: 1,
-      username: 'chrisP',
-      password: 'pass',
-      firstName: 'Chris',
-      lastName: 'Purnell',
-      email: 'yocrizzle@gmail.com',
-      phoneNumber: '1111111111',
-      admin: true,
-      active: true,
-      status: 'JOINED',
-      companies: [],
-      teams: [],
-    },
-    {
-      id: 2,
-      username: 'willM',
-      password: 'pass',
-      firstName: 'Will',
-      lastName: 'Marttala',
-      email: 'wamizzle@gmail.com',
-      phoneNumber: '9999999999',
-      admin: false,
-      active: false,
-      status: 'PENDING',
-      companies: [],
-      teams: [],
-    },
-  ];
+  users: Array<User> = [];
   modalType: string = 'create-user';
   showModal: boolean = false;
   companyId: number = 0;
+  addedUser: any = null;
 
-  curUser: User | null = null;
-
+  curUser: User | null = this.dataService.activeUser;
+  curCompanyId: number | null = this.dataService.activeCompanyId;
   ngOnInit(): void {
     // get the session user
     this.users = [];
-    let userSessionString = sessionStorage.getItem('user');
-
-    // For debug until session storage is fully implemented
-    let DEBUG = true;
-    if (DEBUG) {
-      this.apiService.getCompanyUsers(6).then((response) => {
-        response.subscribe((users) => {
-          this.users = users as User[];
-        });
-      });
-    }
-    if (userSessionString) {
-      console.log("Found current session's user...");
-      this.curUser = JSON.parse(userSessionString);
-      // get user company
-      if (this.curUser?.companies) {
-        console.log("Found current session's company...");
-        // get company users
+    if (this.curUser) {
+      if (this.curUser.admin) {
         this.apiService
-          .getCompanyUsers(this.curUser?.companies[0].id!)
+          .getCompanyUsers(this.curCompanyId!)
           .then((response) => {
             response.subscribe((users) => {
               this.users = users as User[];
             });
           });
       } else {
-        console.log('User has no company');
+        this.router.navigateByUrl("/home")
       }
     } else {
-      console.log('No current user found');
+      this.router.navigateByUrl("/login")
     }
   }
 
   toggleModal() {
     this.modalComponent.toggleModal();
   }
+
+  public checkChildForData(event: any): void {
+    console.log(event)
+    let addingUser: User = {
+      id: 0,
+      username: event.profile.username,
+      password: '',
+      firstName: event.profile.firstName,
+      lastName: event.profile.lastName,
+      email: event.profile.email,
+      active: event.active,
+      admin: event.admin,
+      status: event.status
+    }
+    this.users.push(addingUser)
+  }
 }
+
+

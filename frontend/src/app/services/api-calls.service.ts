@@ -5,6 +5,9 @@ import { User } from '../models/user-model';
 import { DataService } from './data.service';
 import { Announcement } from '../models/announcement-model';
 import {Team} from "../models/team-model";
+import { Project } from '../models/project-model';
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +15,7 @@ import {Team} from "../models/team-model";
 export class ApiCallsService {
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient, private dataService: DataService) {}
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
   testUser1: User = {
     id: 1,
@@ -60,10 +63,8 @@ export class ApiCallsService {
         });
 
         // Use Session Storage for User object, team id's, and company id
-        sessionStorage.setItem('user', JSON.stringify(authenticatingUser));
-        sessionStorage.setItem('userTeams', JSON.stringify(userTeams));
-        sessionStorage.setItem('userCompany', response.companies[0].id);
 
+        this.dataService.activeCompanyId = response.companies[0].id
         this.dataService.activeUser = authenticatingUser;
 
         return authenticatingUser;
@@ -120,16 +121,36 @@ export class ApiCallsService {
     );
   }
 
-  async getAnnouncements(id: string) {
+  async getAnnouncements(id: number) {
     let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
     return this.http.get<Announcement[]>(requestUrl);
   }
 
   async createAnnouncement(id: number, requestBody: Object) {
-    let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
+    // let requestUrl: string = this.apiUrl + `/companies/${id}/announcements`;
+    let requestUrl: string = this.apiUrl + `/announcements/${id}`;
     return this.http.post<Announcement>(requestUrl, requestBody);
   }
 
+  async getAllProjects(tId: number, cId: number) {
+    let requestUrl: string = this.apiUrl + `/companies/${cId}/teams/${tId}/projects`;
+    return this.http.get<Project[]>(requestUrl);
+  }
+
+  async getProjectById(id: number) {
+    let requestUrl: string = this.apiUrl + `/projects/${id}`;
+    return this.http.get<Project[]>(requestUrl);
+  }
+
+  async createProject(teamId: number, requestBody: Object) {
+    let requestUrl: string = this.apiUrl + `/teams/${teamId}/projects`;
+    return this.http.post<Project>(requestUrl, requestBody);
+  }
+
+  async editProject(projectId: number, requestBody: Object) {
+    let requestUrl: string = this.apiUrl + `/projects/${projectId}`;
+    return this.http.patch<Project>(requestUrl, requestBody);
+  }
   getTeamsByCompanyId(companyId: number): Observable<Team[]> {
     let requestUrl: string = `${this.apiUrl}/companies/${companyId}/teams`;
     return this.http.get<Team[]>(requestUrl)
@@ -140,4 +161,29 @@ export class ApiCallsService {
     return this.http.get<any[]>(url);
   }
 
+  async validateUsernameAvailable(username: string) {
+    let requestUrl: string = this.apiUrl + `/validate/username/available/${username}`;
+    return this.http.get<boolean>(requestUrl)
+  }
+
+  async createUser(user: User, companyId: number) {
+    console.log("Creating user")
+    let requestBody = {
+      credentials: {
+        username: user.username,
+        password: user.password
+      },
+      profile: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phoneNumber
+      },
+      companyId: companyId,
+      isAdmin: user.admin,
+    }
+    console.log(requestBody)
+    let requestUrl: string = this.apiUrl + `/users`;
+    return this.http.post<Object>(requestUrl, requestBody);
+  }
 }

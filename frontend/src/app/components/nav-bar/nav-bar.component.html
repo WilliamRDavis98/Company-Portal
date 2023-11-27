@@ -1,9 +1,9 @@
 <nav class="navbar" id="navbar">
   <div class="container-fluid">
-    <a *ngIf="admin === 'true'" class="navbar-brand" routerLink="/home">
+    <a *ngIf="admin" class="navbar-brand" routerLink="/home">
       <img class="logo" src="././assets/logo.svg" /> ACTING AS ADMIN
     </a>
-    <a *ngIf="admin !== 'true'" class="navbar-brand" routerLink="/home">
+    <a *ngIf="!admin" class="navbar-brand" routerLink="/home">
       <img class="logo" src="././assets/logo.svg" />
     </a>
     <button
@@ -15,7 +15,6 @@
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
-      (click)="handleCssBorder()"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -31,32 +30,32 @@
         </li>
         <hr class="solid" />
         <li
-          *ngIf="admin === 'true'"
+          *ngIf="admin"
           class="nav-item"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
         >
           <a class="nav-link" routerLink="/teams">Teams</a>
         </li>
-        <hr *ngIf="admin === 'true'" class="solid" />
+        <hr *ngIf="admin" class="solid" />
         <li
-          *ngIf="admin === 'true'"
+          *ngIf="admin"
           class="nav-item"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
         >
-          <a class="nav-link" routerLink="/users">Users</a>
+          <a class="nav-link" routerLink="/user-registry">Users</a>
         </li>
-        <hr *ngIf="admin === 'true'" class="solid" />
+        <hr *ngIf="admin" class="solid" />
         <li
-          *ngIf="admin !== 'true'"
+          *ngIf="!admin"
           class="nav-item"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
         >
           <a class="nav-link" routerLink="/projects">Projects</a>
         </li>
-        <hr *ngIf="admin !== 'true'" class="solid" />
+        <hr *ngIf="!admin" class="solid" />
         <li
           class="nav-item"
           data-bs-toggle="collapse"

@@ -3,6 +3,7 @@ import { ModalComponent } from '../components/modals/modal/modal.component';
 import { User } from '../models/user-model';
 import { Router } from '@angular/router';
 import { ApiCallsService } from '../services/api-calls.service';
+import { DataService } from 'src/app/services/data.service';
 import { Announcement } from '../models/announcement-model';
 
 @Component({
@@ -15,32 +16,23 @@ import { Announcement } from '../models/announcement-model';
 export class HomeComponent implements OnInit {
   @ViewChild(ModalComponent) modalComponent!: ModalComponent;
 
-  user?: User;
-  companyId?: string;
+  user: User | null = this.dataService.activeUser;
+  companyId: number | null = this.dataService.activeCompanyId;
 
   modalType: string = 'create-announcement';
   announcements: Announcement[] = [];
   
-  constructor(private apiCallsService: ApiCallsService, private router: Router) { }
+  constructor(private apiCallsService: ApiCallsService, private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
     // authorize
-    this.user = JSON.parse(sessionStorage.getItem("user") as string);
     if (!this.user) {
       this.router.navigateByUrl("login");
-    } else {
-      // get current company id from state/storage
-      this.companyId = sessionStorage.getItem("userCompany") as string;
-      // get announcements
-      if (this.companyId) {
-        this.getAnnouncements(this.companyId);
-      } else {
-        this.router.navigateByUrl("select-company")
-      }
     }
+    this.getAnnouncements(this.companyId!);
   }
 
-  getAnnouncements = async (id: string) => {
+  getAnnouncements = async (id: number) => {
     (await this.apiCallsService.getAnnouncements(id)).subscribe((response) => {
       this.announcements = response;
     });

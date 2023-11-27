@@ -1,5 +1,4 @@
 <app-nav-bar></app-nav-bar>
-<app-modal style="text-align: center; width: 50vh;" [modalType]="modalType"></app-modal>
 <div class="centeredCol">
     <h1 class="light-blue-text">User Registry</h1>
     <h5 class="light-blue-text">A general view of all your members in your orginization</h5>
@@ -22,6 +21,7 @@
             <td class="light-text"><b>{{user.status}}</b></td>
         </tr>
     </table>
-
     <button class="button" (click)="toggleModal()">Add User</button>
+    <app-modal style="text-align: center; width: 50vh;" (addedData)="checkChildForData($event)" [modalType]="modalType"></app-modal>
+
 </div>

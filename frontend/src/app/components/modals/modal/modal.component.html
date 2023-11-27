@@ -20,12 +20,12 @@
         <app-create-announcement [announcements]="announcements"></app-create-announcement>
     </ng-container>
     <ng-container *ngIf="modalType === 'create-edit-project'">
-        <app-create-edit-project></app-create-edit-project>
+        <app-create-edit-project [projId]="projectId" (closeModal)="toggleModal()"></app-create-edit-project>
     </ng-container>
     <ng-container *ngIf="modalType === 'create-team'">
         <app-create-team></app-create-team>
     </ng-container>
     <ng-container *ngIf="modalType === 'create-user'">
-        <app-create-user></app-create-user>
+        <app-create-user (addedUser)="checkChildForData($event)"></app-create-user>
     </ng-container>
 </div>

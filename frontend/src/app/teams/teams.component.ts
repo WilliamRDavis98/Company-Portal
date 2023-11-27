@@ -1,31 +1,40 @@
+
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { ApiCallsService } from '../services/api-calls.service';
 import {ModalComponent} from "../components/modals/modal/modal.component";
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
+
 
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.css']
 })
-export class TeamsComponent implements OnInit {
+export class TeamsComponent {
   teams: any[] = [];
-  CompanyID: any | null;
+  CompanyID: number | null = this.dataService.activeCompanyId;
+
   modalType: string = 'create-team';
   @ViewChild(ModalComponent) modalComponent!: ModalComponent;
 
+  openNewTeamModal(): void {}
 
-  constructor(private apiCallsService: ApiCallsService) {}
+  constructor(private router: Router, private apiCallsService: ApiCallsService, private dataService: DataService) {}
 
   ngOnInit() {
-    // this.CompanyID = sessionStorage.getItem('userCompany') || null;
-    // temp for testing
-    this.CompanyID = 6
+    let curUser = this.dataService.activeUser
+    if (!curUser || !curUser.admin) {
+      this.router.navigateByUrl("/login")
+    }
+    this.CompanyID = this.dataService.activeCompanyId
+
     if (this.CompanyID) {
       this.apiCallsService.getTeamsByCompanyId(this.CompanyID).subscribe(
         (teamsData) => {
           this.teams = teamsData;
           this.teams.forEach((team) => {
-            this.apiCallsService.getProjectsByTeamId(this.CompanyID, team.id).subscribe(
+            this.apiCallsService.getProjectsByTeamId(this.CompanyID!, team.id).subscribe(
               (projects) => {
                 team.projectsCount = projects.length;
               },
@@ -38,6 +47,7 @@ export class TeamsComponent implements OnInit {
       );
     }
   }
+
   toggleModal(){
     this.modalComponent.toggleModal()
   }

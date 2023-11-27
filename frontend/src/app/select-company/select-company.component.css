@@ -24,12 +24,21 @@ img {
   background-color: white;
 }
 
+.dropdown-item {
+  width: 100px;
+}
+
 button {
   color: #5533ff;
+  padding: 6px 12px;
   border-radius: 12px;
+  font-size: 20px;
 }
 
 h1 {
   color: #1ba098;
   font-weight: 600;
+  padding-bottom: 21px;
 }
+
+

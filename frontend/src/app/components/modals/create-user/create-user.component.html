@@ -23,6 +23,10 @@
       <input type="password" placeholder="Confirm Password" formControlName="confirm">
       <br />
     </div>
+    <div class="centeredRow">
+      <div [ngClass]="{'hidden': passMatch}"><p>Passwords do not match</p></div>
+      <div [ngClass]="{'hidden': validUser}"><p>Passwords do not match</p></div>
+    </div>
   </div>
   <button>Submit</button>
 </form>

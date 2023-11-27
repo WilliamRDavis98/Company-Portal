@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,26 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent {
-  constructor(router: Router) {
-    //this.admin = 'true';
+  constructor(router: Router, private dataService: DataService) {
     this.router = router;
   }
 
   router: Router | null = null;
-  admin = sessionStorage.getItem('admin');
+  admin = this.dataService.activeUser?.admin;
 
   handleLogout = () => {
-    sessionStorage.clear;
-    this.router?.navigateByUrl('');
-  };
-
-  handleCssBorder = () => {
-    let nav = document.getElementById('navbar');
-    let button = document.getElementById('navbar-toggler');
-    let isExpanded = button?.ariaExpanded;
-    if (!nav) {
-      return;
-    }
-    //nav.style.borderStyle = isExpanded === 'true' ? 'none' : 'solid';
+    this.dataService.activeCompanyId = null;
+    this.dataService.activeUser = null;
+    this.dataService.teamId = null;
+    this.router?.navigateByUrl('login');
   };
 }

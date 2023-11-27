@@ -1,18 +1,29 @@
+:host {
+  width: 100%;
+}
+
 .project-wrapper {
     display: flex;
     flex-direction: column;
     padding: 10px;
     margin-bottom: 20px;
     color: white;
+    width: 100%;
   }
   
   .name-timestamp {
     display: flex;
     align-items: center;
   }
-  .status{
+  /* .status{
     font-size: 15px;
     margin-left: 50px;
+  } */
+
+  .timestamp {
+    margin: 0;
+    margin-right: 20px;
+    font-size: 12px;
   }
   
   .projectDescription {
@@ -44,7 +55,7 @@
   }
   
   .horizontal-line {
-    border-top: 2px solid  #DEB992; /* Adjust color and thickness as needed */
+    border-top: 2px solid  #DEB992; 
   }
   
   .projectName{
