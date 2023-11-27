@@ -13,7 +13,7 @@
         <img src="./assets/dropdown-icon.svg" class="icon" />
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropDownMenu">
-        <li class="w-100" *ngFor="let company of companies; let i = index">
+        <li *ngFor="let company of companies; let i = index">
           <a class="dropdown-item" (click)="handleSelectCompany(company)">
             {{ company.name }}
           </a>
