@@ -20,4 +20,9 @@ public class TeamController {
 		return teamService.createProject(teamId, projectRequestDto);
 	}
 
+	@DeleteMapping("/{teamId}")
+	public boolean deleteTeam(@PathVariable Long teamId) {
+		return teamService.deleteTeam(teamId);
+	}
+
 }

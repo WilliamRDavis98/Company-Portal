@@ -7,4 +7,6 @@ public interface TeamService {
 
 	ProjectDto createProject(Long teamId, ProjectRequestDto projectRequestDto);
 
+	boolean deleteTeam(Long teamId);
+
 }

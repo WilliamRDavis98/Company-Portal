@@ -3,6 +3,7 @@ package com.cooksys.groupfinal.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.cooksys.groupfinal.dtos.TeamDto;
 import org.springframework.stereotype.Service;
 
 import com.cooksys.groupfinal.dtos.CredentialsDto;
@@ -55,6 +56,28 @@ public class TeamServiceImpl implements TeamService {
 			return projectMapper.entityToDto(project); 
 		}
 		throw new BadRequestException("Project already exists");
+	}
+
+	@Override
+	public boolean deleteTeam(Long teamId) {
+
+		Optional<Team> teamToFind = teamRepository.findById(teamId);
+		if (teamToFind.isEmpty()) {
+			throw new NotFoundException("This team doesn't exist");
+			// unlike to hit given user scenario
+		}
+
+		Team teamToDelete = teamToFind.get();
+
+		if (!teamToDelete.isActive()) {
+			throw new BadRequestException("This team is already deleted");
+		}
+
+		teamToDelete.setActive(false);
+
+		Team deletedTeam = teamRepository.saveAndFlush(teamToDelete);
+
+		return (deletedTeam.isActive() == false);
 	}
 
 }

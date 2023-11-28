@@ -16,6 +16,8 @@ public class TeamDto {
 
     private String description;
 
+    private boolean isActive;
+
     private List<BasicUserDto> teammates;
 
     private CredentialsDto credentialsDto;
