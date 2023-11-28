@@ -2,14 +2,9 @@ package com.cooksys.groupfinal.controllers;
 
 import java.util.List;
 
+import com.cooksys.groupfinal.dtos.*;
 import org.springframework.web.bind.annotation.*;
 
-import com.cooksys.groupfinal.dtos.AnnouncementDto;
-import com.cooksys.groupfinal.dtos.BasicUserDto;
-import com.cooksys.groupfinal.dtos.CompanyDto;
-import com.cooksys.groupfinal.dtos.FullUserDto;
-import com.cooksys.groupfinal.dtos.ProjectDto;
-import com.cooksys.groupfinal.dtos.TeamDto;
 import com.cooksys.groupfinal.services.CompanyService;
 
 import lombok.RequiredArgsConstructor;
@@ -63,4 +58,8 @@ public class CompanyController {
         return companyService.getCompanyById(companyId);
     }
 
+    @DeleteMapping("/{companyId}")
+    public CompanyDto deleteCompany(@PathVariable Long companyId, @RequestBody CredentialsDto credentialsDto) {
+        return companyService.deleteCompany(companyId, credentialsDto);
+    }
 }
