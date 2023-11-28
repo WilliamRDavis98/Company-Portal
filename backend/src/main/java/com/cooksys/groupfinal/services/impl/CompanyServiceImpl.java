@@ -193,4 +193,47 @@ public class CompanyServiceImpl implements CompanyService {
 		Company company = optionalCompany.get();
 		return companyMapper.entityToDto(company);
 	}
+
+	@Override
+	public CompanyDto deleteCompany(Long companyId, CredentialsDto credentialsDto) {
+		Optional<User> admin = userRepository.findByCredentialsUsernameAndActiveTrue(credentialsDto.getUsername());
+		if (admin == null || credentialsDto.getPassword() == null) {
+			throw new BadRequestException("Valid credentials are required");
+		}
+
+		User adminCo = admin.get();
+		if(!credentialsDto.getPassword().equals(adminCo.getCredentials().getPassword())) {
+			throw new NotAuthorizedException("Not Authorized to perform the action.");
+		}
+		Optional<Company> companyToDelete = companyRepository.findById(companyId);
+		if (companyToDelete.isEmpty()) {
+			throw new NotFoundException("The companyId you would like to delete does noy exist in DB.");
+		}
+
+		Company company = companyToDelete.get();
+
+		List<User> employeesToDelete = company.getEmployees();
+
+		for (User employee : employeesToDelete) {
+			List<Team> teams = employee.getTeams();
+			for (Team team : teams) {
+				List<User> teammates = new ArrayList<>(team.getTeammates());
+				teammates.remove(employee);
+				team.setTeammates(teammates);
+			}
+			teamRepository.saveAllAndFlush(teams);
+		}
+
+		for (User employee : employeesToDelete) {
+			List<Company> companies = new ArrayList<>(employee.getCompanies());
+			companies.remove(company);
+			employee.setCompanies(companies);
+		}
+		userRepository.saveAllAndFlush(employeesToDelete);
+		company.setActive(false);
+		company.setEmployees(null);
+		companyRepository.saveAndFlush(company);
+
+		return companyMapper.entityToDto(company);
+	}
 }
