@@ -36,15 +36,41 @@ text-align: left;
 }
 
 .create-team {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 290px;
-  max-width: 290px;
-  min-height: 205px;
-  max-height: 205px;
+  align-items: center;
+  justify-content: center;
+  color: #DEB992;
+  width: 290px;
+  height: 205px;
   border-radius: 25px;
-  padding: 24px;
   margin: 15px;
   border: #DEB992 solid 3px;
+}
+
+.create-team::before, .create-team::after {
+  content: '';
+  position: absolute;
+  background-color: currentColor;
+}
+
+.create-team::before {
+  top: 50%;
+  left: 35%;
+  width: 30%;
+  height: 3px;
+  transform: translateY(-50%);
+}
+
+.create-team::after {
+  top: 35%;
+  left: 50%;
+  width: 3px;
+  height: 30%;
+  transform: translateX(-50%);
+}
+
+.modal-text {
+  font-size: 1.4em;
+  margin-top: 100px;
 }
