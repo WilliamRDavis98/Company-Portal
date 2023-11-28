@@ -155,6 +155,7 @@ export class ApiCallsService {
     let requestUrl: string = this.apiUrl + `/projects/${projectId}`;
     return this.http.patch<Project>(requestUrl, requestBody);
   }
+
   getTeamsByCompanyId(companyId: number): Observable<Team[]> {
     let requestUrl: string = `${this.apiUrl}/companies/${companyId}/teams`;
     return this.http.get<Team[]>(requestUrl)
@@ -172,6 +173,7 @@ export class ApiCallsService {
 
   async createUser(user: User, companyId: number) {
     console.log("Creating user")
+    console.log(user)
     let requestBody = {
       credentials: {
         username: user.username,
@@ -184,10 +186,15 @@ export class ApiCallsService {
         phone: user.phoneNumber
       },
       companyId: companyId,
-      isAdmin: user.admin,
+      admin: user.admin,
     }
     console.log(requestBody)
     let requestUrl: string = this.apiUrl + `/users`;
     return this.http.post<Object>(requestUrl, requestBody);
+  }
+
+  getTeamsByUserId(userId: number): Observable<Team[]> {
+    let requestUrl: string = `${this.apiUrl}/users/${userId}/teams`;
+    return this.http.get<Team[]>(requestUrl)
   }
 }

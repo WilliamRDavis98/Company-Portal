@@ -13,7 +13,6 @@ import { ModalComponent } from '../modal/modal.component';
   styleUrls: ['./create-announcement.component.css']
 })
 export class CreateAnnouncementComponent {
-  @ViewChild(ModalComponent) modalComponent!: ModalComponent;
   @Input() announcements: Announcement[] = []
 
   announcementForm: FormGroup = new FormGroup({
@@ -22,7 +21,7 @@ export class CreateAnnouncementComponent {
   // get from state/session: company
   // get from session: author
 
-  constructor(private apiCallsService: ApiCallsService, private router: Router, private dataService: DataService) {}
+  constructor(private modalComponent: ModalComponent, private apiCallsService: ApiCallsService, private router: Router, private dataService: DataService) {}
 
   ngOnInit(): void {}
 
