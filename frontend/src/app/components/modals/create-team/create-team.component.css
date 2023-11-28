@@ -44,18 +44,41 @@ body {
 
 .team-form button {
   padding: 10px;
-  background-color: #DEB992;
-  color: #0D3A59;
+  background-color: var(--primary-green);
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px;
+  font-size: 20px;
+  color: #fff;
+  font-family: var(--site-font);
 }
 
 .team-form button:hover {
-  background-color: #cda87e;
+  background-color: var(--secondary-green-color);
 }
 
 .select-members h2 {
   margin-bottom: 10px;
 }
 
+.userName {
+  background-color: var(--primary-green);
+  margin: 6px;
+  padding: 3px 40px;
+  font-size: 20px;
+  border-radius: 11px;
+  color:#fff;
+  width: 40%;
+  font-family: var(--site-font);
+
+}
+
+.centeredRow {
+  display: flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: stretch;
+  align-self: center;
+  
+}
