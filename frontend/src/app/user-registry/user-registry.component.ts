@@ -24,6 +24,21 @@ export class UserRegistryComponent implements OnInit {
   curUser: User | null = this.dataService.activeUser;
   curCompanyId: number | null = this.dataService.activeCompanyId;
   ngOnInit(): void {
+    if (!this.dataService.decrypt()) {
+      this.router.navigateByUrl("login")
+    } else {
+      this.curUser = this.dataService.activeUser;
+    } 
+    if (!this.curCompanyId) {
+      if (this.curUser && this.curUser.admin) {
+        this.router.navigateByUrl("select-company");
+      } else if (this.curUser && this.curUser.companies) {
+        this.curCompanyId = this.curUser.companies[0].id
+      } else {
+        this.router.navigateByUrl("login")
+      }
+    }
+
     // get the session user
     this.users = [];
     if (this.curUser) {

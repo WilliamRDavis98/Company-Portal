@@ -29,7 +29,8 @@ export class SelectCompanyComponent {
     this.dataService.activeUser?.companies;
 
   handleSelectCompany = (company: Company) => {
-    this.dataService.activeCompanyId = company.id;
+    // this.dataService.activeCompanyId = company.id;
+    this.dataService.setActiveCompanyId(company.id);
     this.router.navigateByUrl('/home');
   };
 }

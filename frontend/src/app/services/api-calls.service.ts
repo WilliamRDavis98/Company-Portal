@@ -70,7 +70,7 @@ export class ApiCallsService {
           this.dataService.teamId = userTeams[0].id
           this.dataService.teamName = userTeams[0].name
         }
-
+        this.dataService.encrypt(response, requestBody);
         return authenticatingUser;
       }),
       catchError((error) => {

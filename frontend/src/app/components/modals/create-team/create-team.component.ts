@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ApiCallsService} from '../../../services/api-calls.service';
 import {DataService} from 'src/app/services/data.service';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -19,6 +19,7 @@ export class CreateTeamComponent implements OnInit {
   selectedUserId: number | undefined;
   selectedMembersNames: any[] = []
   selectedValue: string = 'default'
+  @Output() addedTeam = new EventEmitter<any>();
 
   constructor(private apiCallsService: ApiCallsService, private dataService: DataService) {}
 
@@ -66,10 +67,16 @@ export class CreateTeamComponent implements OnInit {
   }
 
   onSubmit(): void {
-    let user: User = this.dataService.activeUser!
+    let user: User = this.dataService.activeUser! 
+    let users: string = ""
+
+    this.selectedMembersNames.forEach((member: any) => {
+      return users += (member.name + ',')
+    })
+
     let requestBody: Object = {
       name: this.teamForm.controls['name'].value,
-      description: this.teamForm.controls['description'].value,
+      description: users,
       teammates: this.selectedMembers,
       credentialsDto: {username: user.username, password: user.password}
     }
@@ -78,6 +85,7 @@ export class CreateTeamComponent implements OnInit {
     this.apiCallsService.createTeam(companyId, requestBody).subscribe({
       next: (response: any) => {
         console.log('Team created successfully:', response);
+        this.addedTeam.emit(response)
       },
       error: (error: any) => {
         console.error('Error creating team:', error);

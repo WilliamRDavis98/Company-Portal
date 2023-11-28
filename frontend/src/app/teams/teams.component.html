@@ -9,7 +9,7 @@
   </ng-container>
   <div class="create-team" (click)="toggleModal()"><p class="modal-text">Create Team</p></div>
 </div>
-  <app-modal [modalType]="modalType"></app-modal>
+  <app-modal (addedData)="checkChildForData($event)" [modalType]="modalType"></app-modal>
 </body>
 
 

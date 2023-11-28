@@ -18,13 +18,18 @@
 }
 
 .button {
+  align-self: flex-end;
   background-color: #1ba098;
   color: white;
-  padding: 5px 20px;
-  margin: auto;
+  padding: 5px 30px;
+  margin: 10px 12.5vw;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.button:hover {
+  background-color: #137b6e;
 }
 
 .back-link {
@@ -32,6 +37,12 @@
   font-size: 20px;
   padding-left: 10vh;
   color: #157d7a;
+}
+
+.horizontal-line {
+  border-top: 2px solid #deb992;
+  width: 75vw;
+  margin: auto;
 }
 
 hr {
