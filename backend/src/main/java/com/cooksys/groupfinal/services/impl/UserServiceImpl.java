@@ -17,6 +17,7 @@ import com.cooksys.groupfinal.dtos.FullUserDto;
 import com.cooksys.groupfinal.dtos.UserRequestDto;
 import com.cooksys.groupfinal.entities.Company;
 import com.cooksys.groupfinal.entities.Credentials;
+import com.cooksys.groupfinal.entities.Team;
 import com.cooksys.groupfinal.entities.User;
 import com.cooksys.groupfinal.exceptions.BadRequestException;
 import com.cooksys.groupfinal.exceptions.NotAuthorizedException;
@@ -25,6 +26,7 @@ import com.cooksys.groupfinal.mappers.CredentialsMapper;
 import com.cooksys.groupfinal.mappers.FullUserMapper;
 import com.cooksys.groupfinal.mappers.UserMapper;
 import com.cooksys.groupfinal.repositories.CompanyRepository;
+import com.cooksys.groupfinal.repositories.TeamRepository;
 import com.cooksys.groupfinal.repositories.UserRepository;
 import com.cooksys.groupfinal.services.UserService;
 
@@ -39,7 +41,9 @@ public class UserServiceImpl implements UserService {
 	private final CredentialsMapper credentialsMapper;
 	private final UserMapper userMapper;
 	private final CompanyRepository companyRepository;
-  	private final TeamMapper teamMapper;
+	private final TeamRepository teamRepository;
+  private final TeamMapper teamMapper;
+
 
 	private User findUser(String username) {
 		Optional<User> user = userRepository.findByCredentialsUsernameAndActiveTrue(username);
@@ -238,6 +242,52 @@ public class UserServiceImpl implements UserService {
         }
         
         return userMapper.entityToResponseDto(userRepository.saveAndFlush(userToSave));
+	}
+
+	@Override
+	public FullUserDto deleteUser(Long userId, CredentialsDto credentialDto) {
+		if(credentialDto.getUsername().isEmpty() || credentialDto.getPassword().isEmpty()) {
+			throw new BadRequestException("Please enter some credentials");
+		}
+		
+		Optional<User> adminUser = userRepository.findByCredentialsUsernameAndActiveTrue(credentialDto.getUsername());
+		Optional<User> userToDelete = userRepository.findByIdAndActiveTrue(userId);
+		
+		if(adminUser.isEmpty()) {
+			throw new NotFoundException("You must be an active admin to access this");
+		}
+		if(!adminUser.get().getCredentials().getPassword().equals(credentialDto.getPassword())) {
+			System.out.println(adminUser.get().getCredentials().getPassword() + " Does not match: " + credentialDto.getPassword());
+			throw new BadRequestException("Bad Credentials");
+		}
+		if(userToDelete.isEmpty()) {
+			throw new NotFoundException("The user to delete does not exist or is already set to inactive.");
+		}
+		
+		
+		List<Company> checkCompanys = userToDelete.get().getCompanies();
+		List<Team> checkTeams = userToDelete.get().getTeams();
+		
+		
+		for(Team team: checkTeams) {
+			List<User> newTeam = team.getTeammates();
+			newTeam.remove(userToDelete.get());
+			team.setTeammates(newTeam);
+		}
+		teamRepository.saveAllAndFlush(checkTeams);		
+		for (Company company: checkCompanys) {
+			List<User> newPayroll = company.getEmployees();
+			newPayroll.remove(userToDelete.get());
+			company.setEmployees(newPayroll);
+		}
+		companyRepository.saveAllAndFlush(checkCompanys);	
+		
+		userToDelete.get().setActive(false);
+		userToDelete.get().setCompanies(null);
+		userToDelete.get().setTeams(null);
+		userRepository.saveAndFlush(userToDelete.get());
+		
+		return userMapper.entityToDto(userRepository.findById(userId).get());
 	}
 
 
