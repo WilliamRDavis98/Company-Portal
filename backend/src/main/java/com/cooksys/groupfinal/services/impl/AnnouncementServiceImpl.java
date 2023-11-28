@@ -85,4 +85,26 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         announcementToUpdate.setMessage(announcementRequest.getMessage());
         return announcementMapper.entityToDto(announcementRepository.saveAndFlush(announcementToUpdate));
     }
+
+    @Override
+    public AnnouncementDto deleteAnnouncementById(Long announcementId, CredentialsDto credentialsRequest) {
+        Optional<Announcement> optionalAnnouncement = announcementRepository.findById(announcementId);
+        if (optionalAnnouncement.isEmpty() || optionalAnnouncement.get().getDeleted()) {
+            throw new NotFoundException("No announcement found with id: " + announcementId);
+        }
+        if (credentialsRequest == null || credentialsRequest.getUsername() == null || credentialsRequest.getPassword() == null) {
+            throw new BadRequestException("Valid credentials are required to perform this action");
+        }
+        Optional<User> optionalUser = userRepository.findByCredentialsUsernameAndActiveTrue(credentialsRequest.getUsername());
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("No user found with username: " + credentialsRequest.getUsername());
+        }
+        User user = optionalUser.get();
+        if (!user.getCredentials().getPassword().equals(credentialsRequest.getPassword())) {
+            throw new NotAuthorizedException("You are not authorized to perform this action");
+        }
+        Announcement announcementToDelete = optionalAnnouncement.get();
+        announcementToDelete.setDeleted(true);
+        return announcementMapper.entityToDto(announcementRepository.saveAndFlush(announcementToDelete));
+    }
 }

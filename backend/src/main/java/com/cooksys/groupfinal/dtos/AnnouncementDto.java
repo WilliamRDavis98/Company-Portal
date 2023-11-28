@@ -16,6 +16,8 @@ public class AnnouncementDto {
     private String title;
     
     private String message;
+
+    private Boolean deleted;
     
     private BasicUserDto author;
 
