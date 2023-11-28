@@ -66,8 +66,10 @@ export class ApiCallsService {
 
         this.dataService.activeCompanyId = response.companies[0].id
         this.dataService.activeUser = authenticatingUser;
-        this.dataService.teamId = userTeams[0].id
-        this.dataService.teamName = userTeams[0].name
+        if(userTeams[0]) {
+          this.dataService.teamId = userTeams[0].id
+          this.dataService.teamName = userTeams[0].name
+        }
 
         return authenticatingUser;
       }),

@@ -27,6 +27,13 @@
   cursor: pointer;
 }
 
+.back-link {
+  background-color: #051622;
+  font-size: 20px;
+  padding-left: 10vh;
+  color: #157d7a;
+}
+
 hr {
   border-color: #deb992;
   display: block;
