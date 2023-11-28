@@ -199,4 +199,23 @@ export class ApiCallsService {
     let requestUrl: string = `${this.apiUrl}/users/${userId}/teams`;
     return this.http.get<Team[]>(requestUrl)
   }
+
+  getUsersFirstNameAndId(companyId: number): Observable<{ id: number, firstName: string }[]> {
+    let requestUrl: string = `${this.apiUrl}/companies/${companyId}/users`;
+    return this.http.get<any[]>(requestUrl).pipe(
+      map(response => response.map(user => ({
+        id: user.id,
+        firstName: user.profile.firstName
+      }))),
+      catchError(error => {
+        console.error('Error fetching user data:', error);
+        return throwError(() => new Error('Error fetching user data'));
+      })
+    );
+  }
+
+  createTeam(companyId: number, teamData: any): Observable<any> {
+    const requestUrl: string = `${this.apiUrl}/companies/${companyId}/teams`;
+    return this.http.post<any>(requestUrl, teamData);
+  }
 }
