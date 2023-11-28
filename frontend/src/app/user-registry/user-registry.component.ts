@@ -4,6 +4,7 @@ import { ModalComponent } from '../components/modals/modal/modal.component';
 import { ApiCallsService } from '../services/api-calls.service';
 import { DataService } from 'src/app/services/data.service';
 import { User } from '../models/user-model';
+import { Team } from '../models/team-model';
 
 @Component({
   selector: 'app-user-registry',
@@ -18,7 +19,7 @@ export class UserRegistryComponent implements OnInit {
   modalType: string = 'create-user';
   showModal: boolean = false;
   companyId: number = 0;
-  addedUser: any = null;
+  addedUser: User | null = null;
 
   curUser: User | null = this.dataService.activeUser;
   curCompanyId: number | null = this.dataService.activeCompanyId;
@@ -32,6 +33,7 @@ export class UserRegistryComponent implements OnInit {
           .then((response) => {
             response.subscribe((users) => {
               this.users = users as User[];
+              this.getTeams()
             });
           });
       } else {
@@ -40,6 +42,15 @@ export class UserRegistryComponent implements OnInit {
     } else {
       this.router.navigateByUrl("/login")
     }
+  }
+
+  async getTeams(){
+    for(let user of this.users){
+      let res = await this.apiService.getTeamsByUserId(user.id).toPromise()
+      user.teams = res as Team[]
+    }
+    console.log("Got Teams")
+    console.log(this.users)
   }
 
   toggleModal() {

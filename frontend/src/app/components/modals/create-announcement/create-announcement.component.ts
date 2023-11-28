@@ -21,7 +21,7 @@ export class CreateAnnouncementComponent {
   // get from state/session: company
   // get from session: author
 
-  constructor(private modalComponent: ModalComponent,private apiCallsService: ApiCallsService, private router: Router, private dataService: DataService) {}
+  constructor(private modalComponent: ModalComponent, private apiCallsService: ApiCallsService, private router: Router, private dataService: DataService) {}
 
   ngOnInit(): void {}
 

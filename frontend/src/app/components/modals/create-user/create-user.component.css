@@ -1,4 +1,4 @@
-input {
+.input {
   border: none;
   border-bottom: 1px solid #DEB992;
   background-color: transparent;
@@ -8,6 +8,13 @@ input {
   margin:5px;
   width: 100%;
   font-size: large;
+}
+
+::placeholder {
+  opacity: 1;
+}
+input:focus::placeholder{
+  color: transparent;
 }
 
 h3 {
@@ -48,4 +55,18 @@ button {
 
 .hidden {
   display: none;
+}
+
+.checkbox{
+  color: #DEB992;
+  margin-left: 5px;
+}
+
+.label{
+  color: #DEB992;
+  font-family: var(--site-font);
+}
+
+.red {
+  color: red;
 }
