@@ -75,4 +75,16 @@ export class TeamsComponent {
   toggleModal() {
     this.modalComponent.toggleModal()
   }
+
+  checkChildForData($event: any) {
+    let addingTeam: any = {
+      id: $event.id,
+      name: $event.name,
+      description: $event.description,
+      company: this.CompanyID, //The company ID
+    }
+
+    this.teams.push(addingTeam)
+    this.toggleModal()
+  }
 }

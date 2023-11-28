@@ -1,8 +1,4 @@
 <div class="overlay">
-  <div class="overlay-header">
-    <h1>Create Team Overlay</h1>
-  </div>
-
   <form [formGroup]="teamForm" class="team-form" (ngSubmit)="onSubmit()">
     <label for="team-name">Team name</label>
     <input type="text" id="team-name" name="teamName" formControlName="name">
