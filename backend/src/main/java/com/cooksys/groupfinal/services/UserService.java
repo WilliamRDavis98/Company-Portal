@@ -26,5 +26,7 @@ public interface UserService {
 
 	UserResponseDto editUser(Long userId, UserRequestDto userRequestDto);
 
+	FullUserDto deleteUser(Long userId, CredentialsDto credentialsDto);
+
 }
 
