@@ -26,10 +26,26 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // authorize
+    if (this.dataService.decrypt()) {
+      console.log("decryption successful")
+      this.user = this.dataService.activeUser;
+    } else {
+      this.router.navigateByUrl("login");
+    }
+
     if (!this.user) {
       this.router.navigateByUrl("login");
     }
-    this.getAnnouncements(this.companyId!);
+    if (this.companyId) {
+      this.getAnnouncements(this.companyId!);
+    } else if (this.user && this.user.admin) {
+      this.router.navigateByUrl("select-company")
+    } else if (this.user && this.user.companies) {
+      this.companyId = this.user.companies[0].id;
+      this.getAnnouncements(this.companyId!);
+    } else {
+      this.router.navigateByUrl("login")
+    }
   }
 
   getAnnouncements = async (id: number) => {

@@ -28,12 +28,31 @@ export class ProjectsComponent {
   constructor(private router: Router, private apiCallsService: ApiCallsService, private dataService: DataService) {}
 
   ngOnInit(): void {
+    if (!this.dataService.decrypt()) {
+      this.router.navigateByUrl("/login")
+    } else {
+      this.curUser = this.dataService.activeUser
+    }
     if (!this.curUser) {
       this.router.navigateByUrl("/login")
     }
     this.isAdmin = this.curUser!.admin
     if (this.teamId) {
       this.getProjects(this.teamId, this.companiesId!);
+    } else if (this.curUser && this.curUser.admin) {
+      this.router.navigateByUrl("teams")
+    } else if (this.curUser && this.curUser.teams) {
+      this.teamId = this.curUser.teams[0].id
+      if (this.companiesId) {
+        this.getProjects(this.teamId, this.companiesId!);
+      } else if (this.curUser && this.curUser.companies) {
+        this.companiesId = this.curUser.companies[0].id;
+        this.getProjects(this.teamId, this.companiesId!);
+      } else {
+        this.router.navigateByUrl("/login")
+      }
+    } else {
+      this.router.navigateByUrl("/login")
     }
   }
 
